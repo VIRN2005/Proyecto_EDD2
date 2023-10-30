@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 class File {
-
     // Files Necesarios para guardar Archivos y Indices
     private java.io.File file;
     private java.io.File index;
@@ -133,10 +134,98 @@ class File {
         this.disponible = disponible;
     }
 
-    // Metodo para salvar el Archivo a Binary
-    
-    
-/*  public void saveFile() {
+    // Methods usados en Class File
+    //Inicializa File y Valores en él
+    public File(java.io.File archivo) throws FileNotFoundException {
+        this.file = archivo;
+
+        int part = firstDisponible;
+        br = new BufferedReader(new FileReader(archivo));
+
+        try {
+            String FieldsStr = br.readLine();
+            String[] F_Str = FieldsStr.substring(1, FieldsStr.length() - 1).split(", ");
+
+            //Falta crear la clase Field
+            for (String cp : F_Str) {
+                fields.add(new Campo(cp));
+            }
+
+            tamRecord = Integer.parseInt(br.readLine());
+            countRegis = Integer.parseInt(br.readLine());
+            firstDisponible = Integer.parseInt(br.readLine());
+
+            if (firstDisponible > -1) {
+                disponible.add(firstDisponible);
+            }
+
+            while (part > 0) {
+                String salida = (String) SearchLine(part + 3, this.file);
+                String[] linea = salida.split("\\|");
+                part = Integer.parseInt(linea[0].substring(1));
+                if (part > 0) {
+                    disponible.add(0, part);
+                }
+            }
+
+            int c = 1;
+
+            while ((FieldsStr = br.readLine()) != null) {
+                if (FieldsStr.charAt(0) != '*') {
+                    records.add(new Registro(FieldsStr, tamRecord, c));
+                }
+                c++;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //Busca si el File tiene la Searched Line
+    public static String SearchLine(int line, java.io.File file) throws IOException {
+        String found = null;
+        List<String> lines = Files.readAllLines(Paths.get(file.getPath()));
+
+        if (line >= 0 && line < lines.size()) {
+            found = lines.get(line);
+        }
+
+        return found;
+    }
+
+    // Añade el campo al Arraylist -> fields
+    public void addCampo(Campo camp) {
+        this.fields.add(camp);
+    }
+
+    // Añade el registro al Arraylist -> records
+    public void addRegistro(Registro regis) {
+        regis.setRRN(Integer.toString(countRegis + 1));
+        countRegis++;
+        this.records.add(regis);
+    }
+
+    // Busca si el LinkedList -> disponible esta vació & si los Vals estan disponibles
+    public int getValDisponible() {
+        if (!this.disponible.isEmpty()) {
+            int temp = this.disponible.getFirst();
+            this.disponible.remove(0);
+            return temp;
+        } else {
+            return -1;
+        }
+    }
+
+    // Ve cual es el Tamaño del Registro
+    public void calcRecordSize() {
+        tamRecord = 0;
+        for (int i = 0; i < fields.size(); i++) {
+            tamRecord += fields.get(i).getSize() + 1;
+        }
+    }
+
+    //Dejo esto por Aquí... Nos podría servir mas Adelante JAJAJAJA
+    /*  public void saveFile() {
         try (ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(name + ".atv"))) {
             //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Andrea, Tatiana & Víctor)
             OOS.writeObject(fields);
@@ -165,5 +254,4 @@ class File {
             JOptionPane.showMessageDialog(null, "Archivo CERRADO Correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }*/
-
 }
