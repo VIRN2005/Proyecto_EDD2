@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 class File {
+
     // Files Necesarios para guardar Archivos y Indices
     private java.io.File file;
     private java.io.File index;
@@ -135,7 +136,7 @@ class File {
     }
 
     // Methods usados en Class File
-    //Inicializa File y Valores en él
+    // Inicializa File y Valores en él
     public File(java.io.File archivo) throws FileNotFoundException {
         this.file = archivo;
 
