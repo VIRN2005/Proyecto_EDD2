@@ -261,6 +261,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMouseClicked
+        Inicio.setVisible(false);
         Menu.setVisible(true);
     }//GEN-LAST:event_startMouseClicked
 
