@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package proyecto_edd2;
 
 import java.io.*;
@@ -9,8 +13,11 @@ import javax.swing.JOptionPane;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ *
+ * @author Victor
+ */
 class File {
-
     // Files Necesarios para guardar Archivos y Indices
     private java.io.File file;
     private java.io.File index;

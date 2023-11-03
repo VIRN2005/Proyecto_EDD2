@@ -9,12 +9,12 @@ public class Main_Screen extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.pack();
-
+        
         Inicio.setVisible(true);
         pb.setVisible(true);
         Menu.setVisible(false);
         //Titulo.setVisible(true);
-
+        
         AdmBarra h = new AdmBarra(pb);
         Thread hilo = new Thread(h);
         hilo.start();
