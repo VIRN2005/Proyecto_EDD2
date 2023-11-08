@@ -30,10 +30,11 @@ public class AdmBarra extends Thread {
 
     public void run() {
         barra.setMaximum(5);
-
+        
         for (int i = 1; i <= 5; i++) {
             barra.setValue(i);
             try {
+                System.out.println("entre");
                 Thread.sleep(1000);//Para que se detenga la barra cuando le diga que se detenga
             } catch (InterruptedException ex) {
             }

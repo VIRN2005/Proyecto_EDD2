@@ -13,13 +13,14 @@ public class Main_Screen extends javax.swing.JFrame {
         Inicio.setVisible(true);
         pb.setVisible(true);
         Menu.setVisible(false);
+        start.setVisible(false);
         //Titulo.setVisible(true);
         
         AdmBarra h = new AdmBarra(pb);
         Thread hilo = new Thread(h);
         hilo.start();
         
-        if (!h.isAlive()) {
+        if (!h.isFlag()) {
             pb.setVisible(false);
             start.setVisible(true);
         }else{
@@ -44,6 +45,10 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         EstandarizacionButton = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        p_nuevoarchivo = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         Fondo1 = new javax.swing.JLabel();
         Inicio = new javax.swing.JPanel();
         start = new javax.swing.JLabel();
@@ -60,6 +65,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
         ArchivosButton.setBackground(new java.awt.Color(17, 30, 58));
         ArchivosButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ArchivosButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ArchivosButtonMouseEntered(evt);
             }
@@ -70,14 +78,19 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(17, 30, 58));
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Archivos");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout ArchivosButtonLayout = new javax.swing.GroupLayout(ArchivosButton);
         ArchivosButton.setLayout(ArchivosButtonLayout);
         ArchivosButtonLayout.setHorizontalGroup(
             ArchivosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ArchivosButtonLayout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(85, 85, 85))
         );
         ArchivosButtonLayout.setVerticalGroup(
             ArchivosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,6 +113,7 @@ public class Main_Screen extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Campos");
 
@@ -107,7 +121,10 @@ public class Main_Screen extends javax.swing.JFrame {
         CamposButton.setLayout(CamposButtonLayout);
         CamposButtonLayout.setHorizontalGroup(
             CamposButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CamposButtonLayout.createSequentialGroup()
+                .addContainerGap(80, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(86, 86, 86))
         );
         CamposButtonLayout.setVerticalGroup(
             CamposButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,6 +147,7 @@ public class Main_Screen extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Registros");
 
@@ -137,7 +155,10 @@ public class Main_Screen extends javax.swing.JFrame {
         RegistrosButton.setLayout(RegistrosButtonLayout);
         RegistrosButtonLayout.setHorizontalGroup(
             RegistrosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistrosButtonLayout.createSequentialGroup()
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(75, 75, 75))
         );
         RegistrosButtonLayout.setVerticalGroup(
             RegistrosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,6 +181,7 @@ public class Main_Screen extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Índices");
 
@@ -167,7 +189,10 @@ public class Main_Screen extends javax.swing.JFrame {
         IndicesButton.setLayout(IndicesButtonLayout);
         IndicesButtonLayout.setHorizontalGroup(
             IndicesButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IndicesButtonLayout.createSequentialGroup()
+                .addContainerGap(91, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(93, 93, 93))
         );
         IndicesButtonLayout.setVerticalGroup(
             IndicesButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,6 +215,7 @@ public class Main_Screen extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Estandarización");
 
@@ -210,6 +236,22 @@ public class Main_Screen extends javax.swing.JFrame {
         MenuBar.add(EstandarizacionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 300, -1));
 
         Menu.add(MenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 770));
+
+        p_nuevoarchivo.setBackground(new java.awt.Color(17, 30, 58));
+        p_nuevoarchivo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/archivo-nuevo.png"))); // NOI18N
+        p_nuevoarchivo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Blue.png"))); // NOI18N
+        p_nuevoarchivo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel8.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Nuevo Archivo");
+        p_nuevoarchivo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+
+        Menu.add(p_nuevoarchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 220, 210));
 
         Fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         Menu.add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -263,6 +305,8 @@ public class Main_Screen extends javax.swing.JFrame {
     private void startMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMouseClicked
         Inicio.setVisible(false);
         Menu.setVisible(true);
+         p_nuevoarchivo.setVisible(false);
+        //P_archivos.setVisible(false);
     }//GEN-LAST:event_startMouseClicked
 
     private void ArchivosButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivosButtonMouseEntered
@@ -304,6 +348,10 @@ public class Main_Screen extends javax.swing.JFrame {
     private void EstandarizacionButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstandarizacionButtonMouseExited
         EstandarizacionButton.setBackground(new Color(17,30,58));
     }//GEN-LAST:event_EstandarizacionButtonMouseExited
+
+    private void ArchivosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivosButtonMouseClicked
+        p_nuevoarchivo.setVisible(true);
+    }//GEN-LAST:event_ArchivosButtonMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -354,6 +402,10 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel p_nuevoarchivo;
     private javax.swing.JProgressBar pb;
     private javax.swing.JLabel start;
     // End of variables declaration//GEN-END:variables
