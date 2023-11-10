@@ -14,7 +14,7 @@ public class Main_Screen extends javax.swing.JFrame {
         Menu.setVisible(false);
         start.setVisible(false);
         pn_archivos.setVisible(false);
-        //Titulo.setVisible(true);
+        pn_campos.setVisible(false);
         
         AdmBarra h = new AdmBarra(pb);
         Thread hilo = new Thread(h);
@@ -67,6 +67,24 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         Fondo2 = new javax.swing.JLabel();
+        pn_campos = new javax.swing.JPanel();
+        bt_listarC = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        bt_crearC = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        bt_modificarC = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        bt_borrarC = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        Fondo3 = new javax.swing.JLabel();
         Fondo1 = new javax.swing.JLabel();
         Inicio = new javax.swing.JPanel();
         start = new javax.swing.JLabel();
@@ -95,7 +113,7 @@ public class Main_Screen extends javax.swing.JFrame {
         });
 
         jLabel1.setBackground(new java.awt.Color(17, 30, 58));
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Archivos");
@@ -105,10 +123,7 @@ public class Main_Screen extends javax.swing.JFrame {
         ArchivosButton.setLayout(ArchivosButtonLayout);
         ArchivosButtonLayout.setHorizontalGroup(
             ArchivosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ArchivosButtonLayout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(85, 85, 85))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         ArchivosButtonLayout.setVerticalGroup(
             ArchivosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,10 +133,13 @@ public class Main_Screen extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        MenuBar.add(ArchivosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 300, -1));
+        MenuBar.add(ArchivosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 300, -1));
 
         CamposButton.setBackground(new java.awt.Color(17, 30, 58));
         CamposButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CamposButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 CamposButtonMouseEntered(evt);
             }
@@ -130,7 +148,7 @@ public class Main_Screen extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Campos");
@@ -139,20 +157,17 @@ public class Main_Screen extends javax.swing.JFrame {
         CamposButton.setLayout(CamposButtonLayout);
         CamposButtonLayout.setHorizontalGroup(
             CamposButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CamposButtonLayout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(86, 86, 86))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         CamposButtonLayout.setVerticalGroup(
             CamposButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CamposButtonLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel3)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        MenuBar.add(CamposButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 300, -1));
+        MenuBar.add(CamposButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 300, -1));
 
         RegistrosButton.setBackground(new java.awt.Color(17, 30, 58));
         RegistrosButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,7 +179,7 @@ public class Main_Screen extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Registros");
@@ -173,10 +188,7 @@ public class Main_Screen extends javax.swing.JFrame {
         RegistrosButton.setLayout(RegistrosButtonLayout);
         RegistrosButtonLayout.setHorizontalGroup(
             RegistrosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistrosButtonLayout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(75, 75, 75))
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         RegistrosButtonLayout.setVerticalGroup(
             RegistrosButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +198,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        MenuBar.add(RegistrosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 300, -1));
+        MenuBar.add(RegistrosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 300, -1));
 
         IndicesButton.setBackground(new java.awt.Color(17, 30, 58));
         IndicesButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,7 +210,7 @@ public class Main_Screen extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Índices");
@@ -207,10 +219,7 @@ public class Main_Screen extends javax.swing.JFrame {
         IndicesButton.setLayout(IndicesButtonLayout);
         IndicesButtonLayout.setHorizontalGroup(
             IndicesButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IndicesButtonLayout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(93, 93, 93))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         IndicesButtonLayout.setVerticalGroup(
             IndicesButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +229,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        MenuBar.add(IndicesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 300, -1));
+        MenuBar.add(IndicesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 300, -1));
 
         EstandarizacionButton.setBackground(new java.awt.Color(17, 30, 58));
         EstandarizacionButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,7 +241,7 @@ public class Main_Screen extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Estandarización");
@@ -251,7 +260,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        MenuBar.add(EstandarizacionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 300, -1));
+        MenuBar.add(EstandarizacionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 300, -1));
 
         Menu.add(MenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 770));
 
@@ -263,80 +272,91 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_abrirA.setBackground(new java.awt.Color(17, 30, 58));
         bt_abrirA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abrir-carpeta-con-documento.png"))); // NOI18N
-        bt_abrirA.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        bt_abrirA.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, -1, 70));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
         bt_abrirA.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
 
-        jLabel11.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Abrir Archivo");
-        bt_abrirA.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        bt_abrirA.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
 
         pn_archivos.add(bt_abrirA, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 220, 210));
 
         bt_nuevoA.setBackground(new java.awt.Color(17, 30, 58));
         bt_nuevoA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/archivo-nuevo.png"))); // NOI18N
-        bt_nuevoA.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        bt_nuevoA.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 80, 70));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
         bt_nuevoA.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
 
-        jLabel8.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Nuevo Archivo");
-        bt_nuevoA.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_nuevoA.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 220, -1));
 
         pn_archivos.add(bt_nuevoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 220, 210));
 
         bt_salvarA.setBackground(new java.awt.Color(17, 30, 58));
         bt_salvarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
-        bt_salvarA.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        bt_salvarA.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
         bt_salvarA.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
 
-        jLabel14.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Salvar Archivo");
-        bt_salvarA.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        bt_salvarA.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
 
         pn_archivos.add(bt_salvarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 120, 220, 210));
 
         bt_cerrarA.setBackground(new java.awt.Color(17, 30, 58));
         bt_cerrarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
-        bt_cerrarA.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/carpeta.png"))); // NOI18N
+        bt_cerrarA.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
         bt_cerrarA.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
 
-        jLabel17.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Cerrar Archivo");
-        bt_cerrarA.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        bt_cerrarA.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
 
         pn_archivos.add(bt_cerrarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 220, 210));
 
         bt_salir.setBackground(new java.awt.Color(17, 30, 58));
         bt_salir.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
-        bt_salir.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        bt_salir.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, -1, 70));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
         bt_salir.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
 
-        jLabel20.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Salir");
-        bt_salir.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+        bt_salir.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
 
         pn_archivos.add(bt_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 220, 210));
 
@@ -344,6 +364,88 @@ public class Main_Screen extends javax.swing.JFrame {
         pn_archivos.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         Menu.add(pn_archivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 1370, 780));
+
+        pn_campos.setBackground(new java.awt.Color(51, 51, 51));
+        pn_campos.setForeground(new java.awt.Color(255, 255, 255));
+        pn_campos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bt_listarC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_listarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/portapapeles.png"))); // NOI18N
+        bt_listarC.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 34, 70, 80));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_listarC.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel23.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Listar Campos");
+        bt_listarC.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
+
+        pn_campos.add(bt_listarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 120, 220, 210));
+
+        bt_crearC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_crearC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagina.png"))); // NOI18N
+        bt_crearC.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_crearC.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel26.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("Crear Campos");
+        jLabel26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_crearC.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 220, -1));
+
+        pn_campos.add(bt_crearC, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 220, 210));
+
+        bt_modificarC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_modificarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
+        bt_modificarC.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 44, 90, 70));
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_modificarC.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel32.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("Modificar Campos");
+        bt_modificarC.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
+
+        pn_campos.add(bt_modificarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 390, 220, 210));
+
+        bt_borrarC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_borrarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
+        bt_borrarC.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
+
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_borrarC.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel35.setFont(new java.awt.Font("Lane - Narrow", 1, 24)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("Borrar Campos");
+        bt_borrarC.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
+
+        pn_campos.add(bt_borrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 390, 220, 210));
+
+        Fondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        pn_campos.add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        Menu.add(pn_campos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 1370, 780));
 
         Fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         Menu.add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -361,11 +463,11 @@ public class Main_Screen extends javax.swing.JFrame {
         pb.setForeground(new java.awt.Color(255, 255, 255));
         Inicio.add(pb, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 640, 40));
 
-        Titulo.setFont(new java.awt.Font("Roboto Black", 3, 70)); // NOI18N
+        Titulo.setFont(new java.awt.Font("Coolvetica Rg", 0, 80)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("STANDARD FILE MANAGER");
-        Inicio.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 1360, -1));
+        Inicio.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 1360, -1));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         Inicio.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -440,12 +542,24 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_EstandarizacionButtonMouseExited
 
     private void ArchivosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivosButtonMouseClicked
+        pn_campos.setVisible(false);
+        
         if (pn_archivos.isVisible()) {
             pn_archivos.setVisible(false);
         }else{
             pn_archivos.setVisible(true);
         }
     }//GEN-LAST:event_ArchivosButtonMouseClicked
+
+    private void CamposButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CamposButtonMouseClicked
+        pn_archivos.setVisible(false);
+        
+        if (pn_campos.isVisible()) {
+            pn_campos.setVisible(false);
+        }else{
+            pn_campos.setVisible(true);
+        }
+    }//GEN-LAST:event_CamposButtonMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -486,6 +600,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Fondo1;
     private javax.swing.JLabel Fondo2;
+    private javax.swing.JLabel Fondo3;
     private javax.swing.JPanel IndicesButton;
     private javax.swing.JPanel Inicio;
     private javax.swing.JPanel Menu;
@@ -493,7 +608,11 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel RegistrosButton;
     private javax.swing.JLabel Titulo;
     private javax.swing.JPanel bt_abrirA;
+    private javax.swing.JPanel bt_borrarC;
     private javax.swing.JPanel bt_cerrarA;
+    private javax.swing.JPanel bt_crearC;
+    private javax.swing.JPanel bt_listarC;
+    private javax.swing.JPanel bt_modificarC;
     private javax.swing.JPanel bt_nuevoA;
     private javax.swing.JPanel bt_salir;
     private javax.swing.JPanel bt_salvarA;
@@ -510,7 +629,19 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -519,6 +650,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JProgressBar pb;
     private javax.swing.JPanel pn_archivos;
+    private javax.swing.JPanel pn_campos;
     private javax.swing.JLabel start;
     // End of variables declaration//GEN-END:variables
 }
