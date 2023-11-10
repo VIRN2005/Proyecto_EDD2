@@ -33,7 +33,7 @@ class File {
     private BufferedReader br;
     private ArrayList<Campo> fields = new ArrayList();
     private ArrayList<Registro> records = new ArrayList();
-    private LinkedList<Integer> disponible = new LinkedList<>();
+    private LinkedList<Integer> slots = new LinkedList<>();
 
     // Constructors (Empty & Overloaded)
     public File() {
@@ -134,12 +134,12 @@ class File {
         this.records = records;
     }
 
-    public LinkedList<Integer> getDisponible() {
-        return disponible;
+    public LinkedList<Integer> getSlot() {
+        return slots;
     }
 
-    public void setDisponible(LinkedList<Integer> disponible) {
-        this.disponible = disponible;
+    public void setSlot(LinkedList<Integer> slot) {
+        this.slots = slot;
     }
 
     // Methods usados en Class File
@@ -164,7 +164,7 @@ class File {
             firstDisponible = Integer.parseInt(br.readLine());
 
             if (firstDisponible > -1) {
-                disponible.add(firstDisponible);
+                slots.add(firstDisponible);
             }
 
             while (part > 0) {
@@ -172,7 +172,7 @@ class File {
                 String[] linea = salida.split("\\|");
                 part = Integer.parseInt(linea[0].substring(1));
                 if (part > 0) {
-                    disponible.add(0, part);
+                    slots.add(0, part);
                 }
             }
 
@@ -215,9 +215,9 @@ class File {
 
     // Busca si el LinkedList -> disponible esta vació & si los Vals estan disponibles
     public int getValDisponible() {
-        if (!this.disponible.isEmpty()) {
-            int temp = this.disponible.getFirst();
-            this.disponible.remove(0);
+        if (!this.slots.isEmpty()) {
+            int temp = this.slots.getFirst();
+            this.slots.remove(0);
             return temp;
         } else {
             return -1;
