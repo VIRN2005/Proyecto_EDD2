@@ -7,13 +7,13 @@ public class Main_Screen extends javax.swing.JFrame {
 
     public Main_Screen() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.pack();
+        this.setExtendedState(MAXIMIZED_BOTH);
         
         Inicio.setVisible(true);
         pb.setVisible(true);
         Menu.setVisible(false);
         start.setVisible(false);
+        pn_archivos.setVisible(false);
         //Titulo.setVisible(true);
         
         AdmBarra h = new AdmBarra(pb);
@@ -45,10 +45,28 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         EstandarizacionButton = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        p_nuevoarchivo = new javax.swing.JPanel();
+        pn_archivos = new javax.swing.JPanel();
+        bt_abrirA = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        bt_nuevoA = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        bt_salvarA = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        bt_cerrarA = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        bt_salir = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        Fondo2 = new javax.swing.JLabel();
         Fondo1 = new javax.swing.JLabel();
         Inicio = new javax.swing.JPanel();
         start = new javax.swing.JLabel();
@@ -237,21 +255,95 @@ public class Main_Screen extends javax.swing.JFrame {
 
         Menu.add(MenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 770));
 
-        p_nuevoarchivo.setBackground(new java.awt.Color(17, 30, 58));
-        p_nuevoarchivo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pn_archivos.setBackground(new java.awt.Color(51, 51, 51));
+        pn_archivos.setForeground(new java.awt.Color(255, 255, 255));
+        pn_archivos.setPreferredSize(new java.awt.Dimension(1366, 768));
+        pn_archivos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bt_abrirA.setBackground(new java.awt.Color(17, 30, 58));
+        bt_abrirA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abrir-carpeta-con-documento.png"))); // NOI18N
+        bt_abrirA.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
+        bt_abrirA.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel11.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Abrir Archivo");
+        bt_abrirA.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+
+        pn_archivos.add(bt_abrirA, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 220, 210));
+
+        bt_nuevoA.setBackground(new java.awt.Color(17, 30, 58));
+        bt_nuevoA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/archivo-nuevo.png"))); // NOI18N
-        p_nuevoarchivo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+        bt_nuevoA.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Blue.png"))); // NOI18N
-        p_nuevoarchivo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
+        bt_nuevoA.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Nuevo Archivo");
-        p_nuevoarchivo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        bt_nuevoA.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
-        Menu.add(p_nuevoarchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 220, 210));
+        pn_archivos.add(bt_nuevoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 220, 210));
+
+        bt_salvarA.setBackground(new java.awt.Color(17, 30, 58));
+        bt_salvarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        bt_salvarA.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
+        bt_salvarA.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel14.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Salvar Archivo");
+        bt_salvarA.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+
+        pn_archivos.add(bt_salvarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 120, 220, 210));
+
+        bt_cerrarA.setBackground(new java.awt.Color(17, 30, 58));
+        bt_cerrarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        bt_cerrarA.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
+        bt_cerrarA.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel17.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Cerrar Archivo");
+        bt_cerrarA.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+
+        pn_archivos.add(bt_cerrarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 220, 210));
+
+        bt_salir.setBackground(new java.awt.Color(17, 30, 58));
+        bt_salir.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        bt_salir.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
+        bt_salir.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel20.setFont(new java.awt.Font("Roboto Medium", 2, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Salir");
+        bt_salir.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+
+        pn_archivos.add(bt_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 220, 210));
+
+        Fondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        pn_archivos.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        Menu.add(pn_archivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 1370, 780));
 
         Fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         Menu.add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -305,8 +397,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private void startMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMouseClicked
         Inicio.setVisible(false);
         Menu.setVisible(true);
-         p_nuevoarchivo.setVisible(false);
-        //P_archivos.setVisible(false);
     }//GEN-LAST:event_startMouseClicked
 
     private void ArchivosButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivosButtonMouseEntered
@@ -350,7 +440,11 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_EstandarizacionButtonMouseExited
 
     private void ArchivosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivosButtonMouseClicked
-        p_nuevoarchivo.setVisible(true);
+        if (pn_archivos.isVisible()) {
+            pn_archivos.setVisible(false);
+        }else{
+            pn_archivos.setVisible(true);
+        }
     }//GEN-LAST:event_ArchivosButtonMouseClicked
 
     public static void main(String args[]) {
@@ -391,22 +485,40 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel EstandarizacionButton;
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Fondo1;
+    private javax.swing.JLabel Fondo2;
     private javax.swing.JPanel IndicesButton;
     private javax.swing.JPanel Inicio;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuBar;
     private javax.swing.JPanel RegistrosButton;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JPanel bt_abrirA;
+    private javax.swing.JPanel bt_cerrarA;
+    private javax.swing.JPanel bt_nuevoA;
+    private javax.swing.JPanel bt_salir;
+    private javax.swing.JPanel bt_salvarA;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel p_nuevoarchivo;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JProgressBar pb;
+    private javax.swing.JPanel pn_archivos;
     private javax.swing.JLabel start;
     // End of variables declaration//GEN-END:variables
 }
