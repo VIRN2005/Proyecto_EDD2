@@ -27,7 +27,7 @@ class File {
     private int tamRecord;
     private int primKeyIndex;
     private int secondaryKeyIndex;
-    private int firstDisponible;
+    private int firstSlot;
 
     // BRs, ArrayLists & LinkedLists used 
     private BufferedReader br;
@@ -43,7 +43,7 @@ class File {
     public File(java.io.File files, int l) {
         this.file = files;
         tamRecord = l;
-        firstDisponible = -1;
+        firstSlot = -1;
     }
 
     public File(java.io.File file, java.io.File index, int countRegis, int tamRecord) {
@@ -102,12 +102,12 @@ class File {
         this.secondaryKeyIndex = secondaryKeyIndex;
     }
 
-    public int getFirstDisponible() {
-        return firstDisponible;
+    public int getFirstSlot() {
+        return firstSlot;
     }
 
-    public void setFirstDisponible(int firstDisponible) {
-        this.firstDisponible = firstDisponible;
+    public void setFirstSlot(int firstDisponible) {
+        this.firstSlot = firstDisponible;
     }
 
     public BufferedReader getBr() {
@@ -147,7 +147,7 @@ class File {
     public File(java.io.File archivo) throws FileNotFoundException {
         this.file = archivo;
 
-        int part = firstDisponible;
+        int posS = firstSlot;
         br = new BufferedReader(new FileReader(archivo));
 
         try {
@@ -161,18 +161,18 @@ class File {
 
             tamRecord = Integer.parseInt(br.readLine());
             countRegis = Integer.parseInt(br.readLine());
-            firstDisponible = Integer.parseInt(br.readLine());
+            posS = Integer.parseInt(br.readLine());
 
-            if (firstDisponible > -1) {
-                slots.add(firstDisponible);
+            if (posS > -1) {
+                slots.add(posS);//añade al final
             }
 
-            while (part > 0) {
-                String salida = (String) SearchLine(part + 3, this.file);
+            while (posS > 0) {
+                String salida = (String) SearchLine(posS + 3, this.file);
                 String[] linea = salida.split("\\|");
-                part = Integer.parseInt(linea[0].substring(1));
-                if (part > 0) {
-                    slots.add(0, part);
+                posS = Integer.parseInt(linea[0].substring(1));
+                if (posS > 0) {
+                    slots.add(0, posS);//añade al inicio
                 }
             }
 
@@ -226,8 +226,8 @@ class File {
 
     // Ve cual es el Tamaño del Registro
     public void calcRecordSize() {
-        tamRecord = 0;
         for (int i = 0; i < fields.size(); i++) {
+        tamRecord = 0;
             tamRecord += fields.get(i).getSize() + 1;
         }
     }
