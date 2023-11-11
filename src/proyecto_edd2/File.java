@@ -5,19 +5,19 @@
 package proyecto_edd2;
 
 import java.io.*;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Victor
  */
-class File {
+class File extends java.io.File {
+
     // Files Necesarios para guardar Archivos y Indices
     private java.io.File file;
     private java.io.File index;
@@ -28,6 +28,7 @@ class File {
     private int primKeyIndex;
     private int secondaryKeyIndex;
     private int firstSlot;
+    private String metadata;
 
     // BRs, ArrayLists & LinkedLists used 
     private BufferedReader br;
@@ -36,18 +37,17 @@ class File {
     private LinkedList<Integer> slots = new LinkedList<>();
 
     // Constructors (Empty & Overloaded)
-    public File() {
-
-    }
-
-    public File(java.io.File files, int l) {
-        this.file = files;
-        tamRecord = l;
+    public File(String pathname) {
+        super(pathname);
+        this.file = new java.io.File(pathname);
+        tamRecord = 1;
         firstSlot = -1;
+        metadata = "";
     }
 
-    public File(java.io.File file, java.io.File index, int countRegis, int tamRecord) {
-        this.file = file;
+    public File(String pathname, java.io.File index, int countRegis, int tamRecord) {
+        super(pathname);
+        this.file = new java.io.File(pathname);
         this.index = index;
         this.countRegis = countRegis;
         this.tamRecord = tamRecord;
@@ -142,9 +142,17 @@ class File {
         this.slots = slot;
     }
 
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
     // Methods usados en Class File
     // Inicializa File y Valores en él
-    public File(java.io.File archivo) throws FileNotFoundException {
+    public void AddFile(java.io.File archivo) throws FileNotFoundException {
         this.file = archivo;
 
         int posS = firstSlot;
@@ -227,26 +235,48 @@ class File {
     // Ve cual es el Tamaño del Registro
     public void calcRecordSize() {
         for (int i = 0; i < fields.size(); i++) {
-        tamRecord = 0;
+            tamRecord = 0;
             tamRecord += fields.get(i).getSize() + 1;
         }
     }
 
-    //Dejo esto por Aquí... Nos podría servir mas Adelante JAJAJAJA
-    /*  public void saveFile() {
-        try (ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(name + ".atv"))) {
-            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Andrea, Tatiana & Víctor)
-            OOS.writeObject(fields);
-            OOS.writeObject(records);
-            JOptionPane.showMessageDialog(null, "File saved successfully.", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
+    public void createFile() {
+        ObjectOutputStream OOS = null;
+        try {
+            OOS = new ObjectOutputStream(new FileOutputStream(file + ".tva"));
+            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Tatiana, Víctor & Andrea)
+            OOS.flush();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                OOS.close();
+            } catch (Exception ex) {
+            }
         }
-        cambiosPendientes = false;
     }
 
-    // Metodo para cerrar el Archivo
-    public void cerrarArchivo() {
+    public void saveFile() {
+        ObjectOutputStream OOS = null;
+        try {
+            OOS = new ObjectOutputStream(new FileOutputStream(file + ".atv", false));
+            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Andrea, Tatiana & Víctor)
+            //OOS.writeObject(fields);
+            OOS.writeObject(metadata);
+            OOS.writeObject(records);
+            OOS.flush();
+            JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                OOS.close();
+            } catch (Exception ex) {
+            }
+        }
+    }
+
+        // Metodo para cerrar el Archivo
+        /*public void cerrarArchivo() {
         if (cambiosPendientes) {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas guardar los cambios antes de cerrar?", "Guardar Cambios", JOptionPane.YES_NO_CANCEL_OPTION);
 
@@ -260,6 +290,6 @@ class File {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Archivo CERRADO Correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }*/
-}
+        }*/
+    }
+
