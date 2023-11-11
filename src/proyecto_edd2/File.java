@@ -259,7 +259,6 @@ class File extends java.io.File {
         ObjectOutputStream OOS = null;
         try {
             OOS = new ObjectOutputStream(new FileOutputStream(file + ".atv", false));
-            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Andrea, Tatiana & Víctor)
             //OOS.writeObject(fields);
             OOS.writeObject(metadata);
             OOS.writeObject(records);

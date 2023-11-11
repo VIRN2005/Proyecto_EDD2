@@ -996,6 +996,7 @@ public class Main_Screen extends javax.swing.JFrame {
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivo = jfc.getSelectedFile();
+                file = (File) archivo;
 
                 tf_Filepath.setText(archivo.getName());
             } else {
