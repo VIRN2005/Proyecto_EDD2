@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 public class Main_Screen extends javax.swing.JFrame {
 
-    java.io.File archivo = null;
     File file = null;
     String metadata;
 
@@ -993,12 +992,13 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_buscarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarAMouseClicked
         try {
             JFileChooser jfc = new JFileChooser();
+            java.io.File archivo;
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivo = jfc.getSelectedFile();
                 file = (File) archivo;
 
-                tf_Filepath.setText(archivo.getName());
+                tf_Filepath.setText(file.getName());
             } else {
                 JOptionPane.showMessageDialog(this, "Archivo no soportado");
             }
@@ -1016,7 +1016,6 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_crearAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearAMouseClicked
         file = new File("./" + tf_nuevoA.getText());
-        archivo = file;
 
         file.createFile();
 
@@ -1026,7 +1025,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_crearAMouseClicked
 
     private void bt_salvarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_salvarAMouseClicked
-        if (archivo != null) {
+        if (file != null) {
             file.saveFile();
         } else {
             JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!");
@@ -1037,8 +1036,8 @@ public class Main_Screen extends javax.swing.JFrame {
         int opcion = JOptionPane.showConfirmDialog(null, "Si cierras el archivo no se guardarán los cambios, ¿Estás seguro que quiere cerrar el archivo?", "Cerrar Archivo", JOptionPane.YES_NO_CANCEL_OPTION);
 
         if (opcion == JOptionPane.YES_OPTION) {
-            if (archivo != null) {
-                archivo = null;
+            if (file != null) {
+                file = null;
                 metadata = "";
                 JOptionPane.showMessageDialog(this, "¡Se cerró el archivo!");
                 ActualizarLabel();
@@ -1089,9 +1088,9 @@ public class Main_Screen extends javax.swing.JFrame {
     }
 
     public void ActualizarLabel() {
-        if (archivo != null) {
+        if (file != null) {
             String text = "Archivo en uso: ";
-            jl_archivo.setText(text + archivo.getName());
+            jl_archivo.setText(text + file.getName());
         } else {
             jl_archivo.setText("Archivo en uso: Ninguno");
         }
