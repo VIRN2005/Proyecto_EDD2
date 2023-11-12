@@ -94,8 +94,8 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_createC = new javax.swing.JButton();
         cb_dataType = new javax.swing.JComboBox<>();
         jLabel44 = new javax.swing.JLabel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        si = new javax.swing.JRadioButton();
+        no = new javax.swing.JRadioButton();
         FondoJD5 = new javax.swing.JLabel();
         bg_key = new javax.swing.ButtonGroup();
         Menu = new javax.swing.JPanel();
@@ -446,17 +446,17 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel44.setText("Longitud:");
         pn_crearC.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, -1));
 
-        bg_key.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("Sí");
-        pn_crearC.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 40, -1));
+        bg_key.add(si);
+        si.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        si.setForeground(new java.awt.Color(255, 255, 255));
+        si.setText("Sí");
+        pn_crearC.add(si, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 40, -1));
 
-        bg_key.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("No");
-        pn_crearC.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+        bg_key.add(no);
+        no.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        no.setForeground(new java.awt.Color(255, 255, 255));
+        no.setText("No");
+        pn_crearC.add(no, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
 
         FondoJD5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
         pn_crearC.add(FondoJD5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -1013,24 +1013,53 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_abrirAMouseClicked
 
     private void bt_listarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarCMouseClicked
-        ListarTabla(jt_listarC);
-        AbrirJD(jd_listarC);        
+        if (file!=null) {
+            if (metadata!=null) {
+                ListarTabla(jt_listarC);
+                AbrirJD(jd_listarC);
+            }else{
+                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!","Warning",WARNING_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        }
+                
     }//GEN-LAST:event_bt_listarCMouseClicked
 
     private void bt_modificarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarCMouseClicked
-        ListarTabla(jt_modificarC);
-        AbrirJD(jd_modificarC);
+        if (file!=null) {
+            if (metadata!=null) {
+                ListarTabla(jt_modificarC);
+            AbrirJD(jd_modificarC);
+            }else{
+                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!","Warning",WARNING_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_modificarCMouseClicked
 
     private void bt_borrarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_borrarCMouseClicked
-        ListarTabla(jt_borrarC);
-        AbrirJD(jd_borrarC);
+        if (file!=null) {
+            if (metadata!=null) {
+                ListarTabla(jt_borrarC);
+                AbrirJD(jd_borrarC);
+            }else{
+                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!","Warning",WARNING_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_borrarCMouseClicked
 
     private void bt_crearCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearCMouseClicked
-        Panel = 1; 
-        EdicionPanel("Crear",-1);
-        AbrirJD(jd_crearC);
+        if (file!=null) {
+            Panel = 1; 
+            EdicionPanel("Crear",-1);
+            AbrirJD(jd_crearC);
+        }else{
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_crearCMouseClicked
 
     private void bt_buscarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarAMouseClicked
@@ -1097,12 +1126,13 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_createCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_createCMouseClicked
 
         try{
-            if (!"".equals(tf_nameA.getText())&&!"".equals(ff_longitudA.getText())) {
+            if (!"".equals(tf_nameA.getText())&&!"".equals(ff_longitudA.getText())&&(si.isSelected()||no.isSelected())) {
                 
                 String nombre_campo = tf_nameA.getText();
                 int longitud = Integer.parseInt(ff_longitudA.getText());
-                Campo nuevo_campo = new Campo(longitud,nombre_campo, false,false ,false, false);
-                
+                boolean isKey = (si.isSelected());
+                //Editar al aplicar arbol
+                Campo nuevo_campo = new Campo(longitud,nombre_campo, isKey,false ,isKey, false);
                 nuevo_campo.setIsCharacter(IsCharacter(cb_dataType.getSelectedItem().toString()));
                 
                 if (Panel ==1) {
@@ -1279,10 +1309,19 @@ public class Main_Screen extends javax.swing.JFrame {
         TitleCampo.setText(task+" Campos");
         bt_createC.setText(task);
         if (pos>=0) {
+            boolean isKey = file.getFields().get(pos).isKey();
             tf_nameA.setText(file.getFields().get(pos).getName());
             ff_longitudA.setText(Integer.toString(file.getFields().get(pos).getSize()));
             int index = (file.getFields().get(pos).isIsCharacter())?2:1;
             cb_dataType.setSelectedIndex(index);
+//            if (isKey) {
+//                si.setSelected(true);
+//                no.setSelected(false);
+//            }else{
+//                no.setSelected(true);
+//                si.setSelected(false);
+//            }
+            
         }else{
             tf_nameA.setText("");
             ff_longitudA.setText("");
@@ -1291,6 +1330,7 @@ public class Main_Screen extends javax.swing.JFrame {
         
     }
     public String ModMetada(String campo, int pos){
+        System.out.println("Data:"+file.getMetadata()+" Pos: "+pos);
         String[] Campos = file.getMetadata().split(",");
         String new_metadata = "";
         for (int i = 0; i < Campos.length; i++) {
@@ -1390,8 +1430,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1405,6 +1443,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JTable jt_borrarC;
     private javax.swing.JTable jt_listarC;
     private javax.swing.JTable jt_modificarC;
+    private javax.swing.JRadioButton no;
     private javax.swing.JProgressBar pb;
     private javax.swing.JPanel pn_BorrarC;
     private javax.swing.JPanel pn_abrirA;
@@ -1414,6 +1453,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel pn_listarC;
     private javax.swing.JPanel pn_modificarC;
     private javax.swing.JPanel pn_nuevoA;
+    private javax.swing.JRadioButton si;
     private javax.swing.JLabel start;
     private javax.swing.JTextField tf_Filepath;
     private javax.swing.JTextField tf_nameA;
