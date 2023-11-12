@@ -1143,8 +1143,9 @@ public class Main_Screen extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Se a creado el campo con exito, recuerde guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
                     EdicionPanel("Crear", -1);
                 }else{
-                    file.modifyFields(pos_ModCampo, nuevo_campo);
+                    System.out.println("metadata en file: "+file.getMetadata());
                     file.setMetadata(ModMetada((nuevo_campo.toString()+","),pos_ModCampo)) ;
+                    file.modifyFields(pos_ModCampo, nuevo_campo);
                     //System.out.println("Metadata Modificada: "+metadata);
                     
                     ListarTabla(jt_modificarC);
@@ -1314,13 +1315,13 @@ public class Main_Screen extends javax.swing.JFrame {
             ff_longitudA.setText(Integer.toString(file.getFields().get(pos).getSize()));
             int index = (file.getFields().get(pos).isIsCharacter())?2:1;
             cb_dataType.setSelectedIndex(index);
-//            if (isKey) {
-//                si.setSelected(true);
-//                no.setSelected(false);
-//            }else{
-//                no.setSelected(true);
-//                si.setSelected(false);
-//            }
+            if (isKey) {
+                si.setSelected(true);
+                no.setSelected(false);
+            }else{
+                no.setSelected(true);
+                si.setSelected(false);
+            }
             
         }else{
             tf_nameA.setText("");

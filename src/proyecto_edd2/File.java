@@ -311,7 +311,7 @@ class File extends java.io.File {
         this.fields.get(pos).setIsKeyT1(campo.isIsKeyT1());
         this.fields.get(pos).setIsKeyT2(campo.isIsKeyT2());
         this.fields.get(pos).setKey(campo.isKey());
-        metadata = campo.toString(); 
+        //metadata = campo.toString(); 
     }
     
     public void deleteCampo(int pos){
