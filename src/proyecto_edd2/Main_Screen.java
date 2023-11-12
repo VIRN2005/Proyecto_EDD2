@@ -220,6 +220,11 @@ public class Main_Screen extends javax.swing.JFrame {
         pn_abrirA.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 700, -1));
 
         tf_Filepath.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        tf_Filepath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_FilepathActionPerformed(evt);
+            }
+        });
         pn_abrirA.add(tf_Filepath, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 420, 40));
 
         bt_openF.setBackground(new java.awt.Color(195, 22, 28));
@@ -1035,9 +1040,9 @@ public class Main_Screen extends javax.swing.JFrame {
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 java.io.File archivo = jfc.getSelectedFile();
-                String pathname = archivo.getPath();
-                File file_temp = new File(pathname);
-                file = file_temp; 
+                //String pathname = archivo.getPath();
+                //File file_temp = new File(pathname);
+                //file = file_temp; 
 
                 tf_Filepath.setText(archivo.getName());
             } else {
@@ -1049,6 +1054,9 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_openFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_openFMouseClicked
+        file = new File(tf_Filepath.getText());
+        file.openFile();
+        
         jd_abrirA.setVisible(false);
         JOptionPane.showMessageDialog(this, "Archivo abierto con éxito");
 
@@ -1108,7 +1116,7 @@ public class Main_Screen extends javax.swing.JFrame {
                     EdicionPanel("Crear", -1);
                 }else{
                     file.modifyFields(pos_ModCampo, nuevo_campo);
-                    
+                    metadata = ModMetada((nuevo_campo.toString()+","),pos_ModCampo);
                     
                     AbrirJD(jd_modificarC);
                     ListarTabla(jt_modificarC);
@@ -1150,6 +1158,7 @@ public class Main_Screen extends javax.swing.JFrame {
             int r = JOptionPane.showConfirmDialog(jt_borrarC, "Desea eliminar el campo?", "Eliminar Campo", YES_NO_OPTION);
             if (r == 0) {
                 file.deleteCampo(jt_borrarC.getSelectedRow());
+                metadata = ModMetada("",jt_borrarC.getSelectedRow());
                 JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
                 ListarTabla(jt_borrarC);
             }
@@ -1157,6 +1166,10 @@ public class Main_Screen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla","Warning",WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_deleteCMouseClicked
+
+    private void tf_FilepathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_FilepathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_FilepathActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1207,6 +1220,25 @@ public class Main_Screen extends javax.swing.JFrame {
         }
     }
     
+    private void ListarTabla(JTable tabla) {
+        try {
+            tabla.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
+                        }
+                ));
+            for (Campo c : file.getFields()) {
+                Object[] row = {((Campo) c).getName(), ((Campo) c).character(), c.getSize(), c.isKey()};
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                modelo.addRow(row);
+                tabla.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public boolean IsCharacter(String str){
         char c = str.charAt(0);
         return (c=='S'||c == 'C');
@@ -1226,28 +1258,19 @@ public class Main_Screen extends javax.swing.JFrame {
         }
         
     }
-    public void String(String metadata){
-        
+    public String ModMetada(String campo, int pos){
+        String[] Campos = metadata.split(",");
+        String new_metadata = "";
+        for (int i = 0; i < Campos.length; i++) {
+            if (i==pos) {
+                new_metadata+=campo+",";
+            }else{
+                new_metadata+=Campos[i];
+            }
+        }
+        return new_metadata; 
     }
     
-    private void ListarTabla(JTable tabla) {
-        try {
-            tabla.setModel(new javax.swing.table.DefaultTableModel(
-                        new Object[][]{},
-                        new String[]{
-                            "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
-                        }
-                ));
-            for (Campo c : file.getFields()) {
-                Object[] row = {((Campo) c).getName(), ((Campo) c).character(), c.getSize(), c.isKey()};
-                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-                modelo.addRow(row);
-                tabla.setModel(modelo);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ArchivosButton;
