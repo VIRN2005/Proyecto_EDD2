@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class Main_Screen extends javax.swing.JFrame {
 
     File file = null;
-    String metadata;
+    String metadata = "";
     ///
     int Panel = 0, pos_ModCampo; 
 
@@ -1013,25 +1013,24 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_abrirAMouseClicked
 
     private void bt_listarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarCMouseClicked
-        AbrirJD(jd_listarC);
         ListarTabla(jt_listarC);
+        AbrirJD(jd_listarC);        
     }//GEN-LAST:event_bt_listarCMouseClicked
 
     private void bt_modificarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarCMouseClicked
-        AbrirJD(jd_modificarC);
         ListarTabla(jt_modificarC);
+        AbrirJD(jd_modificarC);
     }//GEN-LAST:event_bt_modificarCMouseClicked
 
     private void bt_borrarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_borrarCMouseClicked
-        AbrirJD(jd_borrarC);
         ListarTabla(jt_borrarC);
+        AbrirJD(jd_borrarC);
     }//GEN-LAST:event_bt_borrarCMouseClicked
 
     private void bt_crearCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearCMouseClicked
-        AbrirJD(jd_crearC);
-        ////xD
-        EdicionPanel("Crear",-1);
         Panel = 1; 
+        EdicionPanel("Crear",-1);
+        AbrirJD(jd_crearC);
     }//GEN-LAST:event_bt_crearCMouseClicked
 
     private void bt_buscarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarAMouseClicked
@@ -1106,20 +1105,20 @@ public class Main_Screen extends javax.swing.JFrame {
                 
                 nuevo_campo.setIsCharacter(IsCharacter(cb_dataType.getSelectedItem().toString()));
                 
-                
-                
                 if (Panel ==1) {
                     file.getFields().add(nuevo_campo);
                     metadata += nuevo_campo.toString()+",";
+                    System.out.println("Metadata Creada: "+metadata);
                     
                     JOptionPane.showMessageDialog(null, "Se a creado el campo con exito, recuerde guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
                     EdicionPanel("Crear", -1);
                 }else{
                     file.modifyFields(pos_ModCampo, nuevo_campo);
                     metadata = ModMetada((nuevo_campo.toString()+","),pos_ModCampo);
+                    System.out.println("Metadata Modificada: "+metadata);
                     
-                    AbrirJD(jd_modificarC);
                     ListarTabla(jt_modificarC);
+                    AbrirJD(jd_modificarC);
                     JOptionPane.showMessageDialog(null, "Se a modificado el campo con exito, recuerdo guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
                     
                 }
@@ -1141,8 +1140,9 @@ public class Main_Screen extends javax.swing.JFrame {
             if (r == 0) {
                 Panel = 2; 
                 pos_ModCampo = jt_modificarC.getSelectedRow();
-                AbrirJD(jd_crearC);
                 EdicionPanel("Modificar", pos_ModCampo);
+                AbrirJD(jd_crearC);
+                
                 
 //                JOptionPane.showMessageDialog(this, "Campo Editado, recuerde guardar los cambios del archivo");
 //                ListarTabla(jt_modificarC);
@@ -1159,8 +1159,9 @@ public class Main_Screen extends javax.swing.JFrame {
             if (r == 0) {
                 file.deleteCampo(jt_borrarC.getSelectedRow());
                 metadata = ModMetada("",jt_borrarC.getSelectedRow());
-                JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
+                System.out.println("Metadata Borrada: "+metadata);
                 ListarTabla(jt_borrarC);
+                JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
             }
         }else{
             JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla","Warning",WARNING_MESSAGE);
@@ -1228,12 +1229,41 @@ public class Main_Screen extends javax.swing.JFrame {
                             "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
                         }
                 ));
-            for (Campo c : file.getFields()) {
-                Object[] row = {((Campo) c).getName(), ((Campo) c).character(), c.getSize(), c.isKey()};
+            String[] Campos = metadata.split(",");
+            for (int i = 0; i < Campos.length; i++) {
+                String[] div1= Campos[i].split(": ");
+                String nombre = div1[0];
+                
+                char lastChar = div1[1].charAt(div1[1].length() - 1);
+                //setKeysValues(lastChar);
+                boolean isKey = KeyValue(lastChar);  
+                String Character;
+                int size;
+                 
+                if (div1[1].charAt(0) == 'c') {
+                    Character = "char";
+                    //System.out.println("\nc: "+div1[1].substring(5, div1[1].length() - 2));
+                    size = Integer.parseInt(div1[1].substring(5, div1[1].length() - 2));
+                    
+                } else { 
+                    Character = "int";
+                    //System.out.println("\nc: "+div1[1].substring(4, div1[1].length() - 2));
+                    size = Integer.parseInt(div1[1].substring(4, div1[1].length() - 2));
+                }
+                
+                Object[] row = {nombre, Character, size, isKey};
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
                 modelo.addRow(row);
                 tabla.setModel(modelo);
             }
+            
+//            for (Campo c : file.getFields()) {
+//                
+//                Object[] row = {((Campo) c).getName(), ((Campo) c).character(), c.getSize(), c.isKey()};
+//                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+//                modelo.addRow(row);
+//                tabla.setModel(modelo);
+//            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -1263,12 +1293,15 @@ public class Main_Screen extends javax.swing.JFrame {
         String new_metadata = "";
         for (int i = 0; i < Campos.length; i++) {
             if (i==pos) {
-                new_metadata+=campo+",";
+                new_metadata+=campo;
             }else{
-                new_metadata+=Campos[i];
+                new_metadata+=Campos[i]+",";
             }
         }
         return new_metadata; 
+    }
+    public boolean KeyValue(char Key_suffix) {
+        return Key_suffix == 'f'; 
     }
     
 
