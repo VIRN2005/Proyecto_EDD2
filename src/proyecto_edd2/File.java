@@ -278,6 +278,28 @@ class File extends java.io.File {
         }
     }
     
+    public void openFile() {
+        try {            
+            records = new ArrayList();
+            Registro temp;
+            if (file.exists()) {
+                FileInputStream entrada = new FileInputStream(file);
+                ObjectInputStream objeto = new ObjectInputStream(entrada);
+                try {
+                    while ((temp = (Registro) objeto.readObject()) != null) {
+                        records.add(temp);
+                    }
+                } catch (EOFException e) {
+                    //encontro el final del archivo
+                }
+                objeto.close();
+                entrada.close();
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     //Faltaria que al pasar estos metodos, modifique la estructura de registros. 
     public void modifyFields(int pos, Campo campo){
         this.fields.get(pos).setName(campo.getName());
