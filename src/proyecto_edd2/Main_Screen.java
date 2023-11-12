@@ -4,6 +4,8 @@ import java.awt.Color;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 public class Main_Screen extends javax.swing.JFrame {
 
@@ -67,7 +69,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jt_modificarC = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        bt_modifyC = new javax.swing.JButton();
         FondoJD3 = new javax.swing.JLabel();
         jd_borrarC = new javax.swing.JDialog();
         pn_BorrarC = new javax.swing.JPanel();
@@ -84,7 +86,7 @@ public class Main_Screen extends javax.swing.JFrame {
         ff_longitudA = new javax.swing.JFormattedTextField();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
-        bt_deleteC1 = new javax.swing.JButton();
+        bt_createC = new javax.swing.JButton();
         cb_dataType = new javax.swing.JComboBox<>();
         FondoJD5 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
@@ -310,11 +312,16 @@ public class Main_Screen extends javax.swing.JFrame {
 
         pn_modificarC.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 640, 250));
 
-        jButton1.setBackground(new java.awt.Color(195, 22, 28));
-        jButton1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Modificar");
-        pn_modificarC.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
+        bt_modifyC.setBackground(new java.awt.Color(195, 22, 28));
+        bt_modifyC.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        bt_modifyC.setForeground(new java.awt.Color(255, 255, 255));
+        bt_modifyC.setText("Modificar");
+        bt_modifyC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_modifyCMouseClicked(evt);
+            }
+        });
+        pn_modificarC.add(bt_modifyC, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
 
         FondoJD3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
         pn_modificarC.add(FondoJD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -409,11 +416,16 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel43.setText("Tipo de dato:");
         pn_crearC.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
 
-        bt_deleteC1.setBackground(new java.awt.Color(195, 22, 28));
-        bt_deleteC1.setFont(new java.awt.Font("Lane - Narrow", 1, 18)); // NOI18N
-        bt_deleteC1.setForeground(new java.awt.Color(255, 255, 255));
-        bt_deleteC1.setText("Crear");
-        pn_crearC.add(bt_deleteC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, -1));
+        bt_createC.setBackground(new java.awt.Color(195, 22, 28));
+        bt_createC.setFont(new java.awt.Font("Lane - Narrow", 1, 18)); // NOI18N
+        bt_createC.setForeground(new java.awt.Color(255, 255, 255));
+        bt_createC.setText("Crear");
+        bt_createC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_createCMouseClicked(evt);
+            }
+        });
+        pn_crearC.add(bt_createC, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, -1));
 
         cb_dataType.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
         cb_dataType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "String", "Int", "Char" }));
@@ -992,13 +1004,14 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_buscarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarAMouseClicked
         try {
             JFileChooser jfc = new JFileChooser();
-            java.io.File archivo;
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                archivo = jfc.getSelectedFile();
-                file = (File) archivo;
+                java.io.File archivo = jfc.getSelectedFile();
+                String pathname = archivo.getPath();
+                File file_temp = new File(pathname);
+                file = file_temp; 
 
-                tf_Filepath.setText(file.getName());
+                tf_Filepath.setText(archivo.getName());
             } else {
                 JOptionPane.showMessageDialog(this, "Archivo no soportado");
             }
@@ -1046,6 +1059,33 @@ public class Main_Screen extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bt_cerrarAMouseClicked
+
+    private void bt_createCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_createCMouseClicked
+
+        try{
+            if (!"".equals(tf_nameA.getText())&&!"".equals(ff_longitudA.getText())) {
+                
+                String nombre_campo = tf_nameA.getText();
+                int longitud = Integer.parseInt(ff_longitudA.getText());
+                Campo nuevo_campo = new Campo(longitud,nombre_campo, false,false ,false, false);
+                
+                nuevo_campo.setIsCharacter(IsCharacter(cb_dataType.getSelectedItem().toString()));
+                                
+                file.getFields().add(nuevo_campo);
+                JOptionPane.showMessageDialog(null, "Se a creado el campo con exito","Task Successfully not Failed",INFORMATION_MESSAGE);
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos","Warning",WARNING_MESSAGE);
+            }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudieron agregar los datos correctamente","Warning",WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_bt_createCMouseClicked
+
+    private void bt_modifyCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modifyCMouseClicked
+        
+    }//GEN-LAST:event_bt_modifyCMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1095,6 +1135,10 @@ public class Main_Screen extends javax.swing.JFrame {
             jl_archivo.setText("Archivo en uso: Ninguno");
         }
     }
+    public boolean IsCharacter(String str){
+        char c = str.charAt(0);
+        return (c=='S'||c == 'C');
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ArchivosButton;
@@ -1122,17 +1166,17 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel bt_cerrarA;
     private javax.swing.JButton bt_crearA;
     private javax.swing.JPanel bt_crearC;
+    private javax.swing.JButton bt_createC;
     private javax.swing.JButton bt_deleteC;
-    private javax.swing.JButton bt_deleteC1;
     private javax.swing.JPanel bt_listarC;
     private javax.swing.JPanel bt_modificarC;
+    private javax.swing.JButton bt_modifyC;
     private javax.swing.JPanel bt_nuevoA;
     private javax.swing.JButton bt_openF;
     private javax.swing.JPanel bt_salir;
     private javax.swing.JPanel bt_salvarA;
     private javax.swing.JComboBox<String> cb_dataType;
     private javax.swing.JFormattedTextField ff_longitudA;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

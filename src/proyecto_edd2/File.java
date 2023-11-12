@@ -52,6 +52,10 @@ class File extends java.io.File {
         this.countRegis = countRegis;
         this.tamRecord = tamRecord;
     }
+    public File(String pathname, java.io.File archivo){
+        super(pathname);
+        file = archivo; 
+    }
 
     // Getters & Setters
     public java.io.File getFile() {
@@ -258,7 +262,7 @@ class File extends java.io.File {
     public void saveFile() {
         ObjectOutputStream OOS = null;
         try {
-            OOS = new ObjectOutputStream(new FileOutputStream(file + ".atv", false));
+            OOS = new ObjectOutputStream(new FileOutputStream(file, false));
             //OOS.writeObject(fields);
             OOS.writeObject(metadata);
             OOS.writeObject(records);
@@ -273,6 +277,20 @@ class File extends java.io.File {
             }
         }
     }
+    
+    //Faltaria que al pasar estos metodos, modifique la estructura de registros. 
+    public void modifyFields(int pos, Campo campo){
+        this.fields.get(pos).setName(campo.getName());
+        this.fields.get(pos).setSize(campo.getSize());
+        this.fields.get(pos).setIsCharacter(campo.isIsCharacter());
+        this.fields.get(pos).setIsKeyT1(campo.isIsKeyT1());
+        this.fields.get(pos).setIsKeyT2(campo.isIsKeyT2());
+    }
+    
+    public void deleteCampo(int pos){
+        this.fields.remove(pos);
+    }
+    
 
         // Metodo para cerrar el Archivo
         /*public void cerrarArchivo() {
