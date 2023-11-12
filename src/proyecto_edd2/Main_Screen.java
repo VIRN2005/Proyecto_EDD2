@@ -1057,9 +1057,8 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_crearAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearAMouseClicked
         file = new File("./" + tf_nuevoA.getText());
-
         file.createFile();
-
+        
         jd_nuevoA.setVisible(false);
         JOptionPane.showMessageDialog(this, "Archivo creado con éxito");
         ActualizarLabel();
@@ -1096,15 +1095,21 @@ public class Main_Screen extends javax.swing.JFrame {
                 String nombre_campo = tf_nameA.getText();
                 int longitud = Integer.parseInt(ff_longitudA.getText());
                 Campo nuevo_campo = new Campo(longitud,nombre_campo, false,false ,false, false);
-
+                
                 nuevo_campo.setIsCharacter(IsCharacter(cb_dataType.getSelectedItem().toString()));
+                
+                
                 
                 if (Panel ==1) {
                     file.getFields().add(nuevo_campo);
+                    metadata += nuevo_campo.toString()+",";
+                    
                     JOptionPane.showMessageDialog(null, "Se a creado el campo con exito, recuerde guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
                     EdicionPanel("Crear", -1);
                 }else{
                     file.modifyFields(pos_ModCampo, nuevo_campo);
+                    
+                    
                     AbrirJD(jd_modificarC);
                     ListarTabla(jt_modificarC);
                     JOptionPane.showMessageDialog(null, "Se a modificado el campo con exito, recuerdo guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
@@ -1219,6 +1224,9 @@ public class Main_Screen extends javax.swing.JFrame {
             ff_longitudA.setText("");
             bg_key.clearSelection();
         }
+        
+    }
+    public void String(String metadata){
         
     }
     

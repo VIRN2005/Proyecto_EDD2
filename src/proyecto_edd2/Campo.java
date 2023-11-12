@@ -114,7 +114,7 @@ public class Campo {
         char lastChar = Fields_Array[1].charAt(Fields_Array[1].length() - 1);
         setKeysValues(lastChar);
 
-        if (Fields_Array[1].charAt(0) == 's') {
+        if (Fields_Array[1].charAt(0) == 'c') {
             isCharacter = true;
             size = Integer.parseInt(Fields_Array[1].substring(5, Fields_Array[1].length() - 2));
         } else { // El char es 'f' o 't'
