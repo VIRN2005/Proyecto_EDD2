@@ -6,6 +6,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,6 +14,8 @@ public class Main_Screen extends javax.swing.JFrame {
 
     File file = null;
     String metadata;
+    ///
+    int Panel = 0, pos_ModCampo; 
 
     public Main_Screen() {
         initComponents();
@@ -82,7 +85,7 @@ public class Main_Screen extends javax.swing.JFrame {
         FondoJD4 = new javax.swing.JLabel();
         jd_crearC = new javax.swing.JDialog();
         pn_crearC = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
+        TitleCampo = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         tf_nameA = new javax.swing.JTextField();
         ff_longitudA = new javax.swing.JFormattedTextField();
@@ -265,10 +268,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jt_listarC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre de campo", "Tipo de Dato", "Longitud", "Key"
@@ -305,10 +305,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jt_modificarC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre de campo", "Tipo de Dato", "Longitud", "Key"
@@ -356,10 +353,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jt_borrarC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre de campo", "Tipo de Dato", "Longitud", "Key"
@@ -373,6 +367,11 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_deleteC.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
         bt_deleteC.setForeground(new java.awt.Color(255, 255, 255));
         bt_deleteC.setText("Borrar");
+        bt_deleteC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_deleteCMouseClicked(evt);
+            }
+        });
         pn_BorrarC.add(bt_deleteC, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, -1));
 
         FondoJD4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
@@ -394,11 +393,11 @@ public class Main_Screen extends javax.swing.JFrame {
         pn_crearC.setBackground(new java.awt.Color(17, 30, 58));
         pn_crearC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel40.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("Crear Campos");
-        pn_crearC.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 700, -1));
+        TitleCampo.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
+        TitleCampo.setForeground(new java.awt.Color(255, 255, 255));
+        TitleCampo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TitleCampo.setText("Crear Campos");
+        pn_crearC.add(TitleCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 700, -1));
 
         jLabel41.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(255, 255, 255));
@@ -444,11 +443,13 @@ public class Main_Screen extends javax.swing.JFrame {
 
         bg_key.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("Sí");
         pn_crearC.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 40, -1));
 
         bg_key.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton1.setText("No");
         pn_crearC.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
 
@@ -1008,18 +1009,24 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_listarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarCMouseClicked
         AbrirJD(jd_listarC);
+        ListarTabla(jt_listarC);
     }//GEN-LAST:event_bt_listarCMouseClicked
 
     private void bt_modificarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarCMouseClicked
         AbrirJD(jd_modificarC);
+        ListarTabla(jt_modificarC);
     }//GEN-LAST:event_bt_modificarCMouseClicked
 
     private void bt_borrarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_borrarCMouseClicked
         AbrirJD(jd_borrarC);
+        ListarTabla(jt_borrarC);
     }//GEN-LAST:event_bt_borrarCMouseClicked
 
     private void bt_crearCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearCMouseClicked
         AbrirJD(jd_crearC);
+        ////xD
+        EdicionPanel("Crear",-1);
+        Panel = 1; 
     }//GEN-LAST:event_bt_crearCMouseClicked
 
     private void bt_buscarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarAMouseClicked
@@ -1089,11 +1096,21 @@ public class Main_Screen extends javax.swing.JFrame {
                 String nombre_campo = tf_nameA.getText();
                 int longitud = Integer.parseInt(ff_longitudA.getText());
                 Campo nuevo_campo = new Campo(longitud,nombre_campo, false,false ,false, false);
-                
+
                 nuevo_campo.setIsCharacter(IsCharacter(cb_dataType.getSelectedItem().toString()));
-                                
-                file.getFields().add(nuevo_campo);
-                JOptionPane.showMessageDialog(null, "Se a creado el campo con exito","Task Successfully not Failed",INFORMATION_MESSAGE);
+                
+                if (Panel ==1) {
+                    file.getFields().add(nuevo_campo);
+                    JOptionPane.showMessageDialog(null, "Se a creado el campo con exito, recuerde guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
+                    EdicionPanel("Crear", -1);
+                }else{
+                    file.modifyFields(pos_ModCampo, nuevo_campo);
+                    AbrirJD(jd_modificarC);
+                    ListarTabla(jt_modificarC);
+                    JOptionPane.showMessageDialog(null, "Se a modificado el campo con exito, recuerdo guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
+                    
+                }
+                
             } 
             else {
                 JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos","Warning",WARNING_MESSAGE);
@@ -1105,8 +1122,36 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_createCMouseClicked
 
     private void bt_modifyCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modifyCMouseClicked
-        
+        //jt_modificarC
+        if (jt_modificarC.getSelectedRow() >= 0) {
+            int r = JOptionPane.showConfirmDialog(jt_modificarC, ("Desea modificar el campo "+file.getFields().get(jt_modificarC.getSelectedRow()).getName()+"?"), "Modificar Campo", YES_NO_OPTION);
+            if (r == 0) {
+                Panel = 2; 
+                pos_ModCampo = jt_modificarC.getSelectedRow();
+                AbrirJD(jd_crearC);
+                EdicionPanel("Modificar", pos_ModCampo);
+                
+//                JOptionPane.showMessageDialog(this, "Campo Editado, recuerde guardar los cambios del archivo");
+//                ListarTabla(jt_modificarC);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla","Warning",WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_modifyCMouseClicked
+
+    private void bt_deleteCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_deleteCMouseClicked
+        //jt_borrarC
+        if (jt_borrarC.getSelectedRow() >= 0) {
+            int r = JOptionPane.showConfirmDialog(jt_borrarC, "Desea eliminar el campo?", "Eliminar Campo", YES_NO_OPTION);
+            if (r == 0) {
+                file.deleteCampo(jt_borrarC.getSelectedRow());
+                JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
+                ListarTabla(jt_borrarC);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla","Warning",WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_bt_deleteCMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1156,15 +1201,37 @@ public class Main_Screen extends javax.swing.JFrame {
             jl_archivo.setText("Archivo en uso: Ninguno");
         }
     }
+    
     public boolean IsCharacter(String str){
         char c = str.charAt(0);
         return (c=='S'||c == 'C');
     }
+    public void EdicionPanel(String task, int pos){
+        TitleCampo.setText(task+" Campos");
+        bt_createC.setText(task);
+        if (pos>=0) {
+            tf_nameA.setText(file.getFields().get(pos).getName());
+            ff_longitudA.setText(Integer.toString(file.getFields().get(pos).getSize()));
+            int index = (file.getFields().get(pos).isIsCharacter())?2:1;
+            cb_dataType.setSelectedIndex(index);
+        }else{
+            tf_nameA.setText("");
+            ff_longitudA.setText("");
+            bg_key.clearSelection();
+        }
+        
+    }
     
-    private void ListarTabla(JTable tabla, File file) {
+    private void ListarTabla(JTable tabla) {
         try {
+            tabla.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
+                        }
+                ));
             for (Campo c : file.getFields()) {
-                Object[] row = {((Campo) c).getName(), ((Campo) c).getName(), c.getSize(), c.getHora()};
+                Object[] row = {((Campo) c).getName(), ((Campo) c).character(), c.getSize(), c.isKey()};
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
                 modelo.addRow(row);
                 tabla.setModel(modelo);
@@ -1193,6 +1260,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuBar;
     private javax.swing.JPanel RegistrosButton;
+    private javax.swing.JLabel TitleCampo;
     private javax.swing.JLabel Titulo;
     private javax.swing.ButtonGroup bg_key;
     private javax.swing.JPanel bt_abrirA;
@@ -1246,7 +1314,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
