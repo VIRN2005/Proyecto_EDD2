@@ -6,6 +6,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Main_Screen extends javax.swing.JFrame {
 
@@ -88,7 +90,11 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         bt_createC = new javax.swing.JButton();
         cb_dataType = new javax.swing.JComboBox<>();
+        jLabel44 = new javax.swing.JLabel();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
         FondoJD5 = new javax.swing.JLabel();
+        bg_key = new javax.swing.ButtonGroup();
         Menu = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jl_archivo = new javax.swing.JLabel();
@@ -259,13 +265,13 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jt_listarC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre de campo", "Tipo de Dato", "Longitud"
+                "Nombre de campo", "Tipo de Dato", "Longitud", "Key"
             }
         ));
         jScrollPane1.setViewportView(jt_listarC);
@@ -299,13 +305,13 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jt_modificarC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre de campo", "Tipo de Dato", "Longitud"
+                "Nombre de campo", "Tipo de Dato", "Longitud", "Key"
             }
         ));
         jScrollPane2.setViewportView(jt_modificarC);
@@ -350,13 +356,13 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jt_borrarC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre de campo", "Tipo de Dato", "Longitud"
+                "Nombre de campo", "Tipo de Dato", "Longitud", "Key"
             }
         ));
         jScrollPane3.setViewportView(jt_borrarC);
@@ -396,25 +402,25 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jLabel41.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel41.setText("Longitud:");
-        pn_crearC.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, -1));
+        jLabel41.setText("Marcar como llave: ");
+        pn_crearC.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
 
         tf_nameA.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        pn_crearC.add(tf_nameA, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 390, 30));
+        pn_crearC.add(tf_nameA, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 390, 30));
 
         ff_longitudA.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         ff_longitudA.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        pn_crearC.add(ff_longitudA, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 390, 30));
+        pn_crearC.add(ff_longitudA, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 390, 30));
 
         jLabel42.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(255, 255, 255));
         jLabel42.setText("Nombre del atributo:");
-        pn_crearC.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+        pn_crearC.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
 
         jLabel43.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(255, 255, 255));
         jLabel43.setText("Tipo de dato:");
-        pn_crearC.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+        pn_crearC.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
 
         bt_createC.setBackground(new java.awt.Color(195, 22, 28));
         bt_createC.setFont(new java.awt.Font("Lane - Narrow", 1, 18)); // NOI18N
@@ -429,7 +435,22 @@ public class Main_Screen extends javax.swing.JFrame {
 
         cb_dataType.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
         cb_dataType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "String", "Int", "Char" }));
-        pn_crearC.add(cb_dataType, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 390, 30));
+        pn_crearC.add(cb_dataType, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 390, 30));
+
+        jLabel44.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel44.setText("Longitud:");
+        pn_crearC.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, -1));
+
+        bg_key.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        jRadioButton2.setText("Sí");
+        pn_crearC.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 40, -1));
+
+        bg_key.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        jRadioButton1.setText("No");
+        pn_crearC.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
 
         FondoJD5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
         pn_crearC.add(FondoJD5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -1139,6 +1160,19 @@ public class Main_Screen extends javax.swing.JFrame {
         char c = str.charAt(0);
         return (c=='S'||c == 'C');
     }
+    
+    private void ListarTabla(JTable tabla, File file) {
+        try {
+            for (Campo c : file.getFields()) {
+                Object[] row = {((Campo) c).getName(), ((Campo) c).getName(), c.getSize(), c.getHora()};
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                modelo.addRow(row);
+                tabla.setModel(modelo);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ArchivosButton;
@@ -1160,6 +1194,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel MenuBar;
     private javax.swing.JPanel RegistrosButton;
     private javax.swing.JLabel Titulo;
+    private javax.swing.ButtonGroup bg_key;
     private javax.swing.JPanel bt_abrirA;
     private javax.swing.JPanel bt_borrarC;
     private javax.swing.JButton bt_buscarA;
@@ -1215,12 +1250,15 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
