@@ -1107,15 +1107,15 @@ public class Main_Screen extends javax.swing.JFrame {
                 
                 if (Panel ==1) {
                     file.getFields().add(nuevo_campo);
-                    metadata += nuevo_campo.toString()+",";
-                    System.out.println("Metadata Creada: "+metadata);
+                    file.setMetadata(file.getMetadata()+nuevo_campo.toString()+",") ;
+                    //System.out.println("Metadata Creada: "+metadata);
                     
                     JOptionPane.showMessageDialog(null, "Se a creado el campo con exito, recuerde guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
                     EdicionPanel("Crear", -1);
                 }else{
                     file.modifyFields(pos_ModCampo, nuevo_campo);
-                    metadata = ModMetada((nuevo_campo.toString()+","),pos_ModCampo);
-                    System.out.println("Metadata Modificada: "+metadata);
+                    file.setMetadata(ModMetada((nuevo_campo.toString()+","),pos_ModCampo)) ;
+                    //System.out.println("Metadata Modificada: "+metadata);
                     
                     ListarTabla(jt_modificarC);
                     AbrirJD(jd_modificarC);
@@ -1158,8 +1158,9 @@ public class Main_Screen extends javax.swing.JFrame {
             int r = JOptionPane.showConfirmDialog(jt_borrarC, "Desea eliminar el campo?", "Eliminar Campo", YES_NO_OPTION);
             if (r == 0) {
                 file.deleteCampo(jt_borrarC.getSelectedRow());
-                metadata = ModMetada("",jt_borrarC.getSelectedRow());
-                System.out.println("Metadata Borrada: "+metadata);
+                file.setMetadata(ModMetada("",jt_borrarC.getSelectedRow())) ;
+                //metadata = ModMetada("",jt_borrarC.getSelectedRow());
+                //System.out.println("Metadata Borrada: "+metadata);
                 ListarTabla(jt_borrarC);
                 JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
             }
@@ -1229,7 +1230,8 @@ public class Main_Screen extends javax.swing.JFrame {
                             "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
                         }
                 ));
-            String[] Campos = metadata.split(",");
+            System.out.println("Metadata: "+file.getMetadata());
+            String[] Campos = file.getMetadata().split(",");
             for (int i = 0; i < Campos.length; i++) {
                 String[] div1= Campos[i].split(": ");
                 String nombre = div1[0];
@@ -1289,7 +1291,7 @@ public class Main_Screen extends javax.swing.JFrame {
         
     }
     public String ModMetada(String campo, int pos){
-        String[] Campos = metadata.split(",");
+        String[] Campos = file.getMetadata().split(",");
         String new_metadata = "";
         for (int i = 0; i < Campos.length; i++) {
             if (i==pos) {

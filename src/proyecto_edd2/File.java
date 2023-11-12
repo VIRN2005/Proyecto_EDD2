@@ -264,6 +264,7 @@ class File extends java.io.File {
         try {
             OOS = new ObjectOutputStream(new FileOutputStream(file, false));
             //OOS.writeObject(fields);
+            System.out.println("metadata: "+metadata);
             OOS.writeObject(metadata);
             OOS.writeObject(records);
             OOS.flush();
@@ -285,7 +286,9 @@ class File extends java.io.File {
             if (file.exists()) {
                 FileInputStream entrada = new FileInputStream(file);
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
+                
                 try {
+                    metadata = objeto.readLine();
                     while ((temp = (Registro) objeto.readObject()) != null) {
                         records.add(temp);
                     }
