@@ -443,7 +443,8 @@ public class Main_Screen extends javax.swing.JFrame {
         pn_crearC.add(bt_createC, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, -1));
 
         cb_dataType.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        cb_dataType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "String", "Int", "Char" }));
+        cb_dataType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Int", "Char" }));
+        cb_dataType.setSelectedIndex(1);
         pn_crearC.add(cb_dataType, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 390, 30));
 
         jLabel44.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
@@ -1154,7 +1155,7 @@ public class Main_Screen extends javax.swing.JFrame {
                     file.setMetadata(MetaData);
                     //System.out.println("Metadata Creada: "+metadata);
 
-                    JOptionPane.showMessageDialog(null, "Se ha creado el campo con éxito, recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "¡Se ha creado el campo con éxito! Recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
                     EdicionPanel("Crear", -1);
                 } else {
                     //System.out.println("metadata en file: " + file.getMetadata());
@@ -1165,7 +1166,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
                     ListarTabla(jt_modificarC);
                     AbrirJD(jd_modificarC);
-                    JOptionPane.showMessageDialog(null, "Se ha modificado el campo con éxito, recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "¡Se ha modificado el campo con éxito! Recuerde guardar cambios.", "Task Successfully not Failed", INFORMATION_MESSAGE);
 
                 }
 
@@ -1205,7 +1206,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 //metadata = ModMetada("",jt_borrarC.getSelectedRow());
                 //System.out.println("Metadata Borrada: "+metadata);
                 ListarTabla(jt_borrarC);
-                JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
+                JOptionPane.showMessageDialog(this, "¡Campo Eliminado! Recuerde guardar los cambios del archivo");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla", "Warning", WARNING_MESSAGE);
