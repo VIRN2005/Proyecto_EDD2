@@ -325,6 +325,38 @@ class File extends java.io.File {
         this.fields.get(pos).setKey(campo.isKey());
         //metadata = campo.toString(); 
     }
+    public Campo Getcampo(int pos){
+        Campo campo = null;
+        String[]Campos=metadata.split(",");
+        String[] div1 = Campos[pos].split(": ");
+        String nombre = div1[0];
+
+        char lastChar = div1[1].charAt(div1[1].length() - 1);
+        //setKeysValues(lastChar);
+        boolean isKey = KeyValue(lastChar);
+        String Character;
+        int size;
+        
+        if (div1[1].charAt(0) == 'c') {
+            Character = "char";
+            //System.out.println("\nc: "+div1[1].substring(5, div1[1].length() - 2));
+            size = Integer.parseInt(div1[1].substring(5, div1[1].length() - 2));
+
+        } else {
+            Character = "int";
+            //System.out.println("\nc: "+div1[1].substring(4, div1[1].length() - 2));
+            size = Integer.parseInt(div1[1].substring(4, div1[1].length() - 2));
+        }
+        campo = new Campo(size, nombre, isKey, IsCharacter(Character), false, false);
+        return campo;
+    }
+    public boolean KeyValue(char Key_suffix) {
+        return Key_suffix == 'f';
+    }
+    public boolean IsCharacter(String str) {
+        char c = str.charAt(0);
+        return (c == 'S' || c == 'C'||c == 's' || c == 'c');
+    } 
 
     public void deleteCampo(int pos) {
         this.fields.remove(pos);
