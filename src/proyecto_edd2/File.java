@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,9 +42,9 @@ class File extends java.io.File {
     public File(String pathname) {
         super(pathname);
         this.file = new java.io.File(pathname);
-        tamRecord = 1;
-        firstSlot = -1;
-        metadata = "";
+        this.tamRecord = 1;
+        this.firstSlot = -1;
+        this.metadata = "";
     }
 
     public File(String pathname, java.io.File index, int countRegis, int tamRecord) {
@@ -51,10 +53,6 @@ class File extends java.io.File {
         this.index = index;
         this.countRegis = countRegis;
         this.tamRecord = tamRecord;
-    }
-    public File(String pathname, java.io.File archivo){
-        super(pathname);
-        file = archivo; 
     }
 
     // Getters & Setters
@@ -163,6 +161,8 @@ class File extends java.io.File {
         br = new BufferedReader(new FileReader(archivo));
 
         try {
+            this.metadata = br.readLine();
+            metadata = br.readLine();
             String FieldsStr = br.readLine();
             String[] F_Str = FieldsStr.substring(1, FieldsStr.length() - 1).split(", ");
 
@@ -247,64 +247,76 @@ class File extends java.io.File {
     public void createFile() {
         ObjectOutputStream OOS = null;
         try {
-            OOS = new ObjectOutputStream(new FileOutputStream(file + ".tva"));
+//            this.file = archivo;
+            OOS = new ObjectOutputStream(new FileOutputStream(file));
             //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Tatiana, Víctor & Andrea)
             OOS.flush();
         } catch (IOException e) {
-        } finally {
             try {
                 OOS.close();
-            } catch (Exception ex) {
+            } catch (IOException ex) {
             }
         }
     }
 
-    public void saveFile() {
-        ObjectOutputStream OOS = null;
-        try {
-            OOS = new ObjectOutputStream(new FileOutputStream(file, false));
-            //OOS.writeObject(fields);
-            System.out.println("metadata: "+metadata);
-            OOS.writeObject(metadata);
-            OOS.writeObject(records);
-            OOS.flush();
-            JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
+    public void saveFile(java.io.File archivo) {
+        this.file = archivo;
+        if (file.exists()) {
+            FileOutputStream fw = null;
+            ObjectOutputStream OOS = null;
             try {
-                OOS.close();
-            } catch (Exception ex) {
+                fw = new FileOutputStream(file, false);
+                OOS = new ObjectOutputStream(fw);
+                //OOS.writeObject(fields);
+
+                System.out.println("M: " + metadata);
+                OOS.writeObject(metadata);
+                for (Registro r : records) {
+                    OOS.writeObject(r);
+                }
+                OOS.flush();
+
+                JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                try {
+                    OOS.close();
+                    fw.close();
+                } catch (Exception ex) {
+                }
             }
+        } else {
+            System.out.println("no entro");
         }
     }
-    
-    public void openFile() {
-        try {            
+
+    public void openFile(java.io.File archivo) {
+        try {
             records = new ArrayList();
-            Registro temp;
+//            Registro temp;
+            this.file = archivo;
             if (file.exists()) {
-                FileInputStream entrada = new FileInputStream(file);
-                ObjectInputStream objeto = new ObjectInputStream(entrada);
-                
+                ObjectInputStream objeto = new ObjectInputStream(new FileInputStream(file));
+
                 try {
-                    metadata = objeto.readLine();
-                    while ((temp = (Registro) objeto.readObject()) != null) {
-                        records.add(temp);
-                    }
+                    this.metadata = (String) objeto.readObject();
+
+//                    while ((temp = (Registro) objeto.readObject()) != null) {
+//                        records.add(temp);
+//                    }
                 } catch (EOFException e) {
                     //encontro el final del archivo
                 }
                 objeto.close();
-                entrada.close();
-            }            
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
+
     //Faltaria que al pasar estos metodos, modifique la estructura de registros. 
-    public void modifyFields(int pos, Campo campo){
+    public void modifyFields(int pos, Campo campo) {
         this.fields.get(pos).setName(campo.getName());
         this.fields.get(pos).setSize(campo.getSize());
         this.fields.get(pos).setIsCharacter(campo.isIsCharacter());
@@ -313,14 +325,13 @@ class File extends java.io.File {
         this.fields.get(pos).setKey(campo.isKey());
         //metadata = campo.toString(); 
     }
-    
-    public void deleteCampo(int pos){
+
+    public void deleteCampo(int pos) {
         this.fields.remove(pos);
     }
-    
 
-        // Metodo para cerrar el Archivo
-        /*public void cerrarArchivo() {
+    // Metodo para cerrar el Archivo
+    /*public void cerrarArchivo() {
         if (cambiosPendientes) {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas guardar los cambios antes de cerrar?", "Guardar Cambios", JOptionPane.YES_NO_CANCEL_OPTION);
 
@@ -335,5 +346,4 @@ class File extends java.io.File {
         } else {
             JOptionPane.showMessageDialog(null, "Archivo CERRADO Correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
         }*/
-    }
-
+}

@@ -1,6 +1,10 @@
 package proyecto_edd2;
 
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -14,8 +18,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
     File file = null;
     String metadata = "";
+    java.io.File archivo = null;
     ///
-    int Panel = 0, pos_ModCampo; 
+    int Panel = 0, pos_ModCampo;
 
     public Main_Screen() {
         initComponents();
@@ -1013,52 +1018,52 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_abrirAMouseClicked
 
     private void bt_listarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarCMouseClicked
-        if (file!=null) {
-            if (metadata!=null) {
+        if (file != null) {
+            if (metadata != null) {
                 ListarTabla(jt_listarC);
                 AbrirJD(jd_listarC);
-            }else{
-                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!","Warning",WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!", "Warning", WARNING_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
-                
+
     }//GEN-LAST:event_bt_listarCMouseClicked
 
     private void bt_modificarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarCMouseClicked
-        if (file!=null) {
-            if (metadata!=null) {
+        if (file != null) {
+            if (metadata != null) {
                 ListarTabla(jt_modificarC);
-            AbrirJD(jd_modificarC);
-            }else{
-                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!","Warning",WARNING_MESSAGE);
+                AbrirJD(jd_modificarC);
+            } else {
+                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!", "Warning", WARNING_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_modificarCMouseClicked
 
     private void bt_borrarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_borrarCMouseClicked
-        if (file!=null) {
-            if (metadata!=null) {
+        if (file != null) {
+            if (metadata != null) {
                 ListarTabla(jt_borrarC);
                 AbrirJD(jd_borrarC);
-            }else{
-                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!","Warning",WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "¡No hay datos encontrados en la metadata!", "Warning", WARNING_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_borrarCMouseClicked
 
     private void bt_crearCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearCMouseClicked
-        if (file!=null) {
-            Panel = 1; 
-            EdicionPanel("Crear",-1);
+        if (file != null) {
+            Panel = 1;
+            EdicionPanel("Crear", -1);
             AbrirJD(jd_crearC);
-        }else{
-            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!","Warning",WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_crearCMouseClicked
 
@@ -1067,7 +1072,7 @@ public class Main_Screen extends javax.swing.JFrame {
             JFileChooser jfc = new JFileChooser();
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                java.io.File archivo = jfc.getSelectedFile();
+                archivo = jfc.getSelectedFile();
                 //String pathname = archivo.getPath();
                 //File file_temp = new File(pathname);
                 //file = file_temp; 
@@ -1082,9 +1087,14 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_openFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_openFMouseClicked
-        file = new File(tf_Filepath.getText());
-        file.openFile();
-        
+        file = new File("./" + tf_Filepath.getText());
+        file.openFile(file);
+//        try {
+//            file.AddFile(archivo);
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         jd_abrirA.setVisible(false);
         JOptionPane.showMessageDialog(this, "Archivo abierto con éxito");
 
@@ -1092,9 +1102,9 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_openFMouseClicked
 
     private void bt_crearAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearAMouseClicked
-        file = new File("./" + tf_nuevoA.getText());
+        file = new File("./" + tf_nuevoA.getText()+".tva");
         file.createFile();
-        
+
         jd_nuevoA.setVisible(false);
         JOptionPane.showMessageDialog(this, "Archivo creado con éxito");
         ActualizarLabel();
@@ -1102,7 +1112,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_salvarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_salvarAMouseClicked
         if (file != null) {
-            file.saveFile();
+            file.saveFile(file);
         } else {
             JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!");
         }
@@ -1125,61 +1135,60 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_createCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_createCMouseClicked
 
-        try{
-            if (!"".equals(tf_nameA.getText())&&!"".equals(ff_longitudA.getText())&&(si.isSelected()||no.isSelected())) {
-                
+        try {
+            if (!"".equals(tf_nameA.getText()) && !"".equals(ff_longitudA.getText()) && (si.isSelected() || no.isSelected())) {
+
                 String nombre_campo = tf_nameA.getText();
                 int longitud = Integer.parseInt(ff_longitudA.getText());
                 boolean isKey = (si.isSelected());
                 //Editar al aplicar arbol
-                Campo nuevo_campo = new Campo(longitud,nombre_campo, isKey,false ,isKey, false);
+                Campo nuevo_campo = new Campo(longitud, nombre_campo, isKey, false, isKey, false);
                 nuevo_campo.setIsCharacter(IsCharacter(cb_dataType.getSelectedItem().toString()));
-                
-                if (Panel ==1) {
+
+                if (Panel == 1) {
                     file.getFields().add(nuevo_campo);
-                    file.setMetadata(file.getMetadata()+nuevo_campo.toString()+",") ;
+                    metadata += file.getMetadata() + nuevo_campo.toString() + ",";
+                    file.setMetadata(metadata);
                     //System.out.println("Metadata Creada: "+metadata);
-                    
-                    JOptionPane.showMessageDialog(null, "Se a creado el campo con exito, recuerde guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
+
+                    JOptionPane.showMessageDialog(null, "Se ha creado el campo con éxito, recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
                     EdicionPanel("Crear", -1);
-                }else{
-                    System.out.println("metadata en file: "+file.getMetadata());
-                    file.setMetadata(ModMetada((nuevo_campo.toString()+","),pos_ModCampo)) ;
+                } else {
+                    System.out.println("metadata en file: " + file.getMetadata());
+                    metadata += ModMetada((nuevo_campo.toString() + ","), pos_ModCampo);
+                    file.setMetadata(metadata);
                     file.modifyFields(pos_ModCampo, nuevo_campo);
                     //System.out.println("Metadata Modificada: "+metadata);
-                    
+
                     ListarTabla(jt_modificarC);
                     AbrirJD(jd_modificarC);
-                    JOptionPane.showMessageDialog(null, "Se a modificado el campo con exito, recuerdo guardar cambios","Task Successfully not Failed",INFORMATION_MESSAGE);
-                    
+                    JOptionPane.showMessageDialog(null, "Se ha modificado el campo con éxito, recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
+
                 }
-                
-            } 
-            else {
-                JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos","Warning",WARNING_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
             }
-        }
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudieron agregar los datos correctamente","Warning",WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudieron agregar los datos correctamente", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_createCMouseClicked
 
     private void bt_modifyCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modifyCMouseClicked
         //jt_modificarC
         if (jt_modificarC.getSelectedRow() >= 0) {
-            int r = JOptionPane.showConfirmDialog(jt_modificarC, ("Desea modificar el campo "+file.getFields().get(jt_modificarC.getSelectedRow()).getName()+"?"), "Modificar Campo", YES_NO_OPTION);
+            int r = JOptionPane.showConfirmDialog(jt_modificarC, ("Desea modificar el campo " + file.getFields().get(jt_modificarC.getSelectedRow()).getName() + "?"), "Modificar Campo", YES_NO_OPTION);
             if (r == 0) {
-                Panel = 2; 
+                Panel = 2;
                 pos_ModCampo = jt_modificarC.getSelectedRow();
                 EdicionPanel("Modificar", pos_ModCampo);
                 AbrirJD(jd_crearC);
-                
-                
+
 //                JOptionPane.showMessageDialog(this, "Campo Editado, recuerde guardar los cambios del archivo");
 //                ListarTabla(jt_modificarC);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla","Warning",WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_modifyCMouseClicked
 
@@ -1189,14 +1198,14 @@ public class Main_Screen extends javax.swing.JFrame {
             int r = JOptionPane.showConfirmDialog(jt_borrarC, "Desea eliminar el campo?", "Eliminar Campo", YES_NO_OPTION);
             if (r == 0) {
                 file.deleteCampo(jt_borrarC.getSelectedRow());
-                file.setMetadata(ModMetada("",jt_borrarC.getSelectedRow())) ;
+                file.setMetadata(ModMetada("", jt_borrarC.getSelectedRow()));
                 //metadata = ModMetada("",jt_borrarC.getSelectedRow());
                 //System.out.println("Metadata Borrada: "+metadata);
                 ListarTabla(jt_borrarC);
                 JOptionPane.showMessageDialog(this, "Campo Eliminiado, recuerde guardar los cambios del archivo");
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla","Warning",WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_deleteCMouseClicked
 
@@ -1252,44 +1261,44 @@ public class Main_Screen extends javax.swing.JFrame {
             jl_archivo.setText("Archivo en uso: Ninguno");
         }
     }
-    
+
     private void ListarTabla(JTable tabla) {
         try {
             tabla.setModel(new javax.swing.table.DefaultTableModel(
-                        new Object[][]{},
-                        new String[]{
-                            "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
-                        }
-                ));
-            System.out.println("Metadata: "+file.getMetadata());
+                    new Object[][]{},
+                    new String[]{
+                        "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"
+                    }
+            ));
+            System.out.println("Metadata: " + file.getMetadata());
             String[] Campos = file.getMetadata().split(",");
             for (int i = 0; i < Campos.length; i++) {
-                String[] div1= Campos[i].split(": ");
+                String[] div1 = Campos[i].split(": ");
                 String nombre = div1[0];
-                
+
                 char lastChar = div1[1].charAt(div1[1].length() - 1);
                 //setKeysValues(lastChar);
-                boolean isKey = KeyValue(lastChar);  
+                boolean isKey = KeyValue(lastChar);
                 String Character;
                 int size;
-                 
+
                 if (div1[1].charAt(0) == 'c') {
                     Character = "char";
                     //System.out.println("\nc: "+div1[1].substring(5, div1[1].length() - 2));
                     size = Integer.parseInt(div1[1].substring(5, div1[1].length() - 2));
-                    
-                } else { 
+
+                } else {
                     Character = "int";
                     //System.out.println("\nc: "+div1[1].substring(4, div1[1].length() - 2));
                     size = Integer.parseInt(div1[1].substring(4, div1[1].length() - 2));
                 }
-                
+
                 Object[] row = {nombre, Character, size, isKey};
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
                 modelo.addRow(row);
                 tabla.setModel(modelo);
             }
-            
+
 //            for (Campo c : file.getFields()) {
 //                
 //                Object[] row = {((Campo) c).getName(), ((Campo) c).character(), c.getSize(), c.isKey()};
@@ -1301,52 +1310,55 @@ public class Main_Screen extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
-    public boolean IsCharacter(String str){
+
+    public boolean IsCharacter(String str) {
         char c = str.charAt(0);
-        return (c=='S'||c == 'C');
+        return (c == 'S' || c == 'C');
     }
-    public void EdicionPanel(String task, int pos){
-        TitleCampo.setText(task+" Campos");
+
+    public void EdicionPanel(String task, int pos) {
+        TitleCampo.setText(task + " Campos");
         bt_createC.setText(task);
-        if (pos>=0) {
+        if (pos >= 0) {
             boolean isKey = file.getFields().get(pos).isKey();
             tf_nameA.setText(file.getFields().get(pos).getName());
             ff_longitudA.setText(Integer.toString(file.getFields().get(pos).getSize()));
-            int index = (file.getFields().get(pos).isIsCharacter())?2:1;
+            int index = (file.getFields().get(pos).isIsCharacter()) ? 2 : 1;
             cb_dataType.setSelectedIndex(index);
             if (isKey) {
                 si.setSelected(true);
                 no.setSelected(false);
-            }else{
+            } else {
                 no.setSelected(true);
                 si.setSelected(false);
             }
-            
-        }else{
+
+        } else {
             tf_nameA.setText("");
             ff_longitudA.setText("");
             bg_key.clearSelection();
         }
-        
+
     }
-    public String ModMetada(String campo, int pos){
-        System.out.println("Data:"+file.getMetadata()+" Pos: "+pos);
+
+    public String ModMetada(String campo, int pos) {
+        System.out.println("Data:" + file.getMetadata() + " Pos: " + pos);
         String[] Campos = file.getMetadata().split(",");
         String new_metadata = "";
         for (int i = 0; i < Campos.length; i++) {
-            if (i==pos) {
-                new_metadata+=campo;
-            }else{
-                new_metadata+=Campos[i]+",";
+            if (i == pos) {
+                new_metadata += campo;
+            } else {
+                new_metadata += Campos[i] + ",";
             }
         }
-        return new_metadata; 
+        return new_metadata;
     }
+
     public boolean KeyValue(char Key_suffix) {
-        return Key_suffix == 'f'; 
+        return Key_suffix == 'f';
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ArchivosButton;
