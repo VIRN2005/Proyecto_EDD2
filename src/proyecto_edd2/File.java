@@ -5,19 +5,21 @@
 package proyecto_edd2;
 
 import java.io.*;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Victor
  */
-class File {
+class File extends java.io.File {
+
     // Files Necesarios para guardar Archivos y Indices
     private java.io.File file;
     private java.io.File index;
@@ -27,7 +29,8 @@ class File {
     private int tamRecord;
     private int primKeyIndex;
     private int secondaryKeyIndex;
-    private int firstDisponible;
+    private int firstSlot;
+    private String metadata;
 
     // BRs, ArrayLists & LinkedLists used 
     private BufferedReader br;
@@ -36,18 +39,17 @@ class File {
     private LinkedList<Integer> slots = new LinkedList<>();
 
     // Constructors (Empty & Overloaded)
-    public File() {
-
+    public File(String pathname) {
+        super(pathname);
+        this.file = new java.io.File(pathname);
+        this.tamRecord = 1;
+        this.firstSlot = -1;
+        this.metadata = "";
     }
 
-    public File(java.io.File files, int l) {
-        this.file = files;
-        tamRecord = l;
-        firstDisponible = -1;
-    }
-
-    public File(java.io.File file, java.io.File index, int countRegis, int tamRecord) {
-        this.file = file;
+    public File(String pathname, java.io.File index, int countRegis, int tamRecord) {
+        super(pathname);
+        this.file = new java.io.File(pathname);
         this.index = index;
         this.countRegis = countRegis;
         this.tamRecord = tamRecord;
@@ -102,12 +104,12 @@ class File {
         this.secondaryKeyIndex = secondaryKeyIndex;
     }
 
-    public int getFirstDisponible() {
-        return firstDisponible;
+    public int getFirstSlot() {
+        return firstSlot;
     }
 
-    public void setFirstDisponible(int firstDisponible) {
-        this.firstDisponible = firstDisponible;
+    public void setFirstSlot(int firstDisponible) {
+        this.firstSlot = firstDisponible;
     }
 
     public BufferedReader getBr() {
@@ -142,15 +144,25 @@ class File {
         this.slots = slot;
     }
 
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
     // Methods usados en Class File
     // Inicializa File y Valores en él
-    public File(java.io.File archivo) throws FileNotFoundException {
+    public void AddFile(java.io.File archivo) throws FileNotFoundException {
         this.file = archivo;
 
-        int part = firstDisponible;
+        int posS = firstSlot;
         br = new BufferedReader(new FileReader(archivo));
 
         try {
+            this.metadata = br.readLine();
+            metadata = br.readLine();
             String FieldsStr = br.readLine();
             String[] F_Str = FieldsStr.substring(1, FieldsStr.length() - 1).split(", ");
 
@@ -161,18 +173,18 @@ class File {
 
             tamRecord = Integer.parseInt(br.readLine());
             countRegis = Integer.parseInt(br.readLine());
-            firstDisponible = Integer.parseInt(br.readLine());
+            posS = Integer.parseInt(br.readLine());
 
-            if (firstDisponible > -1) {
-                slots.add(firstDisponible);
+            if (posS > -1) {
+                slots.add(posS);//añade al final
             }
 
-            while (part > 0) {
-                String salida = (String) SearchLine(part + 3, this.file);
+            while (posS > 0) {
+                String salida = (String) SearchLine(posS + 3, this.file);
                 String[] linea = salida.split("\\|");
-                part = Integer.parseInt(linea[0].substring(1));
-                if (part > 0) {
-                    slots.add(0, part);
+                posS = Integer.parseInt(linea[0].substring(1));
+                if (posS > 0) {
+                    slots.add(0, posS);//añade al inicio
                 }
             }
 
@@ -226,27 +238,132 @@ class File {
 
     // Ve cual es el Tamaño del Registro
     public void calcRecordSize() {
-        tamRecord = 0;
         for (int i = 0; i < fields.size(); i++) {
+            tamRecord = 0;
             tamRecord += fields.get(i).getSize() + 1;
         }
     }
 
-    //Dejo esto por Aquí... Nos podría servir mas Adelante JAJAJAJA
-    /*  public void saveFile() {
-        try (ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(name + ".atv"))) {
-            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Andrea, Tatiana & Víctor)
-            OOS.writeObject(fields);
-            OOS.writeObject(records);
-            JOptionPane.showMessageDialog(null, "File saved successfully.", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
+    public void createFile() {
+        ObjectOutputStream OOS = null;
+        try {
+//            this.file = archivo;
+            OOS = new ObjectOutputStream(new FileOutputStream(file));
+            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Tatiana, Víctor & Andrea)
+            OOS.flush();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                OOS.close();
+            } catch (IOException ex) {
+            }
         }
-        cambiosPendientes = false;
+    }
+
+    public void saveFile(java.io.File archivo) {
+        this.file = archivo;
+        if (file.exists()) {
+            FileOutputStream fw = null;
+            ObjectOutputStream OOS = null;
+            try {
+                fw = new FileOutputStream(file, false);
+                OOS = new ObjectOutputStream(fw);
+                //OOS.writeObject(fields);
+
+                System.out.println("M: " + metadata);
+                OOS.writeObject(metadata);
+                for (Registro r : records) {
+                    OOS.writeObject(r);
+                }
+                OOS.flush();
+
+                JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                try {
+                    OOS.close();
+                    fw.close();
+                } catch (Exception ex) {
+                }
+            }
+        } else {
+            System.out.println("no entro");
+        }
+    }
+
+    public void openFile(java.io.File archivo) {
+        try {
+            records = new ArrayList();
+//            Registro temp;
+            this.file = archivo;
+            if (file.exists()) {
+                ObjectInputStream objeto = new ObjectInputStream(new FileInputStream(file));
+
+                try {
+                    this.metadata = (String) objeto.readObject();
+
+//                    while ((temp = (Registro) objeto.readObject()) != null) {
+//                        records.add(temp);
+//                    }
+                } catch (EOFException e) {
+                    //encontro el final del archivo
+                }
+                objeto.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //Faltaria que al pasar estos metodos, modifique la estructura de registros. 
+    public void modifyFields(int pos, Campo campo) {
+        this.fields.get(pos).setName(campo.getName());
+        this.fields.get(pos).setSize(campo.getSize());
+        this.fields.get(pos).setIsCharacter(campo.isIsCharacter());
+        this.fields.get(pos).setIsKeyT1(campo.isIsKeyT1());
+        this.fields.get(pos).setIsKeyT2(campo.isIsKeyT2());
+        this.fields.get(pos).setKey(campo.isKey());
+        //metadata = campo.toString(); 
+    }
+    public Campo Getcampo(int pos){
+        Campo campo = null;
+        String[]Campos=metadata.split(",");
+        String[] div1 = Campos[pos].split(": ");
+        String nombre = div1[0];
+
+        char lastChar = div1[1].charAt(div1[1].length() - 1);
+        //setKeysValues(lastChar);
+        boolean isKey = KeyValue(lastChar);
+        String Character;
+        int size;
+        
+        if (div1[1].charAt(0) == 'c') {
+            Character = "char";
+            //System.out.println("\nc: "+div1[1].substring(5, div1[1].length() - 2));
+            size = Integer.parseInt(div1[1].substring(5, div1[1].length() - 2));
+
+        } else {
+            Character = "int";
+            //System.out.println("\nc: "+div1[1].substring(4, div1[1].length() - 2));
+            size = Integer.parseInt(div1[1].substring(4, div1[1].length() - 2));
+        }
+        campo = new Campo(size, nombre, isKey, IsCharacter(Character), false, false);
+        return campo;
+    }
+    public boolean KeyValue(char Key_suffix) {
+        return Key_suffix == 'f';
+    }
+    public boolean IsCharacter(String str) {
+        char c = str.charAt(0);
+        return (c == 'S' || c == 'C'||c == 's' || c == 'c');
+    } 
+
+    public void deleteCampo(int pos) {
+        this.fields.remove(pos);
     }
 
     // Metodo para cerrar el Archivo
-    public void cerrarArchivo() {
+    /*public void cerrarArchivo() {
         if (cambiosPendientes) {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas guardar los cambios antes de cerrar?", "Guardar Cambios", JOptionPane.YES_NO_CANCEL_OPTION);
 
@@ -260,6 +377,5 @@ class File {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Archivo CERRADO Correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }*/
+        }*/
 }
