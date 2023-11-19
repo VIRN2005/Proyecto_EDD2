@@ -504,9 +504,9 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_archivo.setForeground(new java.awt.Color(255, 255, 255));
         jl_archivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_archivo.setText("Archivo en uso: Ninguno");
-        jPanel1.add(jl_archivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 50));
+        jPanel1.add(jl_archivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 50));
 
-        Menu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, -1, -1));
+        Menu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 20, 280, -1));
 
         MenuBar.setBackground(new java.awt.Color(17, 30, 58));
         MenuBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
