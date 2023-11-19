@@ -12,6 +12,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 public class Main_Screen extends javax.swing.JFrame {
@@ -19,6 +20,7 @@ public class Main_Screen extends javax.swing.JFrame {
     File file = null;
     String metadata = "";
     java.io.File archivo = null;
+    java.io.File folder = null;
     ///
     int Panel = 0, pos_ModCampo;
 
@@ -117,6 +119,24 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         EstandarizacionButton = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        pn_campos = new javax.swing.JPanel();
+        bt_listarC = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        bt_crearC = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        bt_modificarC = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        bt_borrarC = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        Fondo2 = new javax.swing.JLabel();
         pn_archivos = new javax.swing.JPanel();
         bt_abrirA = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -138,26 +158,8 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        Fondo2 = new javax.swing.JLabel();
-        pn_campos = new javax.swing.JPanel();
-        bt_listarC = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        bt_crearC = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        bt_modificarC = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        bt_borrarC = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        Fondo3 = new javax.swing.JLabel();
         Fondo1 = new javax.swing.JLabel();
+        Fondo3 = new javax.swing.JLabel();
         Inicio = new javax.swing.JPanel();
         start = new javax.swing.JLabel();
         pb = new javax.swing.JProgressBar();
@@ -449,8 +451,7 @@ public class Main_Screen extends javax.swing.JFrame {
         pn_crearC.add(bt_createC, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, -1));
 
         cb_dataType.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        cb_dataType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Int", "Char" }));
-        cb_dataType.setSelectedIndex(1);
+        cb_dataType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Int", "Char", "Float" }));
         pn_crearC.add(cb_dataType, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 390, 30));
 
         jLabel44.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
@@ -489,7 +490,11 @@ public class Main_Screen extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 800));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Menu.setMinimumSize(new java.awt.Dimension(1280, 800));
+        Menu.setPreferredSize(new java.awt.Dimension(1280, 800));
         Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(17, 30, 58));
@@ -499,9 +504,9 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_archivo.setForeground(new java.awt.Color(255, 255, 255));
         jl_archivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_archivo.setText("Archivo en uso: Ninguno");
-        jPanel1.add(jl_archivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 50));
+        jPanel1.add(jl_archivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 50));
 
-        Menu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 10, 260, 50));
+        Menu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, -1, -1));
 
         MenuBar.setBackground(new java.awt.Color(17, 30, 58));
         MenuBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -669,7 +674,113 @@ public class Main_Screen extends javax.swing.JFrame {
 
         MenuBar.add(EstandarizacionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 300, -1));
 
-        Menu.add(MenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 770));
+        Menu.add(MenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 790));
+
+        pn_campos.setBackground(new java.awt.Color(51, 51, 51));
+        pn_campos.setForeground(new java.awt.Color(255, 255, 255));
+        pn_campos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bt_listarC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_listarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_listarC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_listarCMouseClicked(evt);
+            }
+        });
+        bt_listarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/portapapeles.png"))); // NOI18N
+        bt_listarC.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 34, 70, 80));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_listarC.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel23.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Listar Campos");
+        bt_listarC.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
+
+        pn_campos.add(bt_listarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 120, 220, 210));
+
+        bt_crearC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_crearC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_crearC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_crearCMouseClicked(evt);
+            }
+        });
+        bt_crearC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagina.png"))); // NOI18N
+        bt_crearC.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_crearC.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel26.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("Crear Campos");
+        jLabel26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_crearC.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 220, -1));
+
+        pn_campos.add(bt_crearC, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, 220, 210));
+
+        bt_modificarC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_modificarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_modificarC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_modificarCMouseClicked(evt);
+            }
+        });
+        bt_modificarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
+        bt_modificarC.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 44, 90, 70));
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_modificarC.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel32.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("Modificar Campos");
+        bt_modificarC.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
+
+        pn_campos.add(bt_modificarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 220, 210));
+
+        bt_borrarC.setBackground(new java.awt.Color(17, 30, 58));
+        bt_borrarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_borrarC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_borrarCMouseClicked(evt);
+            }
+        });
+        bt_borrarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
+        bt_borrarC.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
+
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
+        bt_borrarC.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel35.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("Borrar Campos");
+        bt_borrarC.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
+
+        pn_campos.add(bt_borrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 450, 220, 210));
+
+        Fondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        pn_campos.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
+
+        Menu.add(pn_campos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 760));
 
         pn_archivos.setBackground(new java.awt.Color(51, 51, 51));
         pn_archivos.setForeground(new java.awt.Color(255, 255, 255));
@@ -698,7 +809,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel11.setText("Abrir Archivo");
         bt_abrirA.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
 
-        pn_archivos.add(bt_abrirA, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 220, 210));
+        pn_archivos.add(bt_abrirA, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 220, 210));
 
         bt_nuevoA.setBackground(new java.awt.Color(17, 30, 58));
         bt_nuevoA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -723,7 +834,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         bt_nuevoA.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 220, -1));
 
-        pn_archivos.add(bt_nuevoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 220, 210));
+        pn_archivos.add(bt_nuevoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 220, 210));
 
         bt_salvarA.setBackground(new java.awt.Color(17, 30, 58));
         bt_salvarA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -747,7 +858,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel14.setText("Salvar Archivo");
         bt_salvarA.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
 
-        pn_archivos.add(bt_salvarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 120, 220, 210));
+        pn_archivos.add(bt_salvarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 120, 220, 210));
 
         bt_cerrarA.setBackground(new java.awt.Color(17, 30, 58));
         bt_cerrarA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -771,7 +882,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel17.setText("Cerrar Archivo");
         bt_cerrarA.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
 
-        pn_archivos.add(bt_cerrarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 220, 210));
+        pn_archivos.add(bt_cerrarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 220, 210));
 
         bt_salir.setBackground(new java.awt.Color(17, 30, 58));
         bt_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -795,121 +906,17 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel20.setText("Salir");
         bt_salir.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
 
-        pn_archivos.add(bt_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 220, 210));
-
-        Fondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
-        pn_archivos.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        Menu.add(pn_archivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 1370, 780));
-
-        pn_campos.setBackground(new java.awt.Color(51, 51, 51));
-        pn_campos.setForeground(new java.awt.Color(255, 255, 255));
-        pn_campos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        bt_listarC.setBackground(new java.awt.Color(17, 30, 58));
-        bt_listarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_listarC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_listarCMouseClicked(evt);
-            }
-        });
-        bt_listarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/portapapeles.png"))); // NOI18N
-        bt_listarC.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 34, 70, 80));
-
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
-        bt_listarC.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
-
-        jLabel23.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Listar Campos");
-        bt_listarC.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
-
-        pn_campos.add(bt_listarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 120, 220, 210));
-
-        bt_crearC.setBackground(new java.awt.Color(17, 30, 58));
-        bt_crearC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_crearC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_crearCMouseClicked(evt);
-            }
-        });
-        bt_crearC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagina.png"))); // NOI18N
-        bt_crearC.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
-
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
-        bt_crearC.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
-
-        jLabel26.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("Crear Campos");
-        jLabel26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_crearC.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 220, -1));
-
-        pn_campos.add(bt_crearC, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 220, 210));
-
-        bt_modificarC.setBackground(new java.awt.Color(17, 30, 58));
-        bt_modificarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_modificarC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_modificarCMouseClicked(evt);
-            }
-        });
-        bt_modificarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
-        bt_modificarC.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 44, 90, 70));
-
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
-        bt_modificarC.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
-
-        jLabel32.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setText("Modificar Campos");
-        bt_modificarC.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
-
-        pn_campos.add(bt_modificarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 390, 220, 210));
-
-        bt_borrarC.setBackground(new java.awt.Color(17, 30, 58));
-        bt_borrarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_borrarC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_borrarCMouseClicked(evt);
-            }
-        });
-        bt_borrarC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar.png"))); // NOI18N
-        bt_borrarC.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Orange.png"))); // NOI18N
-        bt_borrarC.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
-
-        jLabel35.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Borrar Campos");
-        bt_borrarC.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
-
-        pn_campos.add(bt_borrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 390, 220, 210));
-
-        Fondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
-        pn_campos.add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        Menu.add(pn_campos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, -1, 770));
+        pn_archivos.add(bt_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 420, 220, 210));
 
         Fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
-        Menu.add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        pn_archivos.add(Fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        Menu.add(pn_archivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 780));
+
+        Fondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        Menu.add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
+
+        getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1314, -1));
 
         Inicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -920,7 +927,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 startMouseClicked(evt);
             }
         });
-        Inicio.add(start, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 1370, 120));
+        Inicio.add(start, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 1280, 120));
 
         pb.setForeground(new java.awt.Color(255, 255, 255));
         Inicio.add(pb, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 640, 40));
@@ -929,31 +936,12 @@ public class Main_Screen extends javax.swing.JFrame {
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("STANDARD FILE MANAGER");
-        Inicio.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 1360, -1));
+        Inicio.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 1280, -1));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
-        Inicio.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Inicio.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1326, 812));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1024,7 +1012,15 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_CamposButtonMouseClicked
 
     private void bt_nuevoAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_nuevoAMouseClicked
-        AbrirJD(jd_nuevoA);
+        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int result = fileChooser.showSaveDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            folder = fileChooser.getSelectedFile();
+            AbrirJD(jd_nuevoA);
+        }
     }//GEN-LAST:event_bt_nuevoAMouseClicked
 
     private void bt_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_salirMouseClicked
@@ -1037,7 +1033,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_listarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarCMouseClicked
         if (file != null) {
-            if (file.getMetadata() != null&&!"".equals(file.getMetadata())) {
+            if (file.getMetadata() != null && !"".equals(file.getMetadata())) {
                 ListarTabla(jt_listarC);
                 AbrirJD(jd_listarC);
             } else {
@@ -1051,7 +1047,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_modificarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarCMouseClicked
         if (file != null) {
-            if (file.getMetadata() != null&&!"".equals(file.getMetadata())) {
+            if (file.getMetadata() != null && !"".equals(file.getMetadata())) {
                 ListarTabla(jt_modificarC);
                 AbrirJD(jd_modificarC);
             } else {
@@ -1064,7 +1060,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_borrarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_borrarCMouseClicked
         if (file != null) {
-            if (file.getMetadata() != null&&!"".equals(file.getMetadata())) {
+            if (file.getMetadata() != null && !"".equals(file.getMetadata())) {
                 ListarTabla(jt_borrarC);
                 AbrirJD(jd_borrarC);
             } else {
@@ -1105,7 +1101,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_openFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_openFMouseClicked
-        file = new File("./" + tf_Filepath.getText());
+        file = new File(archivo.getPath() + "/" + tf_Filepath.getText());
         file.openFile(file);
 //        try {
 //            file.AddFile(archivo);
@@ -1120,7 +1116,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_openFMouseClicked
 
     private void bt_crearAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearAMouseClicked
-        file = new File("./" + tf_nuevoA.getText()+".tva");
+        file = new File(folder.getPath() + "/" + tf_nuevoA.getText() + ".tva");
         file.createFile();
 
         jd_nuevoA.setVisible(false);
@@ -1152,7 +1148,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_cerrarAMouseClicked
 
     private void bt_createCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_createCMouseClicked
-
         try {
             if (!"".equals(tf_nameA.getText()) && !"".equals(ff_longitudA.getText()) && (si.isSelected() || no.isSelected())) {
 
@@ -1165,8 +1160,8 @@ public class Main_Screen extends javax.swing.JFrame {
                 String MetaData = file.getMetadata();
                 if (Panel == 1) {
                     //file.getFields().add(nuevo_campo);
-                    if (MetaData==null) {
-                        MetaData="";
+                    if (MetaData == null) {
+                        MetaData = "";
                     }
                     MetaData += nuevo_campo.toString() + ",";
                     file.setMetadata(MetaData);
@@ -1296,7 +1291,7 @@ public class Main_Screen extends javax.swing.JFrame {
             for (int i = 0; i < Campos.length; i++) {
                 Campo campo_temp = file.Getcampo(i);
                 String Character = campo_temp.character();
-                
+
                 Object[] row = {campo_temp.getName(), Character, campo_temp.getSize(), campo_temp.isKey()};
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
                 modelo.addRow(row);
@@ -1323,7 +1318,7 @@ public class Main_Screen extends javax.swing.JFrame {
     public void EdicionPanel(String task, int pos) {
         TitleCampo.setText(task + " Campos");
         bt_createC.setText(task);
-        
+
         if (pos >= 0) {
             Campo campo_temp = file.Getcampo(pos);
             boolean isKey = campo_temp.isKey();
@@ -1360,8 +1355,6 @@ public class Main_Screen extends javax.swing.JFrame {
         }
         return new_metadata;
     }
-
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
