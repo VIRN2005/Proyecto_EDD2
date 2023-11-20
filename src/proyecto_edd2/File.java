@@ -301,6 +301,7 @@ class File extends java.io.File {
 
                 try {
                     this.metadata = (String) objeto.readObject();
+                    System.out.println("metadata al abrir: " + metadata);
 
 //                    while ((temp = (Registro) objeto.readObject()) != null) {
 //                        records.add(temp);
@@ -309,6 +310,8 @@ class File extends java.io.File {
                     //encontro el final del archivo
                 }
                 objeto.close();
+            }else{
+                System.out.println("no existe");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

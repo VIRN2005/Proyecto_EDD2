@@ -1101,7 +1101,8 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_openFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_openFMouseClicked
-        file = new File(archivo.getPath() + "/" + tf_Filepath.getText());
+        System.out.println(archivo.getPath());
+        file = new File(archivo.getPath());
         file.openFile(file);
 //        try {
 //            file.AddFile(archivo);
@@ -1109,13 +1110,16 @@ public class Main_Screen extends javax.swing.JFrame {
 //            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
+        
         jd_abrirA.setVisible(false);
+        
         JOptionPane.showMessageDialog(this, "Archivo abierto con éxito");
 
         ActualizarLabel();
     }//GEN-LAST:event_bt_openFMouseClicked
 
     private void bt_crearAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearAMouseClicked
+        System.out.println("-> " + folder.getPath());
         file = new File(folder.getPath() + "/" + tf_nuevoA.getText() + ".tva");
         file.createFile();
 
@@ -1160,12 +1164,12 @@ public class Main_Screen extends javax.swing.JFrame {
                 String MetaData = file.getMetadata();
                 if (Panel == 1) {
                     //file.getFields().add(nuevo_campo);
-                    if (CampoValido(nuevo_campo, MetaData,-1)) {
-                        if (MetaData==null||MetaData=="") {
-                            MetaData="";
+                    if (CampoValido(nuevo_campo, MetaData, -1)) {
+                        if (MetaData == null || MetaData == "") {
+                            MetaData = "";
                             MetaData += nuevo_campo.toString();
-                        }else{
-                            MetaData +=","+ nuevo_campo.toString();
+                        } else {
+                            MetaData += "," + nuevo_campo.toString();
                         }
 
                         file.setMetadata(MetaData);
@@ -1173,12 +1177,12 @@ public class Main_Screen extends javax.swing.JFrame {
 
                         JOptionPane.showMessageDialog(null, "¡Se ha creado el campo con éxito! Recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
                         EdicionPanel("Crear", -1);
-                    }else{
-                        JOptionPane.showMessageDialog(null, "El campo que quiere crear ya existe, ingrese un nombre de campo distinto", "Warning", WARNING_MESSAGE);                        
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El campo que quiere crear ya existe, ingrese un nombre de campo distinto", "Warning", WARNING_MESSAGE);
                     }
-                    
+
                 } else {
-                    if (CampoValido(nuevo_campo, MetaData,pos_ModCampo)) {
+                    if (CampoValido(nuevo_campo, MetaData, pos_ModCampo)) {
                         //System.out.println("metadata en file: " + file.getMetadata());
                         MetaData = ModMetada((nuevo_campo.toString()), pos_ModCampo);
                         file.setMetadata(MetaData);
@@ -1189,8 +1193,8 @@ public class Main_Screen extends javax.swing.JFrame {
                         AbrirJD(jd_modificarC);
                         JOptionPane.showMessageDialog(null, "¡Se ha modificado el campo con éxito! Recuerde guardar cambios.", "Task Successfully not Failed", INFORMATION_MESSAGE);
 
-                    }else{
-                        JOptionPane.showMessageDialog(null, "El campo que quiere crear ya existe, ingrese un nombre de campo distinto", "Warning", WARNING_MESSAGE);                                              
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El campo que quiere crear ya existe, ingrese un nombre de campo distinto", "Warning", WARNING_MESSAGE);
                     }
                 }
 
@@ -1330,7 +1334,7 @@ public class Main_Screen extends javax.swing.JFrame {
     public void EdicionPanel(String task, int pos) {
         TitleCampo.setText(task + " Campos");
         bt_createC.setText(task);
-        
+
         if (pos >= 0) {
             Campo campo_temp = file.Getcampo(pos);
             boolean isKey = campo_temp.isKey();
@@ -1360,27 +1364,28 @@ public class Main_Screen extends javax.swing.JFrame {
         String new_metadata = "";
         for (int i = 0; i < Campos.length; i++) {
             if (i == pos) {
-                if (i==0) {
+                if (i == 0) {
                     new_metadata += campo;
-                }else{
-                    new_metadata +=","+campo;
+                } else {
+                    new_metadata += "," + campo;
                 }
             } else {
-                if (i!=0) {
-                    new_metadata += ","+Campos[i] ;
-                }else{
-                    new_metadata += Campos[i] ;
+                if (i != 0) {
+                    new_metadata += "," + Campos[i];
+                } else {
+                    new_metadata += Campos[i];
                 }
             }
         }
         return new_metadata;
     }
-    public boolean CampoValido(Campo campo, String metadata, int pos){
+
+    public boolean CampoValido(Campo campo, String metadata, int pos) {
         String nombre = campo.getName().toLowerCase();
         String[] Campos = metadata.split(",");
-        if (pos>=0) {
+        if (pos >= 0) {
             for (int i = 0; i < Campos.length; i++) {
-                if (i!=pos) {
+                if (i != pos) {
                     Campo campo_temp = file.Getcampo(i);
                     String name_campo = campo_temp.getName().toLowerCase();
                     if (nombre.equals(name_campo)) {
@@ -1389,8 +1394,8 @@ public class Main_Screen extends javax.swing.JFrame {
                 }
             }
         }
-        
-        return true; 
+
+        return true;
     }
 
 
