@@ -36,6 +36,9 @@ public class Main_Screen extends javax.swing.JFrame {
         start.setVisible(false);
         pn_archivos.setVisible(false);
         pn_campos.setVisible(false);
+        pn_registros.setVisible(false);
+        pn_indices.setVisible(false);
+        pn_estandarizacion.setVisible(false);
 
         AdmBarra h = new AdmBarra(pb);
         Thread hilo = new Thread(h);
@@ -119,6 +122,48 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         EstandarizacionButton = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        pn_estandarizacion = new javax.swing.JPanel();
+        bt_exportarE = new javax.swing.JPanel();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        bt_exportarXML = new javax.swing.JPanel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        Fondo6 = new javax.swing.JLabel();
+        pn_indices = new javax.swing.JPanel();
+        bt_crearI = new javax.swing.JPanel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        bt_reIndexarA = new javax.swing.JPanel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        Fondo5 = new javax.swing.JLabel();
+        pn_registros = new javax.swing.JPanel();
+        bt_modificarR = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        bt_introducirR = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        bt_buscarR = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        bt_borrarR = new javax.swing.JPanel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        bt_listarR = new javax.swing.JPanel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        Fondo4 = new javax.swing.JLabel();
         pn_campos = new javax.swing.JPanel();
         bt_listarC = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
@@ -490,7 +535,6 @@ public class Main_Screen extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Menu.setMinimumSize(new java.awt.Dimension(1280, 800));
@@ -583,6 +627,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
         RegistrosButton.setBackground(new java.awt.Color(17, 30, 58));
         RegistrosButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 RegistrosButtonMouseEntered(evt);
             }
@@ -614,6 +661,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
         IndicesButton.setBackground(new java.awt.Color(17, 30, 58));
         IndicesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IndicesButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 IndicesButtonMouseEntered(evt);
             }
@@ -645,6 +695,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
         EstandarizacionButton.setBackground(new java.awt.Color(17, 30, 58));
         EstandarizacionButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EstandarizacionButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 EstandarizacionButtonMouseEntered(evt);
             }
@@ -675,6 +728,253 @@ public class Main_Screen extends javax.swing.JFrame {
         MenuBar.add(EstandarizacionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 300, -1));
 
         Menu.add(MenuBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 790));
+
+        pn_estandarizacion.setBackground(new java.awt.Color(51, 51, 51));
+        pn_estandarizacion.setForeground(new java.awt.Color(255, 255, 255));
+        pn_estandarizacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bt_exportarE.setBackground(new java.awt.Color(17, 30, 58));
+        bt_exportarE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_exportarE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_exportarEMouseClicked(evt);
+            }
+        });
+        bt_exportarE.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel68.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagina.png"))); // NOI18N
+        bt_exportarE.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
+
+        jLabel69.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Purple.png"))); // NOI18N
+        bt_exportarE.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel70.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel70.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel70.setText("Exportar Excel");
+        jLabel70.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_exportarE.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 210, -1));
+
+        pn_estandarizacion.add(bt_exportarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 220, 210));
+
+        bt_exportarXML.setBackground(new java.awt.Color(17, 30, 58));
+        bt_exportarXML.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_exportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_exportarXMLMouseClicked(evt);
+            }
+        });
+        bt_exportarXML.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
+        bt_exportarXML.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 100, 80));
+
+        jLabel72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Purple.png"))); // NOI18N
+        bt_exportarXML.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 120, -1));
+
+        jLabel73.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel73.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel73.setText("Exportar XML con Schema");
+        bt_exportarXML.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 290, -1));
+
+        pn_estandarizacion.add(bt_exportarXML, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 260, 290, 210));
+
+        Fondo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        pn_estandarizacion.add(Fondo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
+
+        Menu.add(pn_estandarizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 760));
+
+        pn_indices.setBackground(new java.awt.Color(51, 51, 51));
+        pn_indices.setForeground(new java.awt.Color(255, 255, 255));
+        pn_indices.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bt_crearI.setBackground(new java.awt.Color(17, 30, 58));
+        bt_crearI.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_crearI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_crearIMouseClicked(evt);
+            }
+        });
+        bt_crearI.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagina.png"))); // NOI18N
+        bt_crearI.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
+
+        jLabel63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Blue.png"))); // NOI18N
+        bt_crearI.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel64.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel64.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel64.setText("Crear Índices");
+        jLabel64.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_crearI.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 210, -1));
+
+        pn_indices.add(bt_crearI, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 260, 220, 210));
+
+        bt_reIndexarA.setBackground(new java.awt.Color(17, 30, 58));
+        bt_reIndexarA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_reIndexarA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_reIndexarAMouseClicked(evt);
+            }
+        });
+        bt_reIndexarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel65.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
+        bt_reIndexarA.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 44, 90, 70));
+
+        jLabel66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Blue.png"))); // NOI18N
+        bt_reIndexarA.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel67.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel67.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel67.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel67.setText("Re Indexar Archivos");
+        bt_reIndexarA.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
+
+        pn_indices.add(bt_reIndexarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 260, 220, 210));
+
+        Fondo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        pn_indices.add(Fondo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
+
+        Menu.add(pn_indices, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 760));
+
+        pn_registros.setBackground(new java.awt.Color(51, 51, 51));
+        pn_registros.setForeground(new java.awt.Color(255, 255, 255));
+        pn_registros.setPreferredSize(new java.awt.Dimension(1366, 768));
+        pn_registros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        bt_modificarR.setBackground(new java.awt.Color(17, 30, 58));
+        bt_modificarR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_modificarR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_modificarRMouseClicked(evt);
+            }
+        });
+        bt_modificarR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
+        bt_modificarR.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, -1, 70));
+
+        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
+        bt_modificarR.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel46.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel46.setText("Modificar Registros");
+        bt_modificarR.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
+
+        pn_registros.add(bt_modificarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 220, 210));
+
+        bt_introducirR.setBackground(new java.awt.Color(17, 30, 58));
+        bt_introducirR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_introducirR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_introducirRMouseClicked(evt);
+            }
+        });
+        bt_introducirR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anadir.png"))); // NOI18N
+        bt_introducirR.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 80, 70));
+
+        jLabel48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
+        bt_introducirR.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel49.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel49.setText("Introducir Registros");
+        jLabel49.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_introducirR.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 160, 210, -1));
+
+        pn_registros.add(bt_introducirR, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 220, 210));
+
+        bt_buscarR.setBackground(new java.awt.Color(17, 30, 58));
+        bt_buscarR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_buscarR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_buscarRMouseClicked(evt);
+            }
+        });
+        bt_buscarR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel50.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        bt_buscarR.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
+
+        jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
+        bt_buscarR.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel52.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel52.setText("Buscar Registros");
+        bt_buscarR.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 160, 220, -1));
+
+        pn_registros.add(bt_buscarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 120, 220, 210));
+
+        bt_borrarR.setBackground(new java.awt.Color(17, 30, 58));
+        bt_borrarR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_borrarR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_borrarRMouseClicked(evt);
+            }
+        });
+        bt_borrarR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel53.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/borrar_1.png"))); // NOI18N
+        bt_borrarR.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
+
+        jLabel54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
+        bt_borrarR.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel55.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel55.setText("Borrar Registros");
+        bt_borrarR.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
+
+        pn_registros.add(bt_borrarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 220, 210));
+
+        bt_listarR.setBackground(new java.awt.Color(17, 30, 58));
+        bt_listarR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_listarR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_listarRMouseClicked(evt);
+            }
+        });
+        bt_listarR.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel56.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/portapapeles.png"))); // NOI18N
+        bt_listarR.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 44, 70, 70));
+
+        jLabel57.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
+        bt_listarR.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+
+        jLabel58.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel58.setText("Listar Registros");
+        bt_listarR.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
+
+        pn_registros.add(bt_listarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 420, 220, 210));
+
+        Fondo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
+        pn_registros.add(Fondo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        Menu.add(pn_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 780));
 
         pn_campos.setBackground(new java.awt.Color(51, 51, 51));
         pn_campos.setForeground(new java.awt.Color(255, 255, 255));
@@ -751,7 +1051,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel32.setText("Modificar Campos");
         bt_modificarC.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
 
-        pn_campos.add(bt_modificarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 220, 210));
+        pn_campos.add(bt_modificarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 220, 210));
 
         bt_borrarC.setBackground(new java.awt.Color(17, 30, 58));
         bt_borrarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -775,7 +1075,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel35.setText("Borrar Campos");
         bt_borrarC.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 160, 210, -1));
 
-        pn_campos.add(bt_borrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 450, 220, 210));
+        pn_campos.add(bt_borrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 430, 220, 210));
 
         Fondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         pn_campos.add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
@@ -993,6 +1293,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void ArchivosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchivosButtonMouseClicked
         pn_campos.setVisible(false);
+        pn_registros.setVisible(false);
+        pn_indices.setVisible(false);
+        pn_estandarizacion.setVisible(false);
 
         if (pn_archivos.isVisible()) {
             pn_archivos.setVisible(false);
@@ -1003,6 +1306,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void CamposButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CamposButtonMouseClicked
         pn_archivos.setVisible(false);
+        pn_registros.setVisible(false);
+        pn_indices.setVisible(false);
+        pn_estandarizacion.setVisible(false);
 
         if (pn_campos.isVisible()) {
             pn_campos.setVisible(false);
@@ -1245,6 +1551,81 @@ public class Main_Screen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_FilepathActionPerformed
 
+    private void bt_modificarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarRMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_modificarRMouseClicked
+
+    private void bt_introducirRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_introducirRMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_introducirRMouseClicked
+
+    private void bt_buscarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarRMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_buscarRMouseClicked
+
+    private void bt_borrarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_borrarRMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_borrarRMouseClicked
+
+    private void bt_listarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_listarRMouseClicked
+
+    private void RegistrosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosButtonMouseClicked
+        pn_archivos.setVisible(false);
+        pn_campos.setVisible(false);
+        pn_indices.setVisible(false);
+        pn_estandarizacion.setVisible(false);
+
+        if (pn_registros.isVisible()) {
+            pn_registros.setVisible(false);
+        } else {
+            pn_registros.setVisible(true);
+        }
+    }//GEN-LAST:event_RegistrosButtonMouseClicked
+
+    private void bt_crearIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearIMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_crearIMouseClicked
+
+    private void bt_reIndexarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_reIndexarAMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_reIndexarAMouseClicked
+
+    private void IndicesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IndicesButtonMouseClicked
+        pn_archivos.setVisible(false);
+        pn_campos.setVisible(false);
+        pn_registros.setVisible(false);
+        pn_estandarizacion.setVisible(false);
+
+        if (pn_indices.isVisible()) {
+            pn_indices.setVisible(false);
+        } else {
+            pn_indices.setVisible(true);
+        }
+    }//GEN-LAST:event_IndicesButtonMouseClicked
+
+    private void bt_exportarEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exportarEMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_exportarEMouseClicked
+
+    private void bt_exportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exportarXMLMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_exportarXMLMouseClicked
+
+    private void EstandarizacionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstandarizacionButtonMouseClicked
+        pn_archivos.setVisible(false);
+        pn_campos.setVisible(false);
+        pn_registros.setVisible(false);
+        pn_indices.setVisible(false);
+
+        if (pn_estandarizacion.isVisible()) {
+            pn_estandarizacion.setVisible(false);
+        } else {
+            pn_estandarizacion.setVisible(true);
+        }
+    }//GEN-LAST:event_EstandarizacionButtonMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1407,6 +1788,9 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel Fondo1;
     private javax.swing.JLabel Fondo2;
     private javax.swing.JLabel Fondo3;
+    private javax.swing.JLabel Fondo4;
+    private javax.swing.JLabel Fondo5;
+    private javax.swing.JLabel Fondo6;
     private javax.swing.JLabel FondoJD;
     private javax.swing.JLabel FondoJD1;
     private javax.swing.JLabel FondoJD2;
@@ -1423,17 +1807,26 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bg_key;
     private javax.swing.JPanel bt_abrirA;
     private javax.swing.JPanel bt_borrarC;
+    private javax.swing.JPanel bt_borrarR;
     private javax.swing.JButton bt_buscarA;
+    private javax.swing.JPanel bt_buscarR;
     private javax.swing.JPanel bt_cerrarA;
     private javax.swing.JButton bt_crearA;
     private javax.swing.JPanel bt_crearC;
+    private javax.swing.JPanel bt_crearI;
     private javax.swing.JButton bt_createC;
     private javax.swing.JButton bt_deleteC;
+    private javax.swing.JPanel bt_exportarE;
+    private javax.swing.JPanel bt_exportarXML;
+    private javax.swing.JPanel bt_introducirR;
     private javax.swing.JPanel bt_listarC;
+    private javax.swing.JPanel bt_listarR;
     private javax.swing.JPanel bt_modificarC;
+    private javax.swing.JPanel bt_modificarR;
     private javax.swing.JButton bt_modifyC;
     private javax.swing.JPanel bt_nuevoA;
     private javax.swing.JButton bt_openF;
+    private javax.swing.JPanel bt_reIndexarA;
     private javax.swing.JPanel bt_salir;
     private javax.swing.JPanel bt_salvarA;
     private javax.swing.JComboBox<String> cb_dataType;
@@ -1472,13 +1865,40 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1502,9 +1922,12 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel pn_archivos;
     private javax.swing.JPanel pn_campos;
     private javax.swing.JPanel pn_crearC;
+    private javax.swing.JPanel pn_estandarizacion;
+    private javax.swing.JPanel pn_indices;
     private javax.swing.JPanel pn_listarC;
     private javax.swing.JPanel pn_modificarC;
     private javax.swing.JPanel pn_nuevoA;
+    private javax.swing.JPanel pn_registros;
     private javax.swing.JRadioButton si;
     private javax.swing.JLabel start;
     private javax.swing.JTextField tf_Filepath;
