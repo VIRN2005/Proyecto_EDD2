@@ -743,7 +743,7 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_exportarE.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel68.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pagina.png"))); // NOI18N
+        jLabel68.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/archivo-excel.png"))); // NOI18N
         bt_exportarE.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
 
         jLabel69.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Purple.png"))); // NOI18N
@@ -768,8 +768,8 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_exportarXML.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
-        bt_exportarXML.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 100, 80));
+        jLabel71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/XML.png"))); // NOI18N
+        bt_exportarXML.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 120, 80));
 
         jLabel72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Purple.png"))); // NOI18N
         bt_exportarXML.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 120, -1));
@@ -778,9 +778,9 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel73.setForeground(new java.awt.Color(255, 255, 255));
         jLabel73.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel73.setText("Exportar XML con Schema");
-        bt_exportarXML.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 290, -1));
+        bt_exportarXML.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 300, -1));
 
-        pn_estandarizacion.add(bt_exportarXML, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 260, 290, 210));
+        pn_estandarizacion.add(bt_exportarXML, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 260, 300, 210));
 
         Fondo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         pn_estandarizacion.add(Fondo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
@@ -826,19 +826,19 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_reIndexarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel65.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rebautizar.png"))); // NOI18N
-        bt_reIndexarA.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 44, 90, 70));
+        jLabel65.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
+        bt_reIndexarA.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 90, 80));
 
         jLabel66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Blue.png"))); // NOI18N
-        bt_reIndexarA.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
+        bt_reIndexarA.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 120, -1));
 
         jLabel67.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 24)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(255, 255, 255));
         jLabel67.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel67.setText("Re Indexar Archivos");
-        bt_reIndexarA.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 220, -1));
+        bt_reIndexarA.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 240, -1));
 
-        pn_indices.add(bt_reIndexarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 260, 220, 210));
+        pn_indices.add(bt_reIndexarA, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 260, 240, 210));
 
         Fondo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.png"))); // NOI18N
         pn_indices.add(Fondo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, -1));
@@ -861,7 +861,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
-        bt_modificarR.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, -1, 70));
+        bt_modificarR.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, 70, 70));
 
         jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
         bt_modificarR.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 120, -1));
@@ -1399,7 +1399,7 @@ public class Main_Screen extends javax.swing.JFrame {
 
                 tf_Filepath.setText(archivo.getName());
             } else {
-                JOptionPane.showMessageDialog(this, "Archivo no soportado");
+                JOptionPane.showMessageDialog(this, "¡Archivo no soportado!","Warning", WARNING_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1407,7 +1407,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_openFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_openFMouseClicked
-        System.out.println(archivo.getPath());
         file = new File(archivo.getPath());
         file.openFile(file);
 //        try {
@@ -1416,21 +1415,19 @@ public class Main_Screen extends javax.swing.JFrame {
 //            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        
         jd_abrirA.setVisible(false);
-        
-        JOptionPane.showMessageDialog(this, "Archivo abierto con éxito");
+
+        JOptionPane.showMessageDialog(this, "¡Archivo abierto con éxito!");
 
         ActualizarLabel();
     }//GEN-LAST:event_bt_openFMouseClicked
 
     private void bt_crearAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crearAMouseClicked
-        System.out.println("-> " + folder.getPath());
         file = new File(folder.getPath() + "/" + tf_nuevoA.getText() + ".tva");
         file.createFile();
 
         jd_nuevoA.setVisible(false);
-        JOptionPane.showMessageDialog(this, "Archivo creado con éxito");
+        JOptionPane.showMessageDialog(this, "¡Archivo creado con éxito!");
         ActualizarLabel();
     }//GEN-LAST:event_bt_crearAMouseClicked
 
@@ -1438,22 +1435,22 @@ public class Main_Screen extends javax.swing.JFrame {
         if (file != null) {
             file.saveFile(file);
         } else {
-            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!");
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_salvarAMouseClicked
 
     private void bt_cerrarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cerrarAMouseClicked
-        int opcion = JOptionPane.showConfirmDialog(null, "Si cierras el archivo no se guardarán los cambios, ¿Estás seguro que quiere cerrar el archivo?", "Cerrar Archivo", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (file != null) {
+            int opcion = JOptionPane.showConfirmDialog(null, "Si cierra el archivo no se guardarán los cambios. ¿Está seguro que quiere cerrar el archivo?", "Cerrar Archivo", JOptionPane.YES_NO_CANCEL_OPTION);
 
-        if (opcion == JOptionPane.YES_OPTION) {
-            if (file != null) {
+            if (opcion == JOptionPane.YES_OPTION) {
                 file = null;
                 metadata = "";
                 JOptionPane.showMessageDialog(this, "¡Se cerró el archivo!");
                 ActualizarLabel();
-            } else {
-                JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_cerrarAMouseClicked
 

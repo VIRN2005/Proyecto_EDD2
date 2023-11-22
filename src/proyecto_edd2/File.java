@@ -269,7 +269,6 @@ class File extends java.io.File {
                 OOS = new ObjectOutputStream(fw);
                 //OOS.writeObject(fields);
 
-                System.out.println("M: " + metadata);
                 OOS.writeObject(metadata);
                 for (Registro r : records) {
                     OOS.writeObject(r);
@@ -286,14 +285,12 @@ class File extends java.io.File {
                 } catch (Exception ex) {
                 }
             }
-        } else {
-            System.out.println("no entro");
         }
     }
 
     public void openFile(java.io.File archivo) {
         try {
-            records = new ArrayList();
+            //records = new ArrayList();
 //            Registro temp;
             this.file = archivo;
             if (file.exists()) {
@@ -301,7 +298,6 @@ class File extends java.io.File {
 
                 try {
                     this.metadata = (String) objeto.readObject();
-                    System.out.println("metadata al abrir: " + metadata);
 
 //                    while ((temp = (Registro) objeto.readObject()) != null) {
 //                        records.add(temp);
@@ -310,8 +306,6 @@ class File extends java.io.File {
                     //encontro el final del archivo
                 }
                 objeto.close();
-            }else{
-                System.out.println("no existe");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -328,9 +322,10 @@ class File extends java.io.File {
         this.fields.get(pos).setKey(campo.isKey());
         //metadata = campo.toString(); 
     }
-    public Campo Getcampo(int pos){
+
+    public Campo Getcampo(int pos) {
         Campo campo = null;
-        String[]Campos=metadata.split(",");
+        String[] Campos = metadata.split(",");
         String[] div1 = Campos[pos].split(": ");
         String nombre = div1[0];
 
@@ -339,7 +334,7 @@ class File extends java.io.File {
         boolean isKey = KeyValue(lastChar);
         String Character;
         int size;
-        
+
         if (div1[1].charAt(0) == 'c') {
             Character = "char";
             //System.out.println("\nc: "+div1[1].substring(5, div1[1].length() - 2));
@@ -353,32 +348,17 @@ class File extends java.io.File {
         campo = new Campo(size, nombre, isKey, IsCharacter(Character), false, false);
         return campo;
     }
+
     public boolean KeyValue(char Key_suffix) {
         return Key_suffix == 'f';
     }
+
     public boolean IsCharacter(String str) {
         char c = str.charAt(0);
-        return (c == 'S' || c == 'C'||c == 's' || c == 'c');
-    } 
+        return (c == 'S' || c == 'C' || c == 's' || c == 'c');
+    }
 
     public void deleteCampo(int pos) {
         this.fields.remove(pos);
     }
-
-    // Metodo para cerrar el Archivo
-    /*public void cerrarArchivo() {
-        if (cambiosPendientes) {
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas guardar los cambios antes de cerrar?", "Guardar Cambios", JOptionPane.YES_NO_CANCEL_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                saveFile(); // Guardar Cambios 
-                JOptionPane.showMessageDialog(null, "Cambios GUARDADOS Correctamente.\n "
-                        + "Cerrando Archivo", "Información", JOptionPane.INFORMATION_MESSAGE);
-            } else if (opcion == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Cambios DESCARTADOS...\n"
-                        + "Cerrando Archivo", "Información", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Archivo CERRADO Correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-        }*/
 }
