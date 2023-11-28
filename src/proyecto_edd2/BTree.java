@@ -98,6 +98,7 @@ public class BTree implements Serializable {
                 right.add(keys_temp.get(i));
             }
         }
+        
         Node left_child = new Node();
         left_child.setKeys(left);
         Node right_child = new Node();
@@ -112,8 +113,6 @@ public class BTree implements Serializable {
             root.getChildren().add(right_child);
             
         }
-        
-        
         
         return root_temp; 
     }

@@ -18,9 +18,9 @@ public class Node implements Serializable{
     public Node(){
     }
     
-    public Node(Node node, boolean leaf){
+    public Node(Node node){
         this.node = node; 
-        this.leaf = leaf;
+        this.leaf = true;
     }
 
     public ArrayList<String> getKeys() {
@@ -54,6 +54,7 @@ public class Node implements Serializable{
     public void setNode(Node node) {
         this.node = node;
     }
+    
     public void removeKey(int rrn){
         if (!keys.isEmpty()) {
             if (rrn<=keys.size()-1) {
