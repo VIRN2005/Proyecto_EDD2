@@ -44,8 +44,8 @@ public class BTree implements Serializable {
     public void insertElement(String key){
         Node node = root; 
         if (node.getKeys().size()==(N-1)) {
-            Split();
-            Insert(node, key);
+            Split(node.getKeys(),key);
+            //Insert(node, key);
         }else{
             Insert(node, key);
         }
@@ -56,7 +56,7 @@ public class BTree implements Serializable {
         if (node.isLeaf()) {
             for (int i = 0; i < keys_limit; i++) {
                 int key_i = Integer.parseInt(node.getKeys().get(i));
-                if (key_int>key_i) {
+                if (key_int<key_i) {
                     i--;
                     node.getKeys().add(i, key);
                     break;
@@ -66,7 +66,55 @@ public class BTree implements Serializable {
             
         }
     }
-    private void Split(){
+    private Node Split(ArrayList<String>keys,String key){
+        Node root_temp = new Node(); 
+        int key_int = Integer.parseInt(key); 
+        boolean valid=false; 
         
+        int left_limit = ((N-1)/2)-1;
+        int center_pos = (left_limit+1);
+        
+        ArrayList<String>keys_temp = new ArrayList();
+        for (int i = 0; i < keys.size(); i++) {
+            int key_i = Integer.parseInt(keys.get(i));
+            if (key_int<key_i&&!valid) {
+                keys_temp.add(key);
+                valid = true; 
+            }
+            keys_temp.add(keys.get(i));
+            if (!valid&&i==keys.size()-1) {
+                keys_temp.add(key);
+            }
+        }
+        
+        root_temp.getKeys().add(keys_temp.get(center_pos));
+        ArrayList<String>left = new ArrayList();
+        ArrayList<String>right = new ArrayList();
+        for (int i = 0; i < keys_temp.size(); i++) {
+            if (i<center_pos) {
+                left.add(keys_temp.get(i));
+            }
+            if (i>center_pos) {
+                right.add(keys_temp.get(i));
+            }
+        }
+        Node left_child = new Node();
+        left_child.setKeys(left);
+        Node right_child = new Node();
+        right_child.setKeys(right);
+        
+        if (root.getChildren()==null) {
+            root_temp.getChildren().add(left_child);
+            root_temp.getChildren().add(right_child);
+        }else{
+            root.getKeys().add(keys_temp.get(center_pos));
+            root.getChildren().get(N-1).setNode(left_child);
+            root.getChildren().add(right_child);
+            
+        }
+        
+        
+        
+        return root_temp; 
     }
 }
