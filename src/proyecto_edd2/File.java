@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -245,42 +246,34 @@ class File extends java.io.File {
     }
 
     public void createFile() {
-        ObjectOutputStream OOS = null;
+        FileWriter fw = null;
         try {
-//            this.file = archivo;
-            OOS = new ObjectOutputStream(new FileOutputStream(file));
-            //FUN FACT... El archivo se llama asi por las iniciales de nuestros nombres (Tatiana, Víctor & Andrea)
-            OOS.flush();
-        } catch (IOException e) {
-            try {
-                OOS.close();
-            } catch (IOException ex) {
-            }
+            fw = new FileWriter(file);
+        } catch (Exception ex) {
+        }
+        try {
+            fw.close();
+        } catch (IOException ex) {
         }
     }
 
     public void saveFile(java.io.File archivo) {
         this.file = archivo;
         if (file.exists()) {
-            FileOutputStream fw = null;
-            ObjectOutputStream OOS = null;
+            FileWriter fw = null;
+            BufferedWriter bw = null;
             try {
-                fw = new FileOutputStream(file, false);
-                OOS = new ObjectOutputStream(fw);
-                //OOS.writeObject(fields);
-
-                OOS.writeObject(metadata);
-                for (Registro r : records) {
-                    OOS.writeObject(r);
-                }
-                OOS.flush();
+                fw = new FileWriter(file, false);
+                bw = new BufferedWriter(fw);
+                bw.write(metadata);
+                bw.flush();
 
                 JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } finally {
                 try {
-                    OOS.close();
+                    bw.close();
                     fw.close();
                 } catch (Exception ex) {
                 }
@@ -289,34 +282,57 @@ class File extends java.io.File {
     }
 
     public void openFile(java.io.File archivo) {
-        try {
-            //records = new ArrayList();
-//            Registro temp;
-            this.file = archivo;
-            if (file.exists()) {
-                ObjectInputStream objeto = new ObjectInputStream(new FileInputStream(file));
+        Scanner sc = null;
+        fields = new ArrayList();
 
-                try {
-                    this.metadata = (String) objeto.readObject();
+        this.file = archivo;
+        if (file.exists()) {
+            try {
+                sc = new Scanner(file);
+                metadata = sc.nextLine();
+                String[] meta_fields = metadata.split(",");
 
-//                    while ((temp = (Registro) objeto.readObject()) != null) {
-//                        records.add(temp);
-//                    }
-                } catch (EOFException e) {
-                    //encontro el final del archivo
+                for (String field : meta_fields) {
+                    System.out.println(field);
+                    String size = "", name = "", type = "";
+                    char key;
+                    String[] description = field.split(": ");
+                    name = description[0];
+                    String data = description[1];
+                    boolean flag_t = true, flag_s = false;//para saber si lee el size [23] dentro de los corchetes
+                    for (int j = 0; j < data.length(); j++) {
+
+                        if (flag_t && data.charAt(j) != '[') {
+                            type += data.charAt(j);
+                        } else {
+                            flag_t = false;
+                            flag_s = true;
+                        }
+
+                        if (flag_s && data.charAt(j) != '[' && j != data.length() - 1) {
+                            if (data.charAt(j) == ']') {
+                                flag_s = false;
+                            } else {
+                                size += data.charAt(j);
+                            }
+                        }
+                    }
+                    key = data.charAt(data.length() - 1);
+                    fields.add(new Campo(Integer.parseInt(size), name, KeyValue(key), type, false, false));
                 }
-                objeto.close();
+
+            } catch (Exception ex) {
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            sc.close();
+        }//FIN IF
+
     }
 
     //Faltaria que al pasar estos metodos, modifique la estructura de registros. 
     public void modifyFields(int pos, Campo campo) {
         this.fields.get(pos).setName(campo.getName());
         this.fields.get(pos).setSize(campo.getSize());
-        this.fields.get(pos).setIsCharacter(campo.isIsCharacter());
+        this.fields.get(pos).setType(campo.getType());
         this.fields.get(pos).setIsKeyT1(campo.isIsKeyT1());
         this.fields.get(pos).setIsKeyT2(campo.isIsKeyT2());
         this.fields.get(pos).setKey(campo.isKey());
@@ -345,7 +361,7 @@ class File extends java.io.File {
             //System.out.println("\nc: "+div1[1].substring(4, div1[1].length() - 2));
             size = Integer.parseInt(div1[1].substring(4, div1[1].length() - 2));
         }
-        campo = new Campo(size, nombre, isKey, IsCharacter(Character), false, false);
+        campo = new Campo(size, nombre, isKey, Character, false, false);
         return campo;
     }
 
@@ -353,11 +369,10 @@ class File extends java.io.File {
         return Key_suffix == 'f';
     }
 
-    public boolean IsCharacter(String str) {
-        char c = str.charAt(0);
-        return (c == 'S' || c == 'C' || c == 's' || c == 'c');
-    }
-
+//    public boolean IsCharacter(String str) {
+//        char c = str.charAt(0);
+//        return (c == 'S' || c == 'C' || c == 's' || c == 'c');
+//    }
     public void deleteCampo(int pos) {
         this.fields.remove(pos);
     }

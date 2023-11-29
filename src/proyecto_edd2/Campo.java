@@ -12,8 +12,8 @@ public class Campo {
     // Sizes, Names y Flags de entrada a las Keys
     private int size;
     private String name;
+    private String type;
     private boolean key;
-    private boolean isCharacter;
     private boolean isKeyT1;
     private boolean isKeyT2;
 
@@ -21,15 +21,15 @@ public class Campo {
     public Campo() {
     }
 
-    public Campo(int size, String name, boolean key, boolean isCharacter, boolean isKeyT1, boolean isKeyT2) {
+    public Campo(int size, String name, boolean key, String type, boolean isKeyT1, boolean isKeyT2) {
         this.size = size;
         this.name = name;
         this.key = key; 
-        this.isCharacter = isCharacter;
+        this.type = type;
         this.isKeyT1 = isKeyT1;
         this.isKeyT2 = isKeyT2;
 
-        System.out.println(">> Name:" + this.name + " >> Size:" + this.size + " >>Is Character: " + this.isCharacter);
+        System.out.println(">> Name:" + this.name + " >> Size:" + this.size + " >>type: " + this.type);
     }
 
     // Getters & Setters
@@ -49,12 +49,12 @@ public class Campo {
         this.name = name;
     }
 
-    public boolean isIsCharacter() {
-        return isCharacter;
+    public String getType() {
+        return type;
     }
 
-    public void setIsCharacter(boolean isCharacter) {
-        this.isCharacter = isCharacter;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public boolean isIsKeyT1() {
@@ -83,13 +83,13 @@ public class Campo {
 
     // Methods usados en Campo
     //Determina  si el primer caracter es int o char
-    public String character() {
-        if (!isCharacter) {
-            return "int";
-        } else {
-            return "char";
-        }
-    }
+//    public String character() {
+//        if (!isCharacter) {
+//            return "int";
+//        } else {
+//            return "char";
+//        }
+//    }
 
     //Da las flags a las keys usadas como flags
     public void setKeysValues(char Key_suffix) {
@@ -115,10 +115,10 @@ public class Campo {
         setKeysValues(lastChar);
 
         if (Fields_Array[1].charAt(0) == 'c') {
-            isCharacter = true;
+//            isCharacter = true;
             size = Integer.parseInt(Fields_Array[1].substring(5, Fields_Array[1].length() - 2));
         } else { // El char es 'f' o 't'
-            isCharacter = false;
+//            isCharacter = false;
             size = Integer.parseInt(Fields_Array[1].substring(4, Fields_Array[1].length() - 2));
         }
     }
@@ -127,7 +127,7 @@ public class Campo {
     @Override
     public String toString() {
         String keySuffix = (isKeyT1) ? "f" : (isKeyT2) ? "s" : "t";
-        return name + ": " + character() + '[' + Integer.toString(size) + "]" + keySuffix;
+        return name + ": " + type + '[' + Integer.toString(size) + "]" + keySuffix;
     }
 
 }
