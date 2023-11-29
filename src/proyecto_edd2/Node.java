@@ -12,15 +12,25 @@ public class Node implements Serializable{
     private ArrayList<String> keys= new ArrayList();
     private ArrayList<Node>children= new ArrayList();
     private boolean leaf;
-    Node node; 
-    //int n; //orden del arbol 
+    Node node; //parent
+    int n; //cantidad de llaves en el nodo
     
     public Node(){
+        n = 0; 
+        leaf = true; 
     }
     
-    public Node(Node node){
+    public Node(Node node, boolean leaf){
         this.node = node; 
-        this.leaf = true;
+        this.leaf = leaf;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
     }
 
     public ArrayList<String> getKeys() {
@@ -54,7 +64,6 @@ public class Node implements Serializable{
     public void setNode(Node node) {
         this.node = node;
     }
-    
     public void removeKey(int rrn){
         if (!keys.isEmpty()) {
             if (rrn<=keys.size()-1) {
