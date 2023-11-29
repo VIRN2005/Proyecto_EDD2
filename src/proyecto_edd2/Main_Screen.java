@@ -21,7 +21,6 @@ public class Main_Screen extends javax.swing.JFrame {
     String metadata = "";
     java.io.File archivo = null;
     java.io.File folder = null;
-    ///
     int Panel = 0, pos_ModCampo;
 
     public Main_Screen() {
@@ -1340,7 +1339,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_listarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarCMouseClicked
         if (file != null) {
             if (file.getMetadata() != null && !"".equals(file.getMetadata())) {
-                System.out.println(file.getMetadata());
                 ListarTablaC(jt_listarC);
                 AbrirJD(jd_listarC);
             } else {
@@ -1394,9 +1392,6 @@ public class Main_Screen extends javax.swing.JFrame {
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivo = jfc.getSelectedFile();
-                //String pathname = archivo.getPath();
-                //File file_temp = new File(pathname);
-                //file = file_temp; 
 
                 tf_Filepath.setText(archivo.getName());
             } else {
@@ -1410,11 +1405,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_openFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_openFMouseClicked
         file = new File(archivo.getPath());
         file.openFile(file);
-//        try {
-//            file.AddFile(archivo);
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 
         jd_abrirA.setVisible(false);
 
@@ -1466,17 +1456,18 @@ public class Main_Screen extends javax.swing.JFrame {
 
                 Campo nuevo_campo = new Campo(longitud, nombre_campo, isKey, type, isKey, false);
 
-                String MetaData = file.getMetadata();
+                metadata = file.getMetadata();
                 if (Panel == 1) {
-                    if (CampoValido(nuevo_campo, MetaData, -1)) {
-                        if (MetaData == null || MetaData == "") {
-                            MetaData = "";
-                            MetaData += nuevo_campo.toString();
+//                    if (CampoValido(nuevo_campo, MetaData, -1)) {
+                    if (ValidarCampo(nuevo_campo, jt_modificarC.getSelectedRow())) {
+                        if (metadata == null || "".equals(metadata)) {
+                            metadata = "";
+                            metadata += nuevo_campo.toString();
                         } else {
-                            MetaData += "," + nuevo_campo.toString();
+                            metadata += "," + nuevo_campo.toString();
                         }
 
-                        file.setMetadata(MetaData);
+                        file.setMetadata(metadata);
                         file.getFields().add(nuevo_campo);
 
                         JOptionPane.showMessageDialog(null, "¡Se ha creado el campo con éxito! Recuerde guardar cambios", "Task Successfully not Failed", INFORMATION_MESSAGE);
@@ -1486,9 +1477,10 @@ public class Main_Screen extends javax.swing.JFrame {
                     }
 
                 } else {
-                    if (CampoValido(nuevo_campo, MetaData, pos_ModCampo)) {
-                        MetaData = ModMetada((nuevo_campo.toString()), pos_ModCampo);
-                        file.setMetadata(MetaData);
+                    //if (CampoValido(nuevo_campo, MetaData, pos_ModCampo)) {
+                    if (ValidarCampo(nuevo_campo, jt_modificarC.getSelectedRow())) {
+                        metadata = ModMetada((nuevo_campo.toString()), pos_ModCampo);
+                        file.setMetadata(metadata);
                         file.getFields().set(jt_modificarC.getSelectedRow(), nuevo_campo);
                         //file.modifyFields(pos_ModCampo, nuevo_campo);
 
@@ -1513,10 +1505,10 @@ public class Main_Screen extends javax.swing.JFrame {
         if (jt_modificarC.getSelectedRow() >= 0) {
 //            int r = JOptionPane.showConfirmDialog(jt_modificarC, ("Desea modificar el campo?"), "Modificar Campo", YES_NO_OPTION);
 //            if (r == 0) {
-                Panel = 2;
-                pos_ModCampo = jt_modificarC.getSelectedRow();
-                EdicionPanel("Modificar", pos_ModCampo);
-                AbrirJD(jd_crearC);
+            Panel = 2;
+            pos_ModCampo = jt_modificarC.getSelectedRow();
+            EdicionPanel("Modificar", pos_ModCampo);
+            AbrirJD(jd_crearC);
 //            }
         } else {
             JOptionPane.showMessageDialog(null, "Se debe seleccionar un campo de la tabla", "Warning", WARNING_MESSAGE);
@@ -1524,7 +1516,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_modifyCMouseClicked
 
     private void bt_deleteCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_deleteCMouseClicked
-        //jt_borrarC
         if (jt_borrarC.getSelectedRow() >= 0) {
             int r = JOptionPane.showConfirmDialog(jt_borrarC, "Desea eliminar el campo?", "Eliminar Campo", YES_NO_OPTION);
             if (r == 0) {
@@ -1666,31 +1657,12 @@ public class Main_Screen extends javax.swing.JFrame {
         }
     }
 
-//    private void ListarTabla(JTable tabla) {
-//        try {
-//            tabla.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},new String[]{
-//                        "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"}));
-//            
-//            String[] Campos = file.getMetadata().split(",");
-//            for (int i = 0; i < Campos.length; i++) {
-//                Campo campo_temp = file.Getcampo(i);
-//
-//                Object[] row = {campo_temp.getName(), campo_temp.getType(), campo_temp.getSize(), campo_temp.isKey()};
-//                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-//                modelo.addRow(row);
-//                tabla.setModel(modelo);
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
     private void ListarTablaC(JTable tabla) {
         try {
             tabla.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{
                 "Nombre de Campo", "Tipo de Dato", "Longitud", "Key"}));
 
             for (Campo c : file.getFields()) {
-                System.out.println(((Campo) c).getName());
                 Object[] row = {((Campo) c).getName(), ((Campo) c).getType(), c.getSize(), c.isKey()};
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
                 modelo.addRow(row);
@@ -1738,7 +1710,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }
 
     public String ModMetada(String campo, int pos) {
-        System.out.println("Data:" + file.getMetadata() + " Pos: " + pos);
         String[] Campos = file.getMetadata().split(",");
         String new_metadata = "";
         for (int i = 0; i < Campos.length; i++) {
@@ -1759,18 +1730,32 @@ public class Main_Screen extends javax.swing.JFrame {
         return new_metadata;
     }
 
-    public boolean CampoValido(Campo campo, String metadata, int pos) {
-        String nombre = campo.getName().toLowerCase();
-        String[] Campos = metadata.split(",");
-        if (pos >= 0) {
-            for (int i = 0; i < Campos.length; i++) {
-                if (i != pos) {
-                    Campo campo_temp = file.Getcampo(i);
-                    String name_campo = campo_temp.getName().toLowerCase();
-                    if (nombre.equals(name_campo)) {
-                        return false;
-                    }
+//    public boolean CampoValido(Campo campo, String metadata, int pos) {
+//        String nombre = campo.getName().toLowerCase();
+//        String[] Campos = metadata.split(",");
+//        if (pos >= 0) {
+//            for (int i = 0; i < Campos.length; i++) {
+//                if (i != pos) {
+//                    Campo campo_temp = file.Getcampo(i);
+//                    String name_campo = campo_temp.getName().toLowerCase();
+//                    if (nombre.equals(name_campo)) {
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//
+//        return true;
+//    }
+
+    public boolean ValidarCampo(Campo campo, int pos) {
+        for (int i = 0; i < file.getFields().size(); i++) {
+            String campo_original = file.getFields().get(i).getName().toLowerCase();
+            if (campo_original.equals(campo.getName().toLowerCase())) {
+                if (i == pos) {
+                    return true;
                 }
+                return false;
             }
         }
 
