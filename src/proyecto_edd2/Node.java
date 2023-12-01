@@ -1,4 +1,3 @@
-
 package proyecto_edd2;
 
 import java.io.Serializable;
@@ -7,21 +6,22 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
-public class Node implements Serializable{
+public class Node implements Serializable {
+
     //private ArrayList<Integer> RRNs= new ArrayList();
-    private ArrayList<String> keys= new ArrayList();
-    private ArrayList<Node>children= new ArrayList();
+    private ArrayList<String> keys = new ArrayList();
+    private ArrayList<Node> children = new ArrayList();
     private boolean leaf;
-    Node node; //parent
+    Node parent; //parent
     int n; //cantidad de llaves en el nodo
-    
-    public Node(){
-        n = 0; 
-        leaf = true; 
+
+    public Node() {
+        n = 0;
+        leaf = true;
     }
-    
-    public Node(Node node, boolean leaf){
-        this.node = node; 
+
+    public Node(Node parent, boolean leaf) {
+        this.parent = parent;
         this.leaf = leaf;
     }
 
@@ -57,32 +57,34 @@ public class Node implements Serializable{
         this.leaf = leaf;
     }
 
-    public Node getNode() {
-        return node;
+    public Node getParent() {
+        return parent;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
-    public void removeKey(int rrn){
+
+    public void removeKey(int rrn) {
         if (!keys.isEmpty()) {
-            if (rrn<=keys.size()-1) {
+            if (rrn <= keys.size() - 1) {
                 keys.remove(rrn);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "RRN no valido", "Warning", WARNING_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No hay llaves dentro de este nodo", "Warning", INFORMATION_MESSAGE);
         }
     }
-    public void removeChild(int rrn){
+
+    public void removeChild(int rrn) {
         if (!children.isEmpty()) {
-            if (rrn<=children.size()-1) {
+            if (rrn <= children.size() - 1) {
                 children.remove(rrn);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "RRN no valido", "Warning", WARNING_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Este nodo no tiene hijos", "Warning", INFORMATION_MESSAGE);
         }
     }

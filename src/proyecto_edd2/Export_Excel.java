@@ -1,4 +1,3 @@
-
 package proyecto_edd2;
 
 import com.sun.jdi.connect.spi.Connection;
@@ -17,13 +16,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Export_Excel {
-    String path; 
+
+    String path;
 
     public Export_Excel(String path) {
         this.path = path;
     }
-    
-    public void Create_Excel(ArrayList<Campo> Header, ArrayList<Registro> values){
+
+    public void Create_Excel(ArrayList<Campo> Header, ArrayList<Registro> values) {
         try {
             String filename = "K:/data.xlsx";//Create a Filename and path
             XSSFWorkbook workbook = new XSSFWorkbook(); //Create a new Excel Workbook Use HSSFWorkbook if the version of your excel is 2003
@@ -60,12 +60,12 @@ public class Export_Excel {
             XSSFFont font2 = workbook.createFont();//style for result
             font.setBold(true);
             font.setFontName("Tahoma");
-            font.setFontHeightInPoints((short)14);
+            font.setFontHeightInPoints((short) 14);
             font2.setFontName("Cambria");
-            font2.setFontHeightInPoints((short)12);
+            font2.setFontHeightInPoints((short) 12);
             style.setFont(font);//font style for header
             style2.setFont(font2);//font style for result
-                        
+
             XSSFRow header = sheet.createRow((short) 0);//create a row header. 0 means row 1
             header.createCell((short) 0).setCellValue("ID Number");//Create a header for IDnumber
             header.createCell((short) 1).setCellValue("Last Name");//Create a header for Last Name
@@ -79,7 +79,6 @@ public class Export_Excel {
             header.getCell(3).setCellStyle(style);
             header.getCell(4).setCellStyle(style);
             header.getCell(5).setCellStyle(style);
-            
 
             //Export data from Mysql to Excel
             Class.forName("com.mysql.cj.jdbc.Driver");

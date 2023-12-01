@@ -1,21 +1,21 @@
-
 package proyecto_edd2;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BTree implements Serializable {
-    private Node root; 
-    private ArrayList<Node>nodes = new ArrayList(); 
+
+    private Node root;
+    private ArrayList<Node> nodes = new ArrayList();
     private int N; //defino por numero de sectores
 
     public BTree() {
     }
-    
+
     public BTree(int node_slots) {
         //this.root = root;
-        root= new Node();
-        this.N = node_slots; 
+        root = new Node();
+        this.N = node_slots;
     }
 
     public Node getRoot() {
@@ -41,97 +41,100 @@ public class BTree implements Serializable {
     public void setNode_slots(int N) {
         this.N = N;
     }
+
     //Realmente use rrn, pero creo que tuve que usar pos ahora que pienso, creo que el rrn es con otra cosa xD
-    public Node getLeftNeighbor(int node_rrn, Node root){
-        Node neighbor = null; 
-        if (node_rrn>0) {
-            return root.getChildren().get((node_rrn-1)); 
+    public Node getLeftNeighbor(int node_rrn, Node root) {
+        Node neighbor = null;
+        if (node_rrn > 0) {
+            return root.getChildren().get((node_rrn - 1));
         }
         return neighbor;
     }
-    public Node getRightNeighbor(int node_rrn, Node root){
-        Node neighbor = null; 
-        if (node_rrn<(N-1)) {
-            neighbor = root.getChildren().get((node_rrn+1));
+
+    public Node getRightNeighbor(int node_rrn, Node root) {
+        Node neighbor = null;
+        if (node_rrn < (N - 1)) {
+            neighbor = root.getChildren().get((node_rrn + 1));
         }
-        return neighbor; 
+        return neighbor;
     }
-    
-    public void insert(String key){
+
+    public void insert(String key) {
         //int key_Int = Integer.parseInt(key);
-        Node parent = root; 
-        if (parent.getKeys().size()==(N-1)) {
+        Node parent = root;
+        if (parent.getKeys().size() == (N - 1)) {
             Node temp = new Node();
             root = temp;
             temp.setLeaf(false);
             temp.setN(0);
             //temp.getChildren().get(0).setNode(parent);
             temp.getChildren().set(0, parent);
-            Split(temp,0,parent);
+            Split(temp, 0, parent);
             nonfullInsertCase(temp, key);
-        }else{
+        } else {
             nonfullInsertCase(parent, key);
         }
     }
-    private void nonfullInsertCase(Node node, String key){
+
+    private void nonfullInsertCase(Node node, String key) {
         int key_Int = Integer.parseInt(key);
-        int keys_cant = node.getKeys().size()-1;
-        
+        int keys_cant = node.getKeys().size() - 1;
+
         if (node.isLeaf()) {
             for (int i = 0; i < keys_cant; i++) {
                 int key_i = Integer.parseInt(node.getKeys().get(i));
-                if (key_Int<key_i) {
+                if (key_Int < key_i) {
                     i--;
                     node.getKeys().add(i, key);
                     break;
                 }
             }
-        }else{
+        } else {
             for (int i = 0; i < keys_cant; i++) {
                 int key_i = Integer.parseInt(node.getKeys().get(i));
-                if (key_Int<key_i) {
+                if (key_Int < key_i) {
                     i--;
-                    if (node.getChildren().get(i).getKeys().size()==N-1) {
-                        Split(node,i,node.getChildren().get(i));
-                        if (key_Int>key_i) {
+                    if (node.getChildren().get(i).getKeys().size() == N - 1) {
+                        Split(node, i, node.getChildren().get(i));
+                        if (key_Int > key_i) {
                             i++;
                         }
                     }
-                    nonfullInsertCase(node.getChildren().get(i),key);
+                    nonfullInsertCase(node.getChildren().get(i), key);
                     break;
                 }
             }
-            
+
         }
     }
-    
-    private void Split(Node root, int pos, Node node){
+
+    private void Split(Node root, int pos, Node node) {
         Node temp = new Node();
         temp.setLeaf(node.isLeaf());
-        int right = (N-1)/2;
+        int right = (N - 1) / 2;
         temp.setN(right);
-        for (int i = 0; i <right; i++) {
+        for (int i = 0; i < right; i++) {
             //temp.getKeys().add(node.getKeys().get(i+right+1));
-            temp.getKeys().set(i, node.getKeys().get(i+right+1));
+            temp.getKeys().set(i, node.getKeys().get(i + right + 1));
         }
         if (!node.isLeaf()) {
-            for (int i = 0; i < right+1; i++) {
+            for (int i = 0; i < right + 1; i++) {
                 //temp.getChildren().get(i).setNode(node.getChildren().get(i+right+1));
-                temp.getChildren().set(i, node.getChildren().get(i+right+1));
+                temp.getChildren().set(i, node.getChildren().get(i + right + 1));
             }
         }
         node.setN(right);
         for (int i = root.getN(); i > pos; i--) {
-            root.getChildren().set(i+1, root.getChildren().get(i));
+            root.getChildren().set(i + 1, root.getChildren().get(i));
         }
-        root.getChildren().set(pos+1, temp);
+        root.getChildren().set(pos + 1, temp);
         for (int i = root.getN(); i > pos; i--) {
-            root.getKeys().set(i+1, root.getKeys().get(i));
+            root.getKeys().set(i + 1, root.getKeys().get(i));
         }
         root.getKeys().set(pos, node.getKeys().get(right));
-        root.setN(root.getN()+1);
+        root.setN(root.getN() + 1);
     }
-    
+
 //    public void insertElement(String key){
 //        Node node = root; 
 //        if (node.getKeys().size()==(N-1)) {
@@ -157,54 +160,123 @@ public class BTree implements Serializable {
 //            
 //        }
 //    }
-    private Node Split(ArrayList<String>keys,String key){
-        Node root_temp = new Node(); 
-        int key_int = Integer.parseInt(key); 
-        boolean valid=false; 
-        
-        int left_limit = ((N-1)/2)-1;
-        int center_pos = (left_limit+1);
-        
-        ArrayList<String>keys_temp = new ArrayList();
+    private Node Split(ArrayList<String> keys, String key) {
+        Node root_temp = new Node();
+        int key_int = Integer.parseInt(key);
+        boolean valid = false;
+
+        int left_limit = ((N - 1) / 2) - 1;
+        int center_pos = (left_limit + 1);
+
+        ArrayList<String> keys_temp = new ArrayList();
         for (int i = 0; i < keys.size(); i++) {
             int key_i = Integer.parseInt(keys.get(i));
-            if (key_int<key_i&&!valid) {
+            if (key_int < key_i && !valid) {
                 keys_temp.add(key);
-                valid = true; 
+                valid = true;
             }
             keys_temp.add(keys.get(i));
-            if (!valid&&i==keys.size()-1) {
+            if (!valid && i == keys.size() - 1) {
                 keys_temp.add(key);
             }
         }
-        
+
         root_temp.getKeys().add(keys_temp.get(center_pos));
-        ArrayList<String>left = new ArrayList();
-        ArrayList<String>right = new ArrayList();
+        ArrayList<String> left = new ArrayList();
+        ArrayList<String> right = new ArrayList();
         for (int i = 0; i < keys_temp.size(); i++) {
-            if (i<center_pos) {
+            if (i < center_pos) {
                 left.add(keys_temp.get(i));
             }
-            if (i>center_pos) {
+            if (i > center_pos) {
                 right.add(keys_temp.get(i));
             }
         }
-        
+
         Node left_child = new Node();
         left_child.setKeys(left);
         Node right_child = new Node();
         right_child.setKeys(right);
-        
-        if (root.getChildren()==null) {
+
+        if (root.getChildren() == null) {
             root_temp.getChildren().add(left_child);
             root_temp.getChildren().add(right_child);
-        }else{
+        } else {
             root.getKeys().add(keys_temp.get(center_pos));
-            root.getChildren().get(N-1).setNode(left_child);
+            root.getChildren().get(N - 1).setParent(left_child);
             root.getChildren().add(right_child);
-            
+
         }
-        
-        return root_temp; 
+
+        return root_temp;
     }
+
+    public Node search(Node temp, int key) {
+        ArrayList<String> keys = temp.getKeys();
+        int indice = 0;
+
+        while (indice < keys.size() && key > Integer.parseInt(keys.get(indice))) {
+            indice++;
+        }
+
+        if (indice < keys.size() && key == Integer.parseInt(keys.get(indice))) {
+            return temp;
+        }
+
+        if (temp.isLeaf()) {
+            return null;
+        } else {
+            return search(temp.getChildren().get(indice), key);
+        }
+    }
+
+    public void delete(Node temp, int key) {
+        if (temp.isLeaf()) {
+            temp.getKeys().remove(key);
+
+            if (temp.getKeys().size() < (N - 1) / 2) {//si el nodo hoja tiene menos que la cantidad de llaves permitidas
+                Node neighbor;
+                int node_size = temp.getParent().getChildren().indexOf(temp);
+
+                //buscamos el vecino mas populoso
+                if (getLeftNeighbor(node_size, temp).getKeys().size() > getRightNeighbor(node_size, temp).getKeys().size()) {
+                    neighbor = getLeftNeighbor(node_size, temp);
+                } else {
+                    neighbor = getRightNeighbor(node_size, temp);
+                }
+
+                if (!temp.getKeys().isEmpty()) {
+                    neighbor.setKeys(merge(neighbor, temp));
+                }
+
+            }
+        } else {//si no es hoja
+
+        }
+    }
+
+    public ArrayList<String> merge(Node temp1, Node temp2) {
+        ArrayList<String> newkeys = new ArrayList();
+        int cont = 0;
+
+        //falta obtener el valor del nodo raiz entre ambos nodos hijos
+        for (int i = 0; i < temp2.getKeys().size(); i++) {
+            if (Integer.parseInt(temp1.getKeys().get(i)) < Integer.parseInt(temp2.getParent().getKeys().get(i))) {
+                newkeys.add(temp1.getKeys().get(i));
+            }
+        }
+
+        for (int i = 0; i < temp1.getKeys().size(); i++) {
+            if (Integer.parseInt(temp1.getKeys().get(i)) < Integer.parseInt(temp2.getKeys().get(cont))) {
+                newkeys.add(temp1.getKeys().get(i));
+            } else {
+                newkeys.add(temp2.getKeys().get(i));
+                i--;
+                cont++;
+            }
+
+        }
+        return newkeys;
+    }
+
 }
