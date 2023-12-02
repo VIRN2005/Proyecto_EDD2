@@ -31,14 +31,14 @@ public class Export_Excel {
             
             for (int i = 0; i < Header.size(); i++) {
                 Campo c = Header.get(i);
-                float column_width = c.getSize();
+                float column_width = CellSize(c.getSize(),c.getName());
                 int width = (int) Math.floor((column_width * Units.DEFAULT_CHARACTER_WIDTH + 5) / Units.DEFAULT_CHARACTER_WIDTH * 256);
                 sheet.setColumnWidth(i, width);
             }
             
             //Set style of excel columns
             XSSFCellStyle style = workbook.createCellStyle();//cell style for header
-            XSSFCellStyle style2 = workbook.createCellStyle();//cell style for result
+            
             style.setAlignment(HorizontalAlignment.CENTER);//center align
             style.setBorderBottom(BorderStyle.THIN);//border bottom
             style.setBorderTop(BorderStyle.THIN);//border top
@@ -53,19 +53,20 @@ public class Export_Excel {
             font2.setFontName("Times New Roman");
             font2.setFontHeightInPoints((short) 12);
             style.setFont(font);//font style for header
-            style2.setFont(font2);//font style for result
+            
 
             XSSFRow header = sheet.createRow((short) 0);
             for (int i = 0; i < Header.size(); i++) {
                 header.createCell((short)i).setCellValue(Header.get(i).getName());
                 header.getCell(i).setCellStyle(style);
             }
+            style.setFont(font2);
             for (int i = 0; i < values.size(); i++) {
                 XSSFRow row = sheet.createRow((short) i);
                 for (int j = 0; j < Header.size(); j++) {
                     //row.createCell((short)i).setCellValue(value);
                     RowType(j, values.get(j),Header,row);
-                    row.getCell(j).setCellStyle(style2);
+                    row.getCell(j).setCellStyle(style);
                 }
                 
             }
@@ -84,6 +85,14 @@ public class Export_Excel {
 
         }
     }
+    private int CellSize(int tam, String name){
+        if (name.length()>=tam) {
+            return name.length() + 4;
+        }else{
+            return tam + 4; 
+        }
+    }
+    
     private void RowType(int i, Registro value, ArrayList<Campo> campos, XSSFRow row){
         if ("float".equals(campos.get(i).getType())||"int".equals(campos.get(i).getType())) {
             int Value = Integer.parseInt(value.getAll_fields().get(i));
