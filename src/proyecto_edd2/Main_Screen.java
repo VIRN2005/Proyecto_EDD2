@@ -1588,7 +1588,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_IndicesButtonMouseClicked
 
     private void bt_exportarEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exportarEMouseClicked
-        Export_XML xml = new Export_XML();
+        
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         //fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -1598,15 +1598,9 @@ public class Main_Screen extends javax.swing.JFrame {
             folder = fileChooser.getSelectedFile();
             System.out.println("folder"+ folder);
             System.out.println("->"+folder.getName());
-            //folder->C:\Users\tatig\Desktop\so
-            //nombre->so
+            Export_Excel excel = new Export_Excel(folder.getPath());
+            excel.Create_Excel(file.getFields(), file.getRecords(), file.getName());
             
-            //xml.CreateXML(folder.getPath(), folder.getName(), key, value);
-            //file = new File(folder.getPath() + ".txt");
-            //file.createFile();
-
-            
-            JOptionPane.showMessageDialog(this, "¡XML creado con éxito!");
         }
     }//GEN-LAST:event_bt_exportarEMouseClicked
 
