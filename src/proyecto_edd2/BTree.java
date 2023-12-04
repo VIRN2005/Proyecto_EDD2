@@ -60,152 +60,113 @@ public class BTree implements Serializable {
         //int key_Int = Integer.parseInt(key);
         Node parent = root;
         if (parent.getKeys().size() == (N - 1)) {
+            System.out.println("Entre 1");
             Node temp = new Node();
             root = temp;
-            temp.setLeaf(false);
+            temp.setLeaf(false); 
             temp.setN(0);
             //temp.getChildren().get(0).setNode(parent);
-            temp.getChildren().set(0, parent);
+            temp.getChildren().add(parent);
+            //temp.setParent(root);
             Split(temp, 0, parent);
+            //parent = root;
             nonfullInsertCase(temp, key);
+            
         } else {
             nonfullInsertCase(parent, key);
+            //System.out.println("Entro 2");
         }
     }
 
     private void nonfullInsertCase(Node node, String key) {
         int key_Int = Integer.parseInt(key);
+        //System.out.println();
         int keys_cant = node.getKeys().size() - 1;
 
         if (node.isLeaf()) {
-            for (int i = 0; i < keys_cant; i++) {
+            
+            int pos = 0; 
+            for (int i = 0; i <= keys_cant; i++) {
                 int key_i = Integer.parseInt(node.getKeys().get(i));
+                //System.out.println("KeyInt:"+key_Int+" Key_I:"+key_i);
                 if (key_Int < key_i) {
-                    i--;
-                    node.getKeys().add(i, key);
+                    pos =i;
                     break;
                 }
+                if (i==keys_cant) {
+                    pos=keys_cant+1;
+                }
             }
+            node.getKeys().add(pos, key);
+            node.setN(node.getN()+1);
+
         } else {
-            for (int i = 0; i < keys_cant; i++) {
+            int pos=0;
+            for (int i = 0; i <= keys_cant; i++) {
                 int key_i = Integer.parseInt(node.getKeys().get(i));
                 if (key_Int < key_i) {
-                    i--;
-                    if (node.getChildren().get(i).getKeys().size() == N - 1) {
-                        Split(node, i, node.getChildren().get(i));
-                        if (key_Int > key_i) {
-                            i++;
-                        }
-                    }
-                    nonfullInsertCase(node.getChildren().get(i), key);
-                    break;
+                    pos = i;
+                    break; 
+                }
+                if (i==keys_cant) {
+                    pos=keys_cant+1;
                 }
             }
+            //System.out.println(":::::"+pos);
+            if(node.getChildren().get(pos).getKeys().size() == N-1){
+                Split(node, pos, node.getChildren().get(pos));
+                if(key_Int > Integer.parseInt(node.getKeys().get(pos)))
+                    pos++;
+            }
+            //System.out.println(key + " " + node.getChildren().get(i).getKeys());
+            nonfullInsertCase(node.getChildren().get(pos), key);
 
         }
     }
-
-    private void Split(Node root, int pos, Node node) {
+    
+    private void Split(Node next_root, int pos, Node root) {
+//        System.out.println("----");
+//        System.out.println("Middle: ");next_root.imprimir();
+//        System.out.println("\nChilds: ");next_root.getChildren().get(0).imprimir();
+//        System.out.println("\nRoot");root.imprimir(); 
+//        System.out.println("\n----");
+        
         Node temp = new Node();
-        temp.setLeaf(node.isLeaf());
-        int right = (N - 1) / 2;
-        temp.setN(right);
-        for (int i = 0; i < right; i++) {
-            //temp.getKeys().add(node.getKeys().get(i+right+1));
-            temp.getKeys().set(i, node.getKeys().get(i + right + 1));
+        temp.setLeaf( root.isLeaf());
+        int n = (N - 1) / 2;
+        int t = n+1;
+        temp.setN(n);
+        
+        for (int i = 0; i < n; i++) {
+            temp.getKeys().add( root.getKeys().get(t));
+            root.getKeys().remove(t);
+            //temp.getKeys().set(i, node.getKeys().get(i + right +1));//le quito +1
         }
-        if (!node.isLeaf()) {
-            for (int i = 0; i < right + 1; i++) {
+        
+        if (!root.isLeaf()) {
+            for (int i = 0; i < t; i++) {
                 //temp.getChildren().get(i).setNode(node.getChildren().get(i+right+1));
-                temp.getChildren().set(i, node.getChildren().get(i + right + 1));
+                temp.getChildren().add( root.getChildren().get(i+t));
+                //temp.getChildren().set(i, node.getChildren().get(i + right + 1));//+1
             }
         }
-        node.setN(right);
-        for (int i = root.getN(); i > pos; i--) {
-            root.getChildren().set(i + 1, root.getChildren().get(i));
+        root.setN(root.getN()-n);
+        //System.out.println(":::"+next_root.getKeys().size());
+        for (int i = next_root.getKeys().size(); i > pos; i--) {
+            //System.out.println("::::::>"+i);
+            next_root.getChildren().set((i + 1), next_root.getChildren().get(i));
         }
-        root.getChildren().set(pos + 1, temp);
-        for (int i = root.getN(); i > pos; i--) {
-            root.getKeys().set(i + 1, root.getKeys().get(i));
+        //System.out.println(":::"+next_root.getChildren().size());
+        next_root.getChildren().add(null);
+        next_root.getChildren().set((pos + 1), temp);
+        for (int i = next_root.getKeys().size(); i > pos; i--) {
+            next_root.getKeys().set(i + 1, next_root.getKeys().get(i));
         }
-        root.getKeys().set(pos, node.getKeys().get(right));
-        root.setN(root.getN() + 1);
-    }
-
-//    public void insertElement(String key){
-//        Node node = root; 
-//        if (node.getKeys().size()==(N-1)) {
-//            Split();
-//            InsertHere(node, key);
-//        }else{
-//            InsertHere(node, key);
-//        }
-//    }
-//    private void InsertHere(Node node, String key){
-//        int keys_limit = node.getKeys().size()-1;
-//        int key_int = Integer.parseInt(key); 
-//        if (node.isLeaf()) {
-//            for (int i = 0; i < keys_limit; i++) {
-//                int key_i = Integer.parseInt(node.getKeys().get(i));
-//                if (key_int<key_i) {
-//                    i--;
-//                    node.getKeys().add(i, key);
-//                    break;
-//                }
-//            }
-//        }else{
-//            
-//        }
-//    }
-    private Node Split(ArrayList<String> keys, String key) {
-        Node root_temp = new Node();
-        int key_int = Integer.parseInt(key);
-        boolean valid = false;
-
-        int left_limit = ((N - 1) / 2) - 1;
-        int center_pos = (left_limit + 1);
-
-        ArrayList<String> keys_temp = new ArrayList();
-        for (int i = 0; i < keys.size(); i++) {
-            int key_i = Integer.parseInt(keys.get(i));
-            if (key_int < key_i && !valid) {
-                keys_temp.add(key);
-                valid = true;
-            }
-            keys_temp.add(keys.get(i));
-            if (!valid && i == keys.size() - 1) {
-                keys_temp.add(key);
-            }
-        }
-
-        root_temp.getKeys().add(keys_temp.get(center_pos));
-        ArrayList<String> left = new ArrayList();
-        ArrayList<String> right = new ArrayList();
-        for (int i = 0; i < keys_temp.size(); i++) {
-            if (i < center_pos) {
-                left.add(keys_temp.get(i));
-            }
-            if (i > center_pos) {
-                right.add(keys_temp.get(i));
-            }
-        }
-
-        Node left_child = new Node();
-        left_child.setKeys(left);
-        Node right_child = new Node();
-        right_child.setKeys(right);
-
-        if (root.getChildren() == null) {
-            root_temp.getChildren().add(left_child);
-            root_temp.getChildren().add(right_child);
-        } else {
-            root.getKeys().add(keys_temp.get(center_pos));
-            root.getChildren().get(N - 1).setParent(left_child);
-            root.getChildren().add(right_child);
-
-        }
-
-        return root_temp;
+        //System.out.println(":::"+next_root.getKeys().size());
+        next_root.getKeys().add(null);
+        next_root.getKeys().set(pos,  root.getKeys().get(n));
+        root.getKeys().remove(n);
+        next_root.setN(next_root.getN() + 1);
     }
 
     public Node search(Node temp, int key) {
