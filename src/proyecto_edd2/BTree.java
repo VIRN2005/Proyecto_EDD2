@@ -42,21 +42,18 @@ public class BTree implements Serializable {
         this.N = N;
     }
 
-    //Realmente use rrn, pero creo que tuve que usar pos ahora que pienso, creo que el rrn es con otra cosa xD
-    public Node getLeftNeighbor(int node_rrn, Node root) {
-        Node neighbor = null;
-        if (node_rrn > 0) {
-            return root.getChildren().get((node_rrn - 1));
+    public Node getLeftNeighbor(int pos, Node node) {
+        if (pos > 0) {
+            return node.getParent().getChildren().get((pos - 1));
         }
-        return neighbor;
+        return null;
     }
 
-    public Node getRightNeighbor(int node_rrn, Node root) {
-        Node neighbor = null;
-        if (node_rrn < (N - 1)) {
-            neighbor = root.getChildren().get((node_rrn + 1));
+    public Node getRightNeighbor(int pos, Node node) {
+        if (pos < node.getParent().getChildren().size() - 1) {
+            return node.getParent().getChildren().get((pos + 1));
         }
-        return neighbor;
+        return null;
     }
 
     public void insert(String key) {
@@ -236,47 +233,97 @@ public class BTree implements Serializable {
 
             if (temp.getKeys().size() < (N - 1) / 2) {//si el nodo hoja tiene menos que la cantidad de llaves permitidas
                 Node neighbor;
-                int node_size = temp.getParent().getChildren().indexOf(temp);
+                int pos, node_pos = temp.getParent().getChildren().indexOf(temp);
 
-                //buscamos el vecino mas populoso
-                if (getLeftNeighbor(node_size, temp).getKeys().size() > getRightNeighbor(node_size, temp).getKeys().size()) {
-                    neighbor = getLeftNeighbor(node_size, temp);
+                //buscamos el vecino mas populoso y la pos de la key de la root entre ellos
+                if (getLeftNeighbor(node_pos, temp).getKeys().size() > getRightNeighbor(node_pos, temp).getKeys().size() || getLeftNeighbor(node_pos, temp).getKeys().size() == getRightNeighbor(node_pos, temp).getKeys().size()) {
+                    neighbor = getLeftNeighbor(node_pos, temp);
+                    pos = neighbor.getParent().getChildren().indexOf(neighbor);
                 } else {
-                    neighbor = getRightNeighbor(node_size, temp);
+                    neighbor = getRightNeighbor(node_pos, temp);
+                    pos = temp.getParent().getChildren().indexOf(temp);
                 }
 
-                if (!temp.getKeys().isEmpty()) {
-                    neighbor.setKeys(merge(neighbor, temp));
+                merge(neighbor, temp, pos);
+                if (neighbor.getKeys().size() > N - 1) {//caso overflowed
+                    Split(neighbor.getParent(), pos, neighbor);
+                }
+                if (neighbor.getParent().getKeys().size() > neighbor.getParent().getChildren().size()) { //caso que hayan mas hijos que llaves
+                    Split(neighbor.getParent(), pos, neighbor);
+                }
+                if (neighbor.getParent().getKeys().isEmpty()) {//si el nodo parent queda vacio
+                    neighbor.setLeaf(false);
+                    neighbor.setParent(null);
                 }
 
             }
         } else {//si no es hoja
-
+            int node_pos = temp.getParent().getChildren().indexOf(temp), pos_lastkey = temp.getChildren().get(node_pos).getKeys().size()-1;
+            if (getLeftNeighbor(node_pos, temp).getKeys().size() > (N - 1) / 2) {
+                String predecessorkey = temp.getChildren().get(node_pos).getKeys().get(pos_lastkey);
+                temp.getKeys().set(key, predecessorkey);
+                temp.getChildren().get(node_pos).getKeys().set(pos_lastkey, String.valueOf(key));
+                delete(temp.getChildren().get(node_pos),pos_lastkey);
+            }
         }
     }
 
-    public ArrayList<String> merge(Node temp1, Node temp2) {
+    public void merge(Node neighbor, Node dyingnode, int pos_key_parent) {
         ArrayList<String> newkeys = new ArrayList();
-        int cont = 0;
+        int keyparent = Integer.parseInt(dyingnode.getParent().getKeys().get(pos_key_parent));
 
-        //falta obtener el valor del nodo raiz entre ambos nodos hijos
-        for (int i = 0; i < temp2.getKeys().size(); i++) {
-            if (Integer.parseInt(temp1.getKeys().get(i)) < Integer.parseInt(temp2.getParent().getKeys().get(i))) {
-                newkeys.add(temp1.getKeys().get(i));
-            }
-        }
+        if (!dyingnode.getKeys().isEmpty()) {
+            if (Integer.parseInt(neighbor.getKeys().get(0)) < Integer.parseInt(dyingnode.getKeys().get(0))) {
+                neighbor.getKeys().add(neighbor.getParent().getKeys().get(pos_key_parent));
 
-        for (int i = 0; i < temp1.getKeys().size(); i++) {
-            if (Integer.parseInt(temp1.getKeys().get(i)) < Integer.parseInt(temp2.getKeys().get(cont))) {
-                newkeys.add(temp1.getKeys().get(i));
+                for (int i = 0; i < neighbor.getKeys().size(); i++) {
+                    newkeys.add(neighbor.getKeys().get(i));
+                }
+                for (int i = 0; i < dyingnode.getKeys().size(); i++) {
+                    newkeys.add(dyingnode.getKeys().get(i));
+                }
             } else {
-                newkeys.add(temp2.getKeys().get(i));
-                i--;
-                cont++;
+                dyingnode.getKeys().add(dyingnode.getParent().getKeys().get(pos_key_parent));
+
+                for (int i = 0; i < dyingnode.getKeys().size(); i++) {
+                    newkeys.add(dyingnode.getKeys().get(i));
+                }
+                for (int i = 0; i < neighbor.getKeys().size(); i++) {
+                    newkeys.add(neighbor.getKeys().get(i));
+                }
             }
 
+            neighbor.setKeys(newkeys);
+        } else {
+            if (Integer.parseInt(neighbor.getKeys().get(0)) < keyparent) {
+                neighbor.getKeys().add(neighbor.getParent().getKeys().get(pos_key_parent));
+            } else {
+                neighbor.getKeys().add(0, neighbor.getParent().getKeys().get(pos_key_parent));
+            }
         }
-        return newkeys;
+
+        neighbor.getParent().removeKey(pos_key_parent);
+        dyingnode.getParent().getChildren().remove(dyingnode.getParent().getChildren().indexOf(dyingnode));
+    }
+    
+    public String PredecessorKey(Node x) {//devuelve el ultimo key del node anterior
+        if (x.getParent().getChildren().indexOf(x) > 0) {
+            int pos = x.getParent().getChildren().indexOf(x) - 1;
+
+            return getLeftNeighbor(pos, x).getKeys().get(x.getParent().getChildren().get(pos).getKeys().size() - 1);
+        } else {
+            return null;
+        }
+    }
+
+    public String SuccessorKey(Node x) {//devuelve el primer key del node siguiente
+        if (x.getParent().getChildren().indexOf(x) < x.getParent().getChildren().size() - 1) {
+            int pos = x.getParent().getChildren().indexOf(x) + 1;
+
+            return getRightNeighbor(pos, x).getKeys().get(0);
+        } else {
+            return null;
+        }
     }
 
 }
