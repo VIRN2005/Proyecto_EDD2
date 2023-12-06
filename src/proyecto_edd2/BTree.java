@@ -163,7 +163,7 @@ public class BTree implements Serializable {
         }
     }
 
-    public void delete(Node temp, int pos_key) {
+    /*public void delete(Node temp, int pos_key) {
         if (temp.isLeaf()) {
             System.out.println("\nkey hoja: " + pos_key);
             temp.getKeys().remove(pos_key);
@@ -211,6 +211,58 @@ public class BTree implements Serializable {
 
             delete(temp.getChildren().get(node_pos + 1), 0);
 
+        }
+    }*/
+    public void delete(Node temp, String key) {
+        if (temp.isLeaf()) {
+            System.out.println("\nLlave en nodo hoja: " + key);
+            temp.getKeys().remove(key);
+
+            if (temp.getKeys().size() < (N - 1) / 2) {
+                Node neighbor;
+                int pos, node_pos = temp.getParent().getChildren().indexOf(temp);
+
+                // Buscamos el vecino más populoso y la posición de la clave de la raíz entre ellos
+                Node leftNeighbor = getLeftNeighbor(node_pos, temp);
+                Node rightNeighbor = getRightNeighbor(node_pos, temp);
+
+                if (leftNeighbor.getKeys().size() > rightNeighbor.getKeys().size() || leftNeighbor.getKeys().size() == rightNeighbor.getKeys().size()) {
+                    neighbor = leftNeighbor;
+                    pos = neighbor.getParent().getChildren().indexOf(neighbor);
+                } else {
+                    neighbor = rightNeighbor;
+                    pos = temp.getParent().getChildren().indexOf(temp);
+                }
+
+                merge(neighbor, temp, pos);
+
+                if (neighbor.getKeys().size() > N - 1) { // Caso de desbordamiento
+                    Split(neighbor.getParent(), pos, neighbor);
+                }
+                if (neighbor.getParent().getKeys().size() > neighbor.getParent().getChildren().size()) { // Caso con más hijos que llaves
+                    Split(neighbor.getParent(), pos, neighbor);
+                }
+                if (neighbor.getParent().getKeys().isEmpty()) { // Si el nodo padre queda vacío
+                    neighbor.setLeaf(false);
+                    neighbor.setParent(null);
+                }
+            }
+        } else { // Si no es hoja
+            int node_pos = 0;
+            int pos_lastkey;
+
+            if (temp.getParent() != null) { // Si NO es nodo raíz
+                node_pos = temp.getParent().getChildren().indexOf(temp);
+            }
+
+            pos_lastkey = temp.getChildren().get(node_pos).getKeys().size() - 1;
+            String predecessorKey = temp.getChildren().get(node_pos).getKeys().get(pos_lastkey);
+            temp.getChildren().get(node_pos).getKeys().remove(pos_lastkey); // Eliminar la clave del nodo hijo anterior
+
+            temp.getChildren().get(node_pos + 1).getKeys().add(0, String.valueOf(key)); // Colocar la nueva clave en el siguiente nodo
+            temp.getKeys().set(node_pos, predecessorKey);
+
+            delete(temp.getChildren().get(node_pos + 1), key); // Llamar recursivamente al siguiente nodo
         }
     }
 
