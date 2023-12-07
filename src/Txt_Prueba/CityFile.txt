@@ -2,9 +2,6 @@
 34
 100
 10
-Sure, here is the updated list with city names from around the world and $ as filler:
-
-```
 0 |Paris London|$$$$$$$$$$$$$$$$$$$
 1 |Tokyo Beijing|$$$$$$$$$$$$$$$$$$
 2 |Sydney Cairo|$$$$$$$$$$$$$$$$$$$
