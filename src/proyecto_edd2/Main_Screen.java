@@ -108,6 +108,21 @@ public class Main_Screen extends javax.swing.JFrame {
         no = new javax.swing.JRadioButton();
         FondoJD5 = new javax.swing.JLabel();
         bg_key = new javax.swing.ButtonGroup();
+        jd_enlazar = new javax.swing.JDialog();
+        Search_File1 = new javax.swing.JButton();
+        Search_File2 = new javax.swing.JButton();
+        Salir = new javax.swing.JButton();
+        Save_File = new javax.swing.JButton();
+        Lista2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        Lista1 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        Restart = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        Lista3 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        jLabel59 = new javax.swing.JLabel();
+        Fotito = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jl_archivo = new javax.swing.JLabel();
@@ -533,6 +548,83 @@ public class Main_Screen extends javax.swing.JFrame {
             jd_crearCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pn_crearC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jd_enlazar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Search_File1.setText("Search File 1");
+        Search_File1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_File1ActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(Search_File1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 120, 30));
+
+        Search_File2.setText("Search File 2");
+        Search_File2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_File2ActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(Search_File2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 120, 30));
+
+        Salir.setFont(new java.awt.Font("Coolvetica Rg", 0, 24)); // NOI18N
+        Salir.setText("Salir");
+        Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SalirMouseEntered(evt);
+            }
+        });
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 270, 30));
+
+        Save_File.setText("Save File");
+        Save_File.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save_FileActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(Save_File, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 270, 30));
+
+        Lista2.setViewportView(jList1);
+
+        jd_enlazar.getContentPane().add(Lista2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 120, 240));
+
+        Lista1.setViewportView(jList2);
+
+        jd_enlazar.getContentPane().add(Lista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 120, 240));
+
+        Restart.setText("RESTART");
+        Restart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RestartActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(Restart, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 260, 30));
+
+        jButton1.setText("➜");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 70, 30));
+
+        Lista3.setViewportView(jList3);
+
+        jd_enlazar.getContentPane().add(Lista3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 270, 240));
+
+        jLabel59.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
+        jLabel59.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel59.setText("Enlazar Files");
+        jd_enlazar.getContentPane().add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 290, -1));
+
+        Fotito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
+        jd_enlazar.getContentPane().add(Fotito, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1678,6 +1770,34 @@ public class Main_Screen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EstandarizacionButtonMouseClicked
 
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SalirActionPerformed
+
+    private void Search_File1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_File1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_File1ActionPerformed
+
+    private void RestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RestartActionPerformed
+
+    private void Save_FileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_FileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Save_FileActionPerformed
+
+    private void SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseEntered
+        
+    }//GEN-LAST:event_SalirMouseEntered
+
+    private void Search_File2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_File2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_File2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1849,11 +1969,20 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel FondoJD3;
     private javax.swing.JLabel FondoJD4;
     private javax.swing.JLabel FondoJD5;
+    private javax.swing.JLabel Fotito;
     private javax.swing.JPanel IndicesButton;
     private javax.swing.JPanel Inicio;
+    private javax.swing.JScrollPane Lista1;
+    private javax.swing.JScrollPane Lista2;
+    private javax.swing.JScrollPane Lista3;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuBar;
     private javax.swing.JPanel RegistrosButton;
+    private javax.swing.JButton Restart;
+    private javax.swing.JButton Salir;
+    private javax.swing.JButton Save_File;
+    private javax.swing.JButton Search_File1;
+    private javax.swing.JButton Search_File2;
     private javax.swing.JLabel TitleCampo;
     private javax.swing.JLabel Titulo;
     private javax.swing.ButtonGroup bg_key;
@@ -1883,6 +2012,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel bt_salvarA;
     private javax.swing.JComboBox<String> cb_dataType;
     private javax.swing.JFormattedTextField ff_longitudA;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1937,6 +2067,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
@@ -1953,6 +2084,9 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1960,6 +2094,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JDialog jd_abrirA;
     private javax.swing.JDialog jd_borrarC;
     private javax.swing.JDialog jd_crearC;
+    private javax.swing.JDialog jd_enlazar;
     private javax.swing.JDialog jd_listarC;
     private javax.swing.JDialog jd_modificarC;
     private javax.swing.JDialog jd_nuevoA;
