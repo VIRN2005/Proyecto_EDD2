@@ -144,15 +144,15 @@ public class BTree implements Serializable {
         temp.removeKey(0);
     }
 
-    public Node search(Node temp, int key) {
+    public Node search(Node temp, String key) {
         ArrayList<String> keys = temp.getKeys();
         int indice = 0;
 
-        while (indice < keys.size() && key > Integer.parseInt(keys.get(indice))) {
+        while (indice < keys.size() && Integer.parseInt(key) > Integer.parseInt(keys.get(indice))) {
             indice++;
         }
 
-        if (indice < keys.size() && key == Integer.parseInt(keys.get(indice))) {
+        if (indice < keys.size() && Integer.parseInt(key) == Integer.parseInt(keys.get(indice))) {
             return temp;
         }
 
@@ -163,57 +163,7 @@ public class BTree implements Serializable {
         }
     }
 
-    /*public void delete(Node temp, int pos_key) {
-        if (temp.isLeaf()) {
-            System.out.println("\nkey hoja: " + pos_key);
-            temp.getKeys().remove(pos_key);
-
-            if (temp.getKeys().size() < (N - 1) / 2) {//si el nodo hoja tiene menos que la cantidad de llaves permitidas
-                Node neighbor;
-                int pos, node_pos = temp.getParent().getChildren().indexOf(temp);
-
-                //buscamos el vecino mas populoso y la pos de la key de la root entre ellos
-                if (getLeftNeighbor(node_pos, temp).getKeys().size() > getRightNeighbor(node_pos, temp).getKeys().size() || getLeftNeighbor(node_pos, temp).getKeys().size() == getRightNeighbor(node_pos, temp).getKeys().size()) {
-                    neighbor = getLeftNeighbor(node_pos, temp);
-                    pos = neighbor.getParent().getChildren().indexOf(neighbor);
-                } else {
-                    neighbor = getRightNeighbor(node_pos, temp);
-                    pos = temp.getParent().getChildren().indexOf(temp);
-                }
-
-                merge(neighbor, temp, pos);
-
-                if (neighbor.getKeys().size() > N - 1) {//caso overflowed
-                    Split(neighbor.getParent(), pos, neighbor);
-                }
-                if (neighbor.getParent().getKeys().size() > neighbor.getParent().getChildren().size()) { //caso que hayan mas hijos que llaves
-                    Split(neighbor.getParent(), pos, neighbor);
-                }
-                if (neighbor.getParent().getKeys().isEmpty()) {//si el nodo parent queda vacio
-                    neighbor.setLeaf(false);
-                    neighbor.setParent(null);
-                }
-
-            }
-        } else {//si no es hoja
-            int node_pos = 0, pos_lastkey;
-
-            if (temp.getParent() != null) {//si NO es nodo raiz
-                node_pos = temp.getParent().getChildren().indexOf(temp);
-            }
-
-            pos_lastkey = temp.getChildren().get(node_pos).getKeys().size() - 1;
-            String predecessorkey = temp.getChildren().get(node_pos).getKeys().get(pos_lastkey);
-            temp.getChildren().get(node_pos).getKeys().remove(pos_lastkey);//eliminar el key del nodo hijo anterior
-
-            temp.getChildren().get(node_pos + 1).getKeys().add(0, String.valueOf(temp.getKeys().get(pos_key)));//colocar el nuevo key en el siguiente nodo
-            temp.getKeys().set(pos_key, predecessorkey);
-
-            delete(temp.getChildren().get(node_pos + 1), 0);
-
-        }
-    }*/
-    public void delete(Node temp, String key) {
+    public void deleteVictor(Node temp, String key) {
         if (temp.isLeaf()) {
             System.out.println("\nLlave en nodo hoja: " + key);
             temp.getKeys().remove(key);
@@ -262,7 +212,60 @@ public class BTree implements Serializable {
             temp.getChildren().get(node_pos + 1).getKeys().add(0, String.valueOf(key)); // Colocar la nueva clave en el siguiente nodo
             temp.getKeys().set(node_pos, predecessorKey);
 
-            delete(temp.getChildren().get(node_pos + 1), key); // Llamar recursivamente al siguiente nodo
+            deleteVictor(temp.getChildren().get(node_pos + 1), key); // Llamar recursivamente al siguiente nodo
+        }
+    }
+
+    public void delete(Node root, String key) {
+        Node temp = search(root, key);
+        if (temp.isLeaf()) {
+            int node_pos = temp.getParent().getChildren().indexOf(temp);
+//            int pos_key = temp.getParent().getChildren().get(node_pos).getKeys().indexOf(key);
+            root.getKeys().remove(key);
+
+            if (temp.getKeys().size() < (N - 1) / 2) {//si el nodo hoja tiene menos que la cantidad de llaves permitidas
+                Node neighbor = new Node(), rightN = getRightNeighbor(node_pos, temp), leftN = getLeftNeighbor(node_pos, temp);
+                int pos = 0;
+
+                //buscamos el vecino mas populoso y la pos de la key de la root entre ellos
+                if (leftN != null && (leftN.getKeys().size() > rightN.getKeys().size() || leftN.getKeys().size() == rightN.getKeys().size())) {
+                    neighbor = leftN;
+                    pos = neighbor.getParent().getChildren().indexOf(neighbor);
+                } else if (rightN != null) {
+                    neighbor = rightN;
+                    pos = node_pos;
+                }
+
+                merge(neighbor, temp, pos);
+
+                if (neighbor.getKeys().size() > N - 1) {//caso overflowed
+                    Split(neighbor.getParent(), pos, neighbor);
+                }
+                if (neighbor.getParent().getKeys().size() > neighbor.getParent().getChildren().size()) { //caso que hayan mas hijos que llaves
+                    Split(neighbor.getParent(), pos, neighbor);
+                }
+                if (neighbor.getParent() == null) {//si el nodo parent queda vacio
+                    neighbor.setLeaf(false);
+                    neighbor.setParent(null);
+                }
+
+            }
+        } else {//si no es hoja
+            int pos_lastkey, flag = 0;
+            int pos_key = temp.getKeys().indexOf(key);
+
+            if (temp.getParent() != null) {//si NO es nodo raiz
+                flag = 1;
+            }
+
+            String predecessorkey = PredecessorKey(temp, flag, key);
+            Node child = search(temp, predecessorkey);
+            pos_lastkey = child.getKeys().size() - 1;
+
+            child.getKeys().set(pos_lastkey, key);//colocar el nuevo key en el nodo hijo izquierdo
+            temp.getKeys().set(pos_key, predecessorkey);
+
+            delete(child, key);
         }
     }
 
@@ -292,36 +295,45 @@ public class BTree implements Serializable {
             }
 
             neighbor.setKeys(newkeys);
+            neighbor.getParent().removeKey(pos_key_parent);
+            dyingnode.getParent().getChildren().remove(dyingnode.getParent().getChildren().indexOf(dyingnode));
         } else {
-            if (Integer.parseInt(neighbor.getKeys().get(0)) < keyparent) {
-                neighbor.getKeys().add(neighbor.getParent().getKeys().get(pos_key_parent));
+            String key = neighbor.getParent().getKeys().get(pos_key_parent);
+            if (pos_key_parent > Integer.parseInt(neighbor.getKeys().get(0))) {
+                neighbor.getKeys().add(key);
             } else {
-                neighbor.getKeys().add(0, neighbor.getParent().getKeys().get(pos_key_parent));
+                neighbor.getKeys().add(0, key);
             }
         }
-
-        neighbor.getParent().removeKey(pos_key_parent);
-        dyingnode.getParent().getChildren().remove(dyingnode.getParent().getChildren().indexOf(dyingnode));
     }
 
-    public String PredecessorKey(Node x) {//devuelve el ultimo key del node anterior
-        if (x.getParent().getChildren().indexOf(x) > 0) {
-            int pos = x.getParent().getChildren().indexOf(x) - 1;
+    public String PredecessorKey(Node x, int flag, String key) {//devuelve el key mas grande de la izquierda del node 
+        switch (flag) {
+            case 0://primer nodo es raiz
+                if (x.getParent() == null) {//si es raiz
+                    return PredecessorKey(x.getChildren().get(0), flag, key);
+                } else if (!x.isLeaf()) {//si no es hoja
+                    int pos = x.getChildren().size() - 1;
 
-            return getLeftNeighbor(pos, x).getKeys().get(x.getParent().getChildren().get(pos).getKeys().size() - 1);
-        } else {
-            return null;
+                    if (x.getChildren().get(0).isLeaf()) {
+                        flag = 2;
+                    }
+
+                    return PredecessorKey(x.getChildren().get(pos), flag, key);
+                }
+            case 1://primer nodo es padre
+                int pos = x.getKeys().indexOf(key);
+
+                if (x.getChildren().get(0).isLeaf()) {
+                    flag = 2;
+                }
+
+                return PredecessorKey(x.getChildren().get(pos), flag, key);
         }
-    }
 
-    public String SuccessorKey(Node x) {//devuelve el primer key del node siguiente
-        if (x.getParent().getChildren().indexOf(x) < x.getParent().getChildren().size() - 1) {
-            int pos = x.getParent().getChildren().indexOf(x) + 1;
-
-            return getRightNeighbor(pos, x).getKeys().get(0);
-        } else {
-            return null;
-        }
+        int posnode = x.getParent().getChildren().indexOf(x);
+        ArrayList<String> keys = x.getParent().getChildren().get(posnode).getKeys();
+        return keys.get(keys.size() - 1);
     }
 
 }
