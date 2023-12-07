@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -114,13 +115,13 @@ public class Main_Screen extends javax.swing.JFrame {
         Salir = new javax.swing.JButton();
         Save_File = new javax.swing.JButton();
         Lista2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jl_Enlazar2 = new javax.swing.JList<>();
         Lista1 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jl_Enlazar1 = new javax.swing.JList<>();
         Restart = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        FlechaEnlazado = new javax.swing.JButton();
         Lista3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        jl_Enlazados = new javax.swing.JList<>();
         jLabel59 = new javax.swing.JLabel();
         Fotito = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
@@ -589,11 +590,11 @@ public class Main_Screen extends javax.swing.JFrame {
         });
         jd_enlazar.getContentPane().add(Save_File, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 270, 30));
 
-        Lista2.setViewportView(jList1);
+        Lista2.setViewportView(jl_Enlazar2);
 
         jd_enlazar.getContentPane().add(Lista2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 120, 240));
 
-        Lista1.setViewportView(jList2);
+        Lista1.setViewportView(jl_Enlazar1);
 
         jd_enlazar.getContentPane().add(Lista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 120, 240));
 
@@ -605,15 +606,20 @@ public class Main_Screen extends javax.swing.JFrame {
         });
         jd_enlazar.getContentPane().add(Restart, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 260, 30));
 
-        jButton1.setText("➜");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        FlechaEnlazado.setText("➜");
+        FlechaEnlazado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FlechaEnlazadoMouseClicked(evt);
             }
         });
-        jd_enlazar.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 70, 30));
+        FlechaEnlazado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FlechaEnlazadoActionPerformed(evt);
+            }
+        });
+        jd_enlazar.getContentPane().add(FlechaEnlazado, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 70, 30));
 
-        Lista3.setViewportView(jList3);
+        Lista3.setViewportView(jl_Enlazados);
 
         jd_enlazar.getContentPane().add(Lista3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 270, 240));
 
@@ -1744,7 +1750,7 @@ public class Main_Screen extends javax.swing.JFrame {
             dialogoArchivo = new FileDialog(this, "Carga de Archivos XML", FileDialog.LOAD);
             dialogoArchivo.setVisible(true);
 
-            String directorio = dialogoArchivo.getDirectory(); 
+            String directorio = dialogoArchivo.getDirectory();
             String name = dialogoArchivo.getFile();
 
             System.out.println("Name -> " + dialogoArchivo.getFile());
@@ -1787,16 +1793,58 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_FileActionPerformed
 
     private void SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseEntered
-        
+
     }//GEN-LAST:event_SalirMouseEntered
 
     private void Search_File2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_File2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Search_File2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void FlechaEnlazadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlechaEnlazadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_FlechaEnlazadoActionPerformed
+
+    private void FlechaEnlazadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlechaEnlazadoMouseClicked
+        try {
+            boolean Yes_A = true;
+            boolean Yes_B = true;
+            DefaultListModel model_1 = (DefaultListModel) jl_Enlazar1.getModel();
+            DefaultListModel model_2 = (DefaultListModel) jl_Enlazar2.getModel();
+            DefaultListModel model_3 = (DefaultListModel) jl_Enlazados.getModel();
+            try {
+                if (jl_Enlazar1.getSelectedIndex() >= 0) {
+                    for (int i = 0; i < model_3.getSize(); i++) {
+                        if (model_3.getElementAt(i) == model_1.getElementAt(jl_Enlazar1.getSelectedIndex())) {
+                            Yes_A = false;
+                        }
+                    }
+                    if (Yes_A) {
+                        model_3.addElement(model_1.getElementAt(jl_Enlazar1.getSelectedIndex()));
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+            try {
+                if (jl_Enlazar2.getSelectedIndex() >= 0) {
+                    for (int i = 0; i < model_3.getSize(); i++) {
+                        if (model_3.getElementAt(i) == model_2.getElementAt(jl_Enlazar2.getSelectedIndex())) {
+                            Yes_B = false;
+                        }
+                    }
+                    if (Yes_B) {
+                        model_3.addElement(model_2.getElementAt(jl_Enlazar2.getSelectedIndex()));
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+            jl_Enlazados.setModel(model_3);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error 404 \n"
+                    + "Intentelo de Nuevo!");
+        }
+    }//GEN-LAST:event_FlechaEnlazadoMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1956,6 +2004,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel ArchivosButton;
     private javax.swing.JPanel CamposButton;
     private javax.swing.JPanel EstandarizacionButton;
+    private javax.swing.JButton FlechaEnlazado;
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Fondo1;
     private javax.swing.JLabel Fondo2;
@@ -2012,7 +2061,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel bt_salvarA;
     private javax.swing.JComboBox<String> cb_dataType;
     private javax.swing.JFormattedTextField ff_longitudA;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2084,9 +2132,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2098,6 +2143,9 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JDialog jd_listarC;
     private javax.swing.JDialog jd_modificarC;
     private javax.swing.JDialog jd_nuevoA;
+    private javax.swing.JList<String> jl_Enlazados;
+    private javax.swing.JList<String> jl_Enlazar1;
+    private javax.swing.JList<String> jl_Enlazar2;
     private javax.swing.JLabel jl_archivo;
     private javax.swing.JTable jt_borrarC;
     private javax.swing.JTable jt_listarC;
