@@ -1,6 +1,7 @@
 package proyecto_edd2;
 
 import java.awt.Color;
+import java.awt.FileDialog;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.logging.Level;
@@ -8,7 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-    import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
@@ -1588,7 +1589,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_IndicesButtonMouseClicked
 
     private void bt_exportarEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exportarEMouseClicked
-        
+
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         //fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -1596,15 +1597,16 @@ public class Main_Screen extends javax.swing.JFrame {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             folder = fileChooser.getSelectedFile();
-            System.out.println("folder"+ folder);
-            System.out.println("->"+folder.getName());
+            System.out.println("folder" + folder);
+            System.out.println("->" + folder.getName());
             Export_Excel excel = new Export_Excel(folder.getPath());
             excel.Create_Excel(file.getFields(), file.getRecords(), file.getName());
-            
+
         }
     }//GEN-LAST:event_bt_exportarEMouseClicked
 
     private void bt_exportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exportarXMLMouseClicked
+        /* METHOD 1 FALLIDO
         //Export_XML xml = new Export_XML();
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         //fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -1625,6 +1627,42 @@ public class Main_Screen extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "¡XML creado con éxito!");
         }
+
+        METHOD 2 FALLIDO
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(this);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                java.io.File selectedFile = fileChooser.getSelectedFile();
+                String filePath = selectedFile.getAbsolutePath();
+                String XMLName = JOptionPane.showInputDialog("Ingrese el Nombre del archivo");
+
+                Export_XML xml = new Export_XML();
+                xml.CreateXML(filePath, XMLName, file.getFields(), file.getRecords());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se seleccionó ningún archivo.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido algo inesperado.");
+        }*/
+
+        try {
+            FileDialog dialogoArchivo;
+            dialogoArchivo = new FileDialog(this, "Lista de Archivos desde Frame", FileDialog.LOAD);
+            dialogoArchivo.setVisible(true);
+
+            String directorio = dialogoArchivo.getDirectory();
+            String name = dialogoArchivo.getFile();
+
+            System.out.println("Name -> " + dialogoArchivo.getFile());
+            Export_XML xml = new Export_XML();
+
+            xml.CreateXML(directorio, name, file.getFields(), file.getRecords());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido algo inesperado");
+        }
+
     }//GEN-LAST:event_bt_exportarXMLMouseClicked
 
     private void EstandarizacionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstandarizacionButtonMouseClicked
@@ -1779,7 +1817,6 @@ public class Main_Screen extends javax.swing.JFrame {
 //
 //        return true;
 //    }
-
     public boolean ValidarCampo(Campo campo, int pos) {
         for (int i = 0; i < file.getFields().size(); i++) {
             String campo_original = file.getFields().get(i).getName().toLowerCase();

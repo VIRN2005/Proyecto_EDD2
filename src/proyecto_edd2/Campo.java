@@ -16,6 +16,9 @@ public class Campo {
     private boolean key;
     private boolean isKeyT1;
     private boolean isKeyT2;
+    private boolean isChar;
+
+    
 
     // Constructors
     public Campo() {
@@ -33,6 +36,9 @@ public class Campo {
     }
 
     // Getters & Setters
+    public boolean isIsChar() {
+        return isChar;
+    }
     public int getSize() {
         return size;
     }
@@ -83,13 +89,13 @@ public class Campo {
 
     // Methods usados en Campo
     //Determina  si el primer caracter es int o char
-//    public String character() {
-//        if (!isCharacter) {
-//            return "int";
-//        } else {
-//            return "char";
-//        }
-//    }
+    public String character() {
+        if (!isChar) {
+            return "int";
+        } else {
+            return "char";
+        }
+    }
 
     //Da las flags a las keys usadas como flags
     public void setKeysValues(char Key_suffix) {
@@ -126,7 +132,7 @@ public class Campo {
     // Imprime la info con las Keys included (Ing. Nelbren me enseñó este method en Progra3 JAJAJA)
     @Override
     public String toString() {
-        String keySuffix = (isKeyT1) ? "f" : (isKeyT2) ? "s" : "t";
+        String keySuffix = (isKeyT1) ? "p" : (isKeyT2) ? "c" : "n";
         return name + ": " + type + '[' + Integer.toString(size) + "]" + keySuffix;
     }
 
