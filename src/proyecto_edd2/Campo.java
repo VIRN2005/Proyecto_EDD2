@@ -132,7 +132,7 @@ public class Campo {
     // Imprime la info con las Keys included (Ing. Nelbren me enseñó este method en Progra3 JAJAJA)
     @Override
     public String toString() {
-        String keySuffix = (isKeyT1) ? "p" : (isKeyT2) ? "c" : "n";
+        String keySuffix = (isKeyT1) ? "f" : (isKeyT2) ? "s" : "t";
         return name + ": " + type + '[' + Integer.toString(size) + "]" + keySuffix;
     }
 
