@@ -1649,10 +1649,10 @@ public class Main_Screen extends javax.swing.JFrame {
 
         try {
             FileDialog dialogoArchivo;
-            dialogoArchivo = new FileDialog(this, "Lista de Archivos desde Frame", FileDialog.LOAD);
+            dialogoArchivo = new FileDialog(this, "Carga de Archivos XML", FileDialog.LOAD);
             dialogoArchivo.setVisible(true);
 
-            String directorio = dialogoArchivo.getDirectory();
+            String directorio = dialogoArchivo.getDirectory(); 
             String name = dialogoArchivo.getFile();
 
             System.out.println("Name -> " + dialogoArchivo.getFile());
