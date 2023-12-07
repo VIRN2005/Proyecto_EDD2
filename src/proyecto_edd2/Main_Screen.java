@@ -568,11 +568,19 @@ public class Main_Screen extends javax.swing.JFrame {
         });
         jd_enlazar.getContentPane().add(Search_File2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 120, 30));
 
+        Salir.setBackground(new java.awt.Color(255, 255, 255));
         Salir.setFont(new java.awt.Font("Coolvetica Rg", 0, 24)); // NOI18N
+        Salir.setForeground(new java.awt.Color(0, 0, 0));
         Salir.setText("Salir");
         Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SalirMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 SalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SalirMouseExited(evt);
             }
         });
         Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -629,6 +637,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel59.setText("Enlazar Files");
         jd_enlazar.getContentPane().add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 290, -1));
 
+        Fotito.setForeground(new java.awt.Color(0, 0, 0));
         Fotito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
         jd_enlazar.getContentPane().add(Fotito, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
 
@@ -1793,7 +1802,8 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_FileActionPerformed
 
     private void SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseEntered
-
+        Salir.setBackground(Color.red);
+        Salir.setForeground(Color.white);
     }//GEN-LAST:event_SalirMouseEntered
 
     private void Search_File2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_File2ActionPerformed
@@ -1845,6 +1855,15 @@ public class Main_Screen extends javax.swing.JFrame {
                     + "Intentelo de Nuevo!");
         }
     }//GEN-LAST:event_FlechaEnlazadoMouseClicked
+
+    private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_SalirMouseClicked
+
+    private void SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseExited
+        Salir.setBackground(Color.white);
+        Salir.setForeground(Color.black);
+    }//GEN-LAST:event_SalirMouseExited
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
