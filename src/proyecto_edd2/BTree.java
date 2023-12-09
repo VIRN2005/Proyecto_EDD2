@@ -271,7 +271,6 @@ public class BTree implements Serializable {
 
     public void merge(Node neighbor, Node dyingnode, int pos_key_parent) {
         ArrayList<String> newkeys = new ArrayList();
-        int keyparent = Integer.parseInt(dyingnode.getParent().getKeys().get(pos_key_parent));
 
         if (!dyingnode.getKeys().isEmpty()) {
             if (Integer.parseInt(neighbor.getKeys().get(0)) < Integer.parseInt(dyingnode.getKeys().get(0))) {
@@ -293,18 +292,16 @@ public class BTree implements Serializable {
                     newkeys.add(neighbor.getKeys().get(i));
                 }
             }
-
-            neighbor.setKeys(newkeys);
-            neighbor.getParent().removeKey(pos_key_parent);
-            dyingnode.getParent().getChildren().remove(dyingnode.getParent().getChildren().indexOf(dyingnode));
         } else {
-            String key = neighbor.getParent().getKeys().get(pos_key_parent);
-            if (pos_key_parent > Integer.parseInt(neighbor.getKeys().get(0))) {
-                neighbor.getKeys().add(key);
-            } else {
-                neighbor.getKeys().add(0, key);
+            newkeys.add(dyingnode.getParent().getKeys().get(pos_key_parent));
+            for (int i = 0; i < neighbor.getKeys().size(); i++) {
+                newkeys.add(neighbor.getKeys().get(i));
             }
         }
+        
+        neighbor.setKeys(newkeys);
+        neighbor.getParent().removeKey(pos_key_parent);
+        dyingnode.getParent().getChildren().remove(dyingnode.getParent().getChildren().indexOf(dyingnode));
     }
 
     public String PredecessorKey(Node x, int flag, String key) {//devuelve el key mas grande de la izquierda del node 
