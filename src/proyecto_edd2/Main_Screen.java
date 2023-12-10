@@ -20,10 +20,12 @@ import javax.swing.table.DefaultTableModel;
 public class Main_Screen extends javax.swing.JFrame {
 
     File file = null;
+    File PersonFile, CityFile; 
+    Registro temp_record = new Registro(); 
     String metadata = "";
     java.io.File archivo = null;
     java.io.File folder = null;
-    int Panel = 0, pos_ModCampo;
+    int Panel = 0, pos_ModCampo, pos_campo = 0;
 
     public Main_Screen() {
         initComponents();
@@ -124,6 +126,15 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_Enlazados = new javax.swing.JList<>();
         jLabel59 = new javax.swing.JLabel();
         Fotito = new javax.swing.JLabel();
+        jd_crearR = new javax.swing.JDialog();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jta_campos = new javax.swing.JTextArea();
+        bt_createR = new javax.swing.JButton();
+        jLabel79 = new javax.swing.JLabel();
+        jl_campos = new javax.swing.JLabel();
+        tf_campo = new javax.swing.JTextField();
+        jLabel78 = new javax.swing.JLabel();
+        Fotito1 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jl_archivo = new javax.swing.JLabel();
@@ -655,6 +666,53 @@ public class Main_Screen extends javax.swing.JFrame {
         Fotito.setForeground(new java.awt.Color(0, 0, 0));
         Fotito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
         jd_enlazar.getContentPane().add(Fotito, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
+
+        jd_crearR.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jta_campos.setEditable(false);
+        jta_campos.setColumns(20);
+        jta_campos.setRows(5);
+        jScrollPane4.setViewportView(jta_campos);
+
+        jd_crearR.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, -1, 240));
+
+        bt_createR.setBackground(new java.awt.Color(195, 22, 28));
+        bt_createR.setFont(new java.awt.Font("Lane - Narrow", 1, 18)); // NOI18N
+        bt_createR.setForeground(new java.awt.Color(255, 255, 255));
+        bt_createR.setText("Siguiente");
+        bt_createR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_createR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_createRMouseClicked(evt);
+            }
+        });
+        jd_crearR.getContentPane().add(bt_createR, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
+
+        jLabel79.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
+        jLabel79.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel79.setText("Campos");
+        jd_crearR.getContentPane().add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 280, -1));
+
+        jl_campos.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
+        jl_campos.setForeground(new java.awt.Color(255, 255, 255));
+        jl_campos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_campos.setText("Ingrese campo:");
+        jd_crearR.getContentPane().add(jl_campos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 450, -1));
+
+        tf_campo.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        tf_campo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jd_crearR.getContentPane().add(tf_campo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 390, 30));
+
+        jLabel78.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
+        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel78.setText("Introducir Registro");
+        jd_crearR.getContentPane().add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 700, -1));
+
+        Fotito1.setForeground(new java.awt.Color(0, 0, 0));
+        Fotito1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
+        jd_crearR.getContentPane().add(Fotito1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1711,7 +1769,28 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_modificarRMouseClicked
 
     private void bt_introducirRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_introducirRMouseClicked
-        // TODO add your handling code here:
+        if (file != null) {
+            jta_campos.setText("");
+            pos_campo = 0; 
+            temp_record = new Registro();
+            for (int i = 0; i < file.getFields().size(); i++) {
+                Campo temp = file.getFields().get(i);
+                jta_campos.setText(jta_campos.getText()+"\n"+temp.getName()+" - "+temp.getType());
+            }
+            
+            Campo temp = file.getFields().get(pos_campo);
+            String nombre = temp.getName();
+            jl_campos.setText("Ingrese "+nombre+" :");
+            int size = file.getFields().size()-1;
+            if (pos_campo==size) {
+                bt_createR.setText("Crear");
+            }else{
+                bt_createR.setText("Siguiente");
+            }
+            AbrirJD(jd_crearR);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_introducirRMouseClicked
 
     private void bt_buscarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarRMouseClicked
@@ -1723,7 +1802,15 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_borrarRMouseClicked
 
     private void bt_listarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMouseClicked
-        // TODO add your handling code here:
+        for (int i = 0; i < file.getRecords().size(); i++) {
+            System.out.println("entro");
+            for (int j = 0; j <  file.getRecords().get(i).getAll_fields().size(); j++) {
+                System.out.println("entro2");
+                String name = file.getRecords().get(i).getAll_fields().get(j);
+                System.out.println("**->"+name);
+            }
+            System.out.println("");
+        }
     }//GEN-LAST:event_bt_listarRMouseClicked
 
     private void RegistrosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosButtonMouseClicked
@@ -1938,6 +2025,41 @@ public class Main_Screen extends javax.swing.JFrame {
         AbrirJD(jd_enlazar);
     }//GEN-LAST:event_bt_cruzarAMouseClicked
 
+    private void bt_createRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_createRMouseClicked
+        if (!"".equals(tf_campo.getText())) {
+            Campo temp = file.getFields().get(pos_campo);
+            if (ValidField(temp, tf_campo.getText())) {
+                temp_record.getAll_fields().add(tf_campo.getText());
+                if ("Crear".equals(bt_createR.getText())) {
+                    Registro record = temp_record; 
+                    file.getRecords().add(record);
+                    pos_campo = 0;
+                    jd_crearR.dispose();
+                    JOptionPane.showMessageDialog(null, "¡Registro creado con exito!", "Records", INFORMATION_MESSAGE);
+                    tf_campo.setText("");
+
+                }else{
+                    pos_campo++;
+                    temp = file.getFields().get(pos_campo);
+                    int size = file.getFields().size()-1;
+                    if (pos_campo==size) {
+                        bt_createR.setText("Crear");
+                    }
+                    String nombre = temp.getName();
+                    jl_campos.setText("Ingrese "+nombre+" :");
+                    tf_campo.setText("");
+                }
+                    
+            }else{
+                JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
+                
+            }
+            //AbrirJD(jd_crearR);
+        }else{
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_bt_createRMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1969,6 +2091,31 @@ public class Main_Screen extends javax.swing.JFrame {
             }
         });
     }
+    
+    public boolean ValidField(Campo campo, String tx){
+        if (campo.getType().equals(TextType(tx))) {
+            return true;
+        }
+        if (campo.isKey()) {
+            //if search(tx) en el arbol, si es true, returna falso ; 
+        }
+        return false; 
+    }
+    public String TextType(String txt){
+        if (txt.matches("\\d+")) {
+            return "int";
+        }
+        try {
+            Float.valueOf(txt);
+            return "float";
+        } catch (NumberFormatException e) {
+            return "char";
+        }
+    }
+//    public void EdicionPanel(Campo field) {
+//        
+//        
+//    }
 
     public static void AbrirJD(JDialog JD) {
         JD.setModal(true);
@@ -2111,6 +2258,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel FondoJD4;
     private javax.swing.JLabel FondoJD5;
     private javax.swing.JLabel Fotito;
+    private javax.swing.JLabel Fotito1;
     private javax.swing.JPanel IndicesButton;
     private javax.swing.JPanel Inicio;
     private javax.swing.JScrollPane Lista1;
@@ -2138,6 +2286,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel bt_crearC;
     private javax.swing.JPanel bt_crearI;
     private javax.swing.JButton bt_createC;
+    private javax.swing.JButton bt_createR;
     private javax.swing.JPanel bt_cruzarA;
     private javax.swing.JButton bt_deleteC;
     private javax.swing.JPanel bt_exportarE;
@@ -2230,15 +2379,19 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JDialog jd_abrirA;
     private javax.swing.JDialog jd_borrarC;
     private javax.swing.JDialog jd_crearC;
+    private javax.swing.JDialog jd_crearR;
     private javax.swing.JDialog jd_enlazar;
     private javax.swing.JDialog jd_listarC;
     private javax.swing.JDialog jd_modificarC;
@@ -2247,9 +2400,11 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JList<String> jl_Enlazar1;
     private javax.swing.JList<String> jl_Enlazar2;
     private javax.swing.JLabel jl_archivo;
+    private javax.swing.JLabel jl_campos;
     private javax.swing.JTable jt_borrarC;
     private javax.swing.JTable jt_listarC;
     private javax.swing.JTable jt_modificarC;
+    private javax.swing.JTextArea jta_campos;
     private javax.swing.JRadioButton no;
     private javax.swing.JProgressBar pb;
     private javax.swing.JPanel pn_BorrarC;
@@ -2266,6 +2421,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JRadioButton si;
     private javax.swing.JLabel start;
     private javax.swing.JTextField tf_Filepath;
+    private javax.swing.JTextField tf_campo;
     private javax.swing.JTextField tf_nameA;
     private javax.swing.JTextField tf_nuevoA;
     // End of variables declaration//GEN-END:variables
