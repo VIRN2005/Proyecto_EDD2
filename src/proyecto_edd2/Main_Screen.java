@@ -649,7 +649,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel59.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(255, 255, 255));
         jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel59.setText("Enlazar Files");
+        jLabel59.setText("Cruzar Archivos");
         jd_enlazar.getContentPane().add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 700, -1));
 
         Fotito.setForeground(new java.awt.Color(0, 0, 0));
@@ -963,7 +963,7 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_cruzarA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel75.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar-sesion.png"))); // NOI18N
+        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/enlazar.png"))); // NOI18N
         bt_cruzarA.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 44, -1, 70));
 
         jLabel76.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Red.png"))); // NOI18N
@@ -1118,8 +1118,9 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_cargarAP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anadir.png"))); // NOI18N
-        bt_cargarAP.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 80, 70));
+        jLabel60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/carga-de-archivos.png"))); // NOI18N
+        jLabel60.setToolTipText("");
+        bt_cargarAP.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 80, 80));
 
         jLabel61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Green.png"))); // NOI18N
         bt_cargarAP.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 120, -1));
