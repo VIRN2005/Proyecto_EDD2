@@ -2,8 +2,13 @@ package proyecto_edd2;
 
 import java.awt.Color;
 import java.awt.FileDialog;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -613,6 +618,11 @@ public class Main_Screen extends javax.swing.JFrame {
 
         Search_File2.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
         Search_File2.setText("Search File 2");
+        Search_File2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Search_File2MouseClicked(evt);
+            }
+        });
         Search_File2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Search_File2ActionPerformed(evt);
@@ -644,6 +654,11 @@ public class Main_Screen extends javax.swing.JFrame {
 
         Save_File.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 14)); // NOI18N
         Save_File.setText("Save File");
+        Save_File.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Save_FileMouseClicked(evt);
+            }
+        });
         Save_File.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Save_FileActionPerformed(evt);
@@ -657,6 +672,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jd_enlazar.getContentPane().add(Lista2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 120, 220));
 
         jl_Enlazar1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 12)); // NOI18N
+        jl_Enlazar1.setModel(new DefaultListModel());
         Lista1.setViewportView(jl_Enlazar1);
 
         jd_enlazar.getContentPane().add(Lista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 120, 220));
@@ -2149,11 +2165,27 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void Search_File1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_File1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            DefaultListModel model = new DefaultListModel();;
+            JFileChooser path = new JFileChooser();
+            path.showOpenDialog(this);
+            File archivo1 = new File(path.getSelectedFile().getPath());
+            System.out.println(archivo1.toString());
+
+            model.clear();
+            jl_Enlazar1.getModel();
+            for (int i = 0; i < archivo1.getFields().size(); i++) {
+                model.addElement(archivo1.getFields().get(i));
+            }
+            jl_Enlazar1.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
     }//GEN-LAST:event_Search_File1ActionPerformed
 
     private void RestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestartActionPerformed
-        // TODO add your handling code here:
+        jd_enlazar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_RestartActionPerformed
 
     private void Save_FileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_FileActionPerformed
@@ -2272,6 +2304,98 @@ public class Main_Screen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_searchRMouseClicked
 
+    private void Search_File2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Search_File2MouseClicked
+        try {
+            DefaultListModel model = new DefaultListModel();;
+            JFileChooser path = new JFileChooser();
+            path.showOpenDialog(this);
+            File archivo2 = new File(path.getSelectedFile().getPath());
+            System.out.println(archivo2.toString());
+
+            model.clear();
+            jl_Enlazar2.getModel();
+            for (int i = 0; i < archivo2.getFields().size(); i++) {
+                model.addElement(archivo2.getFields().get(i));
+            }
+            jl_Enlazar2.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+    }//GEN-LAST:event_Search_File2MouseClicked
+
+    private void Save_FileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Save_FileMouseClicked
+        try {
+            DefaultListModel modelo3 = (DefaultListModel) jl_Enlazados.getModel();
+            JFileChooser path = new JFileChooser();
+            path.showOpenDialog(this);
+
+            ArrayList<Campo> campos = new ArrayList();
+            File archivo3 = new File(path.getSelectedFile().getPath());
+
+            for (int i = 0; i < modelo3.size(); i++) {
+                campos.add((Campo) modelo3.getElementAt(i));
+            }
+            path.showOpenDialog(this);
+            archivo3.setFields(campos);
+            if (!archivo3.getFields().isEmpty()) {
+                String metaData = "";//registros = ""
+                int recordSize = 0;//recNum = 0;
+                for (int i = 0; i < archivo3.getFields().size(); i++) {
+                    if (i == 0) {
+                        metaData += '{';
+                    }
+                    metaData += archivo3.getFields().get(i).toString();
+                    if (i == archivo3.getFields().size() - 1) {
+                        metaData += '}';
+                    } else {
+                        metaData += ", ";
+                    }
+                    recordSize += archivo3.getFields().get(i).getSize() + 1;
+                }
+                metaData += "\n" + Integer.toString(recordSize);
+                metaData += "\n" + archivo3.getCountRegis() + "\n";
+
+                try {
+                    System.out.println(path.getSelectedFile().getPath());
+                    fw = new FileWriter(path.getSelectedFile().getPath() + ".txt");
+                    bw = new BufferedWriter(fw);
+                    bw.append(metaData);
+                    for (int i = 0; i < archivo3.getRecords().size(); i++) {
+                        bw.append(archivo3.getRecords().get(i).toString() + "\n");
+                    }
+                    bw.flush();
+                    bw.close();
+                    fw.close();
+                    JOptionPane.showMessageDialog(this, "El Enlazado de Archivos \n"
+                            + "Ha sido EXITOSO!");
+                } catch (IOException ex) {
+                    System.out.println("Uuupppsssss... Algo Sucedió");
+                }
+
+                if (!archivo3.getRecords().isEmpty()) {
+                    FileOutputStream fw = null;
+                    ObjectOutputStream bw = null;
+                    try {
+                        fw = new FileOutputStream(archivo);
+                        bw = new ObjectOutputStream(fw);
+                        bw.writeObject(this.tree);
+                        bw.flush();
+                    } catch (Exception ex) {
+                    } finally {
+                        try {
+                            bw.close();
+                            fw.close();
+                        } catch (Exception ex) {
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ha ocurrido algo inesperado");
+        }
+    }//GEN-LAST:event_Save_FileMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -2283,16 +2407,24 @@ public class Main_Screen extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main_Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_Screen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main_Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_Screen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main_Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_Screen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main_Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main_Screen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -2697,4 +2829,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nameA;
     private javax.swing.JTextField tf_nuevoA;
     // End of variables declaration//GEN-END:variables
+    BTree tree;
+    BufferedWriter bw;
+    FileWriter fw;
 }
