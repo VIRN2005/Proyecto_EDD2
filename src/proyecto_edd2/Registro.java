@@ -58,9 +58,10 @@ public class Registro {
         for (int i = 0; i < all_fields.size(); i++) {
             String element = (String) all_fields.get(i);
             temp += element.length();
-            if (i < all_fields.size() - 1) {
-                temp++; // Agrega 1 para el carácter de separación, como un espacio o coma
-            }
+            temp++; 
+//            if (i < all_fields.size() - 1) {
+//                temp++; // Agrega 1 para el carácter de separación, como un espacio o coma
+//            }
         }
         tam = temp;
     }

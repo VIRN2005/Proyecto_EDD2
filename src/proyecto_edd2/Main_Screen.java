@@ -2239,6 +2239,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 temp_record.getAll_fields().add(tf_campo.getText());
                 if ("Crear".equals(bt_createR.getText())) {
                     Registro record = temp_record;
+                    record.Size();
                     file.getRecords().add(record);
                     pos_campo = 0;
                     jd_crearR.dispose();
