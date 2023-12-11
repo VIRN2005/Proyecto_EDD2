@@ -150,10 +150,16 @@ public class Main_Screen extends javax.swing.JFrame {
         jLabel81 = new javax.swing.JLabel();
         jl_campos2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jt_campos1 = new javax.swing.JTable();
+        jt_buscarR = new javax.swing.JTable();
         jLabel82 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         Fotito2 = new javax.swing.JLabel();
+        jd_borrarR = new javax.swing.JDialog();
+        pn_listarC2 = new javax.swing.JPanel();
+        jLabel83 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jt_listarR1 = new javax.swing.JTable();
+        FondoJD7 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jl_archivo = new javax.swing.JLabel();
@@ -827,8 +833,8 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_campos2.setText("Ingrese la llave:");
         jd_buscarR.getContentPane().add(jl_campos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 370, -1));
 
-        jt_campos1.setBackground(new java.awt.Color(243, 233, 220));
-        jt_campos1.setModel(new javax.swing.table.DefaultTableModel(
+        jt_buscarR.setBackground(new java.awt.Color(243, 233, 220));
+        jt_buscarR.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -854,8 +860,8 @@ public class Main_Screen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jt_campos1.setGridColor(new java.awt.Color(243, 233, 220));
-        jScrollPane6.setViewportView(jt_campos1);
+        jt_buscarR.setGridColor(new java.awt.Color(243, 233, 220));
+        jScrollPane6.setViewportView(jt_buscarR);
 
         jd_buscarR.getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 190, 210));
 
@@ -869,6 +875,43 @@ public class Main_Screen extends javax.swing.JFrame {
         Fotito2.setForeground(new java.awt.Color(0, 0, 0));
         Fotito2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
         jd_buscarR.getContentPane().add(Fotito2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
+
+        pn_listarC2.setBackground(new java.awt.Color(17, 30, 58));
+        pn_listarC2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel83.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
+        jLabel83.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel83.setText("Borrar Registros");
+        pn_listarC2.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 700, -1));
+
+        jt_listarR1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane7.setViewportView(jt_listarR1);
+
+        pn_listarC2.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 640, 260));
+
+        FondoJD7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FondoJD.png"))); // NOI18N
+        pn_listarC2.add(FondoJD7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        javax.swing.GroupLayout jd_borrarRLayout = new javax.swing.GroupLayout(jd_borrarR.getContentPane());
+        jd_borrarR.getContentPane().setLayout(jd_borrarRLayout);
+        jd_borrarRLayout.setHorizontalGroup(
+            jd_borrarRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_borrarRLayout.createSequentialGroup()
+                .addComponent(pn_listarC2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jd_borrarRLayout.setVerticalGroup(
+            jd_borrarRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pn_listarC2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1966,6 +2009,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_introducirRMouseClicked
 
     private void bt_buscarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_buscarRMouseClicked
+//        ListarTablaR(jt_listarR);
         AbrirJD(jd_buscarR);
     }//GEN-LAST:event_bt_buscarRMouseClicked
 
@@ -1974,18 +2018,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_borrarRMouseClicked
 
     private void bt_listarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMouseClicked
-        for (int i = 0; i < file.getRecords().size(); i++) {
-
-            for (int j = 0; j < file.getRecords().get(i).getAll_fields().size(); j++) {
-                System.out.println("entro2");
-                String name = file.getRecords().get(i).getAll_fields().get(j);
-                System.out.println("**->" + name);
-
-            }
-            System.out.println("");
-
-        }
-
         ListarTablaR(jt_listarR);
         AbrirJD(jd_listarR);
     }//GEN-LAST:event_bt_listarRMouseClicked
@@ -2025,7 +2057,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_IndicesButtonMouseClicked
 
     private void bt_exportarEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exportarEMouseClicked
-
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         //fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -2037,7 +2068,6 @@ public class Main_Screen extends javax.swing.JFrame {
             System.out.println("->" + folder.getName());
             Export_Excel excel = new Export_Excel(folder.getPath());
             excel.Create_Excel(file.getFields(), file.getRecords(), file.getName());
-
         }
     }//GEN-LAST:event_bt_exportarEMouseClicked
 
@@ -2294,10 +2324,6 @@ public class Main_Screen extends javax.swing.JFrame {
             return "char";
         }
     }
-//    public void EdicionPanel(Campo field) {
-//        
-//        
-//    }
 
     public static void AbrirJD(JDialog JD) {
         JD.setModal(true);
@@ -2350,21 +2376,15 @@ public class Main_Screen extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
             modelo.setRowCount(0);
-            modelo.setColumnCount(file.getFields().size());
+            modelo.setColumnCount(0);
 
             for (Campo field : file.getFields()) {
-                System.out.println("entre a los campos");
                 modelo.addColumn(field.getName());
             }
 
-//            for (int i = 0; i < file.getFields().size(); i++) {
-//                modelo.addColumn( file.getFields().get(i).getName());
-//            }
             Object[] row = new Object[modelo.getColumnCount()];
             for (Registro record : file.getRecords()) {
-                System.out.println("entre a record");
                 for (int i = 0; i < file.getFields().size(); i++) {
-                    System.out.println("entre a listar");
                     row[i] = String.valueOf(record.getAll_fields().get(i));
                 }
 
@@ -2486,6 +2506,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel FondoJD4;
     private javax.swing.JLabel FondoJD5;
     private javax.swing.JLabel FondoJD6;
+    private javax.swing.JLabel FondoJD7;
     private javax.swing.JLabel Fotito;
     private javax.swing.JLabel Fotito1;
     private javax.swing.JLabel Fotito2;
@@ -2617,6 +2638,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2625,8 +2647,10 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JDialog jd_abrirA;
     private javax.swing.JDialog jd_borrarC;
+    private javax.swing.JDialog jd_borrarR;
     private javax.swing.JDialog jd_buscarR;
     private javax.swing.JDialog jd_crearC;
     private javax.swing.JDialog jd_crearR;
@@ -2643,10 +2667,11 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jl_campos1;
     private javax.swing.JLabel jl_campos2;
     private javax.swing.JTable jt_borrarC;
+    private javax.swing.JTable jt_buscarR;
     private javax.swing.JTable jt_campos;
-    private javax.swing.JTable jt_campos1;
     private javax.swing.JTable jt_listarC;
     private javax.swing.JTable jt_listarR;
+    private javax.swing.JTable jt_listarR1;
     private javax.swing.JTable jt_modificarC;
     private javax.swing.JRadioButton no;
     private javax.swing.JProgressBar pb;
@@ -2659,6 +2684,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel pn_indices;
     private javax.swing.JPanel pn_listarC;
     private javax.swing.JPanel pn_listarC1;
+    private javax.swing.JPanel pn_listarC2;
     private javax.swing.JPanel pn_modificarC;
     private javax.swing.JPanel pn_nuevoA;
     private javax.swing.JPanel pn_registros;

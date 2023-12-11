@@ -26,8 +26,8 @@ class File extends java.io.File {
     private java.io.File index;
 
     // Contadores, Tamaños & All that stuff
-    private int countRegis;
-    private int tamRecord;
+    private int countRegis;//cantidad de registros
+    private int tamRecord;//tamano del registro (length)
     private int primKeyIndex;
     private int secondaryKeyIndex;
     private int firstSlot;
@@ -153,54 +153,6 @@ class File extends java.io.File {
         this.metadata = metadata;
     }
 
-    // Methods usados en Class File
-    // Inicializa File y Valores en él
-//    public void AddFile(java.io.File archivo) throws FileNotFoundException {
-//        this.file = archivo;
-//
-//        int posS = firstSlot;
-//        br = new BufferedReader(new FileReader(archivo));
-//
-//        try {
-//            this.metadata = br.readLine();
-//            metadata = br.readLine();
-//            String FieldsStr = br.readLine();
-//            String[] F_Str = FieldsStr.substring(1, FieldsStr.length() - 1).split(", ");
-//
-//            for (String cp : F_Str) {
-//                fields.add(new Campo(cp));
-//            }
-//
-//            tamRecord = Integer.parseInt(br.readLine());
-//            countRegis = Integer.parseInt(br.readLine());
-//            posS = Integer.parseInt(br.readLine());
-//
-//            if (posS > -1) {
-//                slots.add(posS);//añade al final
-//            }
-//
-//            while (posS > 0) {
-//                String salida = (String) SearchLine(posS + 3, this.file);
-//                String[] linea = salida.split("\\|");
-//                posS = Integer.parseInt(linea[0].substring(1));
-//                if (posS > 0) {
-//                    slots.add(0, posS);//añade al inicio
-//                }
-//            }
-//
-//            int c = 1;
-//
-//            while ((FieldsStr = br.readLine()) != null) {
-//                if (FieldsStr.charAt(0) != '*') {
-//                    records.add(new Registro(FieldsStr, tamRecord, c));
-//                }
-//                c++;
-//            }
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-
     //Busca si el File tiene la Searched Line
     public static String SearchLine(int line, java.io.File file) throws IOException {
         String found = null;
@@ -288,6 +240,8 @@ class File extends java.io.File {
         if (file.exists()) {
             try {
                 sc = new Scanner(file);
+
+                //METADATA
                 metadata = sc.nextLine();
                 String[] meta_fields = metadata.split(",");
 
@@ -319,6 +273,21 @@ class File extends java.io.File {
                     fields.add(new Campo(Integer.parseInt(size), name, KeyValue(key), type, false, false));
                 }
 
+                //REGISTROS
+                countRegis = 0;
+                boolean flag = true;//para que solo consiga el tamaño del registro una vez por ser tamaño fijo
+                while (sc.hasNext()) {
+                    String registros = sc.nextLine();
+                    if (flag) {
+                        tamRecord = registros.length();
+                        flag = false;
+                    }
+
+                    Registro r = new Registro(registros, tamRecord, 1);
+                    records.add(r);
+                    countRegis++;
+                }
+
             } catch (Exception ex) {
             }
             sc.close();
@@ -336,41 +305,10 @@ class File extends java.io.File {
         this.fields.get(pos).setKey(campo.isKey());
     }
 
-//    public Campo Getcampo(int pos) {
-//        Campo campo = null;
-//        String[] Campos = metadata.split(",");
-//        String[] div1 = Campos[pos].split(": ");
-//        String nombre = div1[0];
-//
-//        char lastChar = div1[1].charAt(div1[1].length() - 1);
-//        //setKeysValues(lastChar);
-//        boolean isKey = KeyValue(lastChar);
-//        String Character;
-//        int size;
-//
-//        if (div1[1].charAt(0) == 'c') {
-//            Character = "char";
-//            //System.out.println("\nc: "+div1[1].substring(5, div1[1].length() - 2));
-//            size = Integer.parseInt(div1[1].substring(5, div1[1].length() - 2));
-//
-//        } else {
-//            Character = "int";
-//            //System.out.println("\nc: "+div1[1].substring(4, div1[1].length() - 2));
-//            size = Integer.parseInt(div1[1].substring(4, div1[1].length() - 2));
-//        }
-//        campo = new Campo(size, nombre, isKey, Character, false, false);
-//        return campo;
-//    }
-
     public boolean KeyValue(char Key_suffix) {
         return Key_suffix == 'f';
     }
 
-//    public boolean IsCharacter(String str) {
-//        char c = str.charAt(0);
-//        return (c == 'S' || c == 'C' || c == 's' || c == 'c');
-//    }
-    
     public void deleteCampo(int pos) {
         this.fields.remove(pos);
     }
