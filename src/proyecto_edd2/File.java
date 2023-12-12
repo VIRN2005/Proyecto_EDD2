@@ -214,11 +214,20 @@ class File extends java.io.File {
             FileWriter fw = null;
             BufferedWriter bw = null;
             try {
+                int longitudTotalRegistro = 40;
+
                 fw = new FileWriter(file, false);
                 bw = new BufferedWriter(fw);
-                bw.write(metadata);
+                bw.write(metadata + "\n");
                 for (Registro record : records) {
-                    bw.write(record.toString());
+                    StringBuilder registroCompleto = new StringBuilder(record.toString());
+                    int longitudDolares = longitudTotalRegistro - registroCompleto.length();
+
+                    for (int i = 0; i < longitudDolares; i++) {
+                        registroCompleto.append('$');
+                    }
+
+                    bw.write(registroCompleto + "\n");
                 }
                 bw.flush();
 
