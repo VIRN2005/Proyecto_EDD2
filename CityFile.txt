@@ -1,0 +1,102 @@
+CityId: int[2]f,Name: char[30]t
+0 |Paris London|$$$$$$$$$$$$$$$$$$$
+1 |Tokyo Beijing|$$$$$$$$$$$$$$$$$$
+2 |Sydney Cairo|$$$$$$$$$$$$$$$$$$$
+3 |Moscow Rome|$$$$$$$$$$$$$$$$$$$$
+4 |Berlin Madrid|$$$$$$$$$$$$$$$$$$
+5 |Lisbon Athens|$$$$$$$$$$$$$$$$$$
+6 |Dublin Warsaw|$$$$$$$$$$$$$$$$$$
+7 |Vienna Oslo|$$$$$$$$$$$$$$$$$$$$
+8 |Helsinki Zurich|$$$$$$$$$$$$$$$$
+9 |Brussels Budapest|$$$$$$$$$$$$$$
+10|Amsterdam Prague|$$$$$$$$$$$$$$$
+11|Copenhagen Stockholm|$$$$$$$$$$$
+12|Bucharest Sofia|$$$$$$$$$$$$$$$$
+13|Tallinn Riga|$$$$$$$$$$$$$$$$$$$
+14|Vilnius Luxembourg|$$$$$$$$$$$$$
+15|Nicosia Valletta|$$$$$$$$$$$$$$$
+16|Reykjavik Ankara|$$$$$$$$$$$$$$$
+17|Belgrade Podgorica|$$$$$$$$$$$$$
+18|Sarajevo Skopje|$$$$$$$$$$$$$$$$
+19|Tirana Ljubljana|$$$$$$$$$$$$$$$
+20|Zagreb Chisinau|$$$$$$$$$$$$$$$$
+21|Kiev Minsk|$$$$$$$$$$$$$$$$$$$$$
+22|Yerevan Baku|$$$$$$$$$$$$$$$$$$$
+23|Tbilisi Astana|$$$$$$$$$$$$$$$$$
+24|Dushanbe Ashgabat|$$$$$$$$$$$$$$
+25|Bishkek Tashkent|$$$$$$$$$$$$$$$
+26|Algiers Tunis|$$$$$$$$$$$$$$$$$$
+27|Rabat Tripoli|$$$$$$$$$$$$$$$$$$
+28|Cairo Khartoum|$$$$$$$$$$$$$$$$$
+29|Addis Ababa Mogadishu|$$$$$$$$$$
+30|Nairobi Dar es Salaam|$$$$$$$$$$
+31|Pretoria Luanda|$$$$$$$$$$$$$$$$
+32|Maputo Gaborone|$$$$$$$$$$$$$$$$
+33|Maseru Mbabane|$$$$$$$$$$$$$$$$$
+34|Antananarivo Port Louis|$$$$$$$$
+35|Victoria Mahe|$$$$$$$$$$$$$$$$$$
+36|Moroni Saint-Denis|$$$$$$$$$$$$$
+37|Port Louis Victoria|$$$$$$$$$$$$
+38|Saint-Denis Moroni|$$$$$$$$$$$$$
+39|Mahe Antananarivo|$$$$$$$$$$$$$$
+40|Mbabane Maseru|$$$$$$$$$$$$$$$$$
+41|Gaborone Maputo|$$$$$$$$$$$$$$$$
+42|Luanda Pretoria|$$$$$$$$$$$$$$$$
+43|Dar es Salaam Nairobi|$$$$$$$$$$
+44|Mogadishu Addis Ababa|$$$$$$$$$$
+45|Khartoum Cairo|$$$$$$$$$$$$$$$$$
+46|Tripoli Rabat|$$$$$$$$$$$$$$$$$$
+47|Tunis Algiers|$$$$$$$$$$$$$$$$$$
+48|Tashkent Bishkek|$$$$$$$$$$$$$$$
+49|Ashgabat Dushanbe|$$$$$$$$$$$$$$
+50|Astana Tbilisi|$$$$$$$$$$$$$$$$$
+51|Baku Yerevan|$$$$$$$$$$$$$$$$$$$
+52|Minsk Kiev|$$$$$$$$$$$$$$$$$$$$$
+53|Ljubljana Tirana|$$$$$$$$$$$$$$$
+54|Skopje Sarajevo|$$$$$$$$$$$$$$$$
+55|Podgorica Belgrade|$$$$$$$$$$$$$
+56|Ankara Reykjavik|$$$$$$$$$$$$$$$
+57|Valletta Nicosia|$$$$$$$$$$$$$$$
+58|Luxembourg Vilnius|$$$$$$$$$$$$$
+59|Riga Tallinn|$$$$$$$$$$$$$$$$$$$
+60|Sofia Bucharest|$$$$$$$$$$$$$$$$
+61|Stockholm Copenhagen|$$$$$$$$$$$
+62|Prague Amsterdam|$$$$$$$$$$$$$$$
+63|Budapest Brussels|$$$$$$$$$$$$$$
+64|Zurich Helsinki|$$$$$$$$$$$$$$$$
+65|Oslo Vienna|$$$$$$$$$$$$$$$$$$$$
+66|Warsaw Dublin|$$$$$$$$$$$$$$$$$$
+67|Athens Lisbon|$$$$$$$$$$$$$$$$$$
+68|Madrid Berlin|$$$$$$$$$$$$$$$$$$
+69|Rome Moscow|$$$$$$$$$$$$$$$$$$$$
+70|Cairo Sydney|$$$$$$$$$$$$$$$$$$$
+71|Beijing Tokyo|$$$$$$$$$$$$$$$$$$
+72|London Paris|$$$$$$$$$$$$$$$$$$$
+73|New York Los Angeles|$$$$$$$$$$$
+74|Chicago Houston|$$$$$$$$$$$$$$$$
+75|Phoenix Philadelphia|$$$$$$$$$$$
+76|San Antonio San Diego|$$$$$$$$$$
+77|Dallas San Jose|$$$$$$$$$$$$$$$$
+78|Austin Jacksonville|$$$$$$$$$$$$
+79|San Francisco Columbus|$$$$$$$$$
+80|Fort Worth Indianapolis|$$$$$$$$
+81|Charlotte Seattle|$$$$$$$$$$$$$$
+82|Denver Washington|$$$$$$$$$$$$$$
+83|Boston El Paso|$$$$$$$$$$$$$$$$$
+84|Detroit Nashville|$$$$$$$$$$$$$$
+85|Memphis Portland|$$$$$$$$$$$$$$$
+86|Oklahoma City Las Vegas|$$$$$$$$
+87|Louisville Baltimore|$$$$$$$$$$$
+88|Milwaukee Albuquerque|$$$$$$$$$$
+89|Tucson Fresno|$$$$$$$$$$$$$$$$$$
+90|Sacramento Kansas City|$$$$$$$$$
+91|Long Beach Mesa|$$$$$$$$$$$$$$$$
+92|Atlanta Virginia Beach|$$$$$$$$$
+93|Raleigh Omaha|$$$$$$$$$$$$$$$$$$
+94|Miami Oakland|$$$$$$$$$$$$$$$$$$
+95|Minneapolis Tulsa|$$$$$$$$$$$$$$
+96|Wichita New Orleans|$$$$$$$$$$$$
+97|Arlington Cleveland|$$$$$$$$$$$$
+98|Bakersfield Tampa|$$$$$$$$$$$$$$
+99|Aurora Honolulu|$$$$$$$$$$$$$$$$
+```

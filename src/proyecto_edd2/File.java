@@ -217,6 +217,9 @@ class File extends java.io.File {
                 fw = new FileWriter(file, false);
                 bw = new BufferedWriter(fw);
                 bw.write(metadata);
+                for (Registro record : records) {
+                    bw.write(record.toString());
+                }
                 bw.flush();
 
                 JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
