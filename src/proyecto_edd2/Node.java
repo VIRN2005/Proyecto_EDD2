@@ -13,7 +13,7 @@ public class Node implements Serializable {
     private ArrayList<Node> children = new ArrayList();
     private boolean leaf;
     Node parent; //parent
-    int n; //cantidad de llaves en el nodo
+    int key_pos,n; //cantidad de llaves en el nodo
 
     public Node() {
         n = 0;
@@ -31,6 +31,14 @@ public class Node implements Serializable {
 
     public void setN(int n) {
         this.n = n;
+    }
+    
+    public int getKey_pos() {
+        return key_pos;
+    }
+
+    public void setKey_pos(int key_pos) {
+        this.key_pos = key_pos;
     }
 
     public ArrayList<SearchEngine> getKeys() {
@@ -87,5 +95,20 @@ public class Node implements Serializable {
         } else {
             JOptionPane.showMessageDialog(null, "Este nodo no tiene hijos", "Warning", INFORMATION_MESSAGE);
         }
+    }
+    
+    public void imprimir(){
+        //System.out.println("-->"+n);
+        System.out.print("[");
+        
+        for (int i = 0; i < keys.size(); i++) {
+            //System.out.println("entro");
+            if (i < keys.size() - 1) {
+                System.out.print(keys.get(i) + " | ");
+            } else {
+                System.out.print(keys.get(i));
+            }
+        }
+        System.out.print("]");
     }
 }

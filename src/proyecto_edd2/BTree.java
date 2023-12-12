@@ -155,6 +155,7 @@ public class BTree implements Serializable {
         }
 
         if (indice < keys.size() && Integer.parseInt(key.getKey()) == Integer.parseInt(keys.get(indice).getKey())) {
+            temp.setKey_pos(indice);
             return temp;
         }
 
@@ -280,6 +281,22 @@ public class BTree implements Serializable {
         int posnode = x.getParent().getChildren().indexOf(x);
         ArrayList<SearchEngine> keys = x.getParent().getChildren().get(posnode).getKeys();
         return keys.get(keys.size() - 1);
+    }
+
+    public void print(Node root) {
+        root.imprimir();
+
+        //Si no es hoja
+        if (!root.isLeaf()) {
+            //recorre los nodos para saber si tiene hijos
+            for (int j = 0; j <= root.getKeys().size(); j++) {
+                if (root.getChildren().get(j) != null) {
+                    System.out.println();
+                    print(root.getChildren().get(j));
+                    
+                }
+            }
+        }
     }
 
 }

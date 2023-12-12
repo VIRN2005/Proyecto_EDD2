@@ -2426,7 +2426,9 @@ public class Main_Screen extends javax.swing.JFrame {
                 if ("Crear".equals(bt_createR.getText())) {
                     Registro record = temp_record;
                     record.Size();
-                    file.getRecords().add(record);
+                    
+                    AddRecord(record);
+                    
                     pos_campo = 0;
                     jd_crearR.dispose();
                     JOptionPane.showMessageDialog(null, "¡Registro creado con exito!", "Records", INFORMATION_MESSAGE);
@@ -2814,6 +2816,35 @@ public class Main_Screen extends javax.swing.JFrame {
         }
 
         return true;
+    }
+    
+    public void AddRecord(Registro record){
+        if (file.getSlot().isEmpty()) {
+            int pos = PrimaryKeyPos(file.getFields());
+            AddBTree(record,file.getCountRegis(), pos);
+            file.getRecords().add(record);
+            file.setCountRegis(file.getCountRegis()+1);
+        }
+            
+    }
+    public void AddBTree(Registro record, int cant_regis, int pos){
+        if (file.getRecords().isEmpty()) {
+            System.out.println("empty");
+            tree = new BTree(6);
+        }
+        SearchEngine obj = new SearchEngine();
+        obj.setRRN(cant_regis);
+        obj.setKey(record.getAll_fields().get(pos));
+        tree.insert(obj);
+        tree.print(tree.getRoot());
+    }
+    public int PrimaryKeyPos(ArrayList<Campo>campos){
+        for (int i = 0; i < campos.size(); i++) {
+            if (campos.get(i).isKey()) {
+                return i; 
+            }
+        }
+        return -1; 
     }
 
 
