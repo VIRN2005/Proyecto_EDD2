@@ -33,6 +33,9 @@ public class Main_Screen extends javax.swing.JFrame {
     java.io.File archivo = null;
     java.io.File folder = null;
     int Panel = 0, pos_ModCampo, pos_campo = 0;
+    BTree tree;
+    BufferedWriter bw;
+    FileWriter fw;
 
     public Main_Screen() {
         initComponents();
@@ -156,7 +159,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jd_buscarR = new javax.swing.JDialog();
         bt_searchR = new javax.swing.JButton();
         jl_campos1 = new javax.swing.JLabel();
-        tf_campo1 = new javax.swing.JTextField();
+        tf_keyB = new javax.swing.JTextField();
         jLabel81 = new javax.swing.JLabel();
         jl_campos2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -878,9 +881,9 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_campos1.setText("Escoja la llave con la que desea buscar:");
         jd_buscarR.getContentPane().add(jl_campos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 370, -1));
 
-        tf_campo1.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
-        tf_campo1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jd_buscarR.getContentPane().add(tf_campo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 370, 30));
+        tf_keyB.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 18)); // NOI18N
+        tf_keyB.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jd_buscarR.getContentPane().add(tf_keyB, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 370, 30));
 
         jLabel81.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
         jLabel81.setForeground(new java.awt.Color(255, 255, 255));
@@ -2426,9 +2429,9 @@ public class Main_Screen extends javax.swing.JFrame {
                 if ("Crear".equals(bt_createR.getText())) {
                     Registro record = temp_record;
                     record.Size();
-                    
+
                     AddRecord(record);
-                    
+
                     pos_campo = 0;
                     jd_crearR.dispose();
                     JOptionPane.showMessageDialog(null, "¡Registro creado con exito!", "Records", INFORMATION_MESSAGE);
@@ -2457,7 +2460,19 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_createRMouseClicked
 
     private void bt_searchRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_searchRMouseClicked
-        // TODO add your handling code here:
+        String key = cb_llaves.getSelectedItem().toString();
+        String data = tf_keyB.getText();
+
+        SearchEngine temp = new SearchEngine();
+        temp.setKey(data);
+
+        Node search = new Node();
+        search = tree.search(tree.getRoot(), temp);
+
+        if (search != null) {
+            temp = search.getKeys().get(search.key_pos);
+            ListarTablaR(jt_buscarR, temp.getRRN());
+        }
     }//GEN-LAST:event_bt_searchRMouseClicked
 
     private void Search_File2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Search_File2MouseClicked
@@ -2707,6 +2722,26 @@ public class Main_Screen extends javax.swing.JFrame {
         }
     }
 
+    private void ListarTablaR(JTable tabla, int pos) {
+        try {
+            tabla.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{"Campo", "Data"}));
+
+            Registro record = file.getRecords().get(pos);
+
+            for (Campo c : file.getFields()) {
+                for (String r : record.getAll_fields()) {
+                    Object[] row = {((Campo) c).getName(), r};
+                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                    modelo.addRow(row);
+                    tabla.setModel(modelo);
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void ListarLlaves(JComboBox cb) {
         cb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb.getModel();
@@ -2817,17 +2852,18 @@ public class Main_Screen extends javax.swing.JFrame {
 
         return true;
     }
-    
-    public void AddRecord(Registro record){
+
+    public void AddRecord(Registro record) {
         if (file.getSlot().isEmpty()) {
             int pos = PrimaryKeyPos(file.getFields());
-            AddBTree(record,file.getCountRegis(), pos);
+            AddBTree(record, file.getCountRegis(), pos);
             file.getRecords().add(record);
-            file.setCountRegis(file.getCountRegis()+1);
+            file.setCountRegis(file.getCountRegis() + 1);
         }
-            
+
     }
-    public void AddBTree(Registro record, int cant_regis, int pos){
+
+    public void AddBTree(Registro record, int cant_regis, int pos) {
         if (file.getRecords().isEmpty()) {
             System.out.println("empty");
             tree = new BTree(6);
@@ -2838,13 +2874,14 @@ public class Main_Screen extends javax.swing.JFrame {
         tree.insert(obj);
         tree.print(tree.getRoot());
     }
-    public int PrimaryKeyPos(ArrayList<Campo>campos){
+
+    public int PrimaryKeyPos(ArrayList<Campo> campos) {
         for (int i = 0; i < campos.size(); i++) {
             if (campos.get(i).isKey()) {
-                return i; 
+                return i;
             }
         }
-        return -1; 
+        return -1;
     }
 
 
@@ -3072,13 +3109,10 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel start;
     private javax.swing.JTextField tf_Filepath;
     private javax.swing.JTextField tf_campo;
-    private javax.swing.JTextField tf_campo1;
     private javax.swing.JTextField tf_campo2;
     private javax.swing.JTextField tf_campo3;
+    private javax.swing.JTextField tf_keyB;
     private javax.swing.JTextField tf_nameA;
     private javax.swing.JTextField tf_nuevoA;
     // End of variables declaration//GEN-END:variables
-    BTree tree;
-    BufferedWriter bw;
-    FileWriter fw;
 }
