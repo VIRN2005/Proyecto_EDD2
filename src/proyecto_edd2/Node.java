@@ -9,7 +9,7 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 public class Node implements Serializable {
 
     //private ArrayList<Integer> RRNs= new ArrayList();
-    private ArrayList<String> keys = new ArrayList();
+    private ArrayList<SearchEngine> keys = new ArrayList();
     private ArrayList<Node> children = new ArrayList();
     private boolean leaf;
     Node parent; //parent
@@ -33,11 +33,11 @@ public class Node implements Serializable {
         this.n = n;
     }
 
-    public ArrayList<String> getKeys() {
+    public ArrayList<SearchEngine> getKeys() {
         return keys;
     }
 
-    public void setKeys(ArrayList<String> keys) {
+    public void setKeys(ArrayList<SearchEngine> keys) {
         this.keys = keys;
     }
 

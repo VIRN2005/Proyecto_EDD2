@@ -56,7 +56,7 @@ public class BTree implements Serializable {
         return null;
     }
 
-    public void insert(String key) {
+    public void insert(SearchEngine key) {
         //int key_Int = Integer.parseInt(key);
         Node parent = root;
         if (parent.getKeys().size() == (N - 1)) {
@@ -76,8 +76,8 @@ public class BTree implements Serializable {
         }
     }
 
-    private void nonfullInsertCase(Node node, String key) {
-        int key_Int = Integer.parseInt(key);
+    private void nonfullInsertCase(Node node, SearchEngine key) {
+        int key_Int = Integer.parseInt(key.getKey());
         //System.out.println();
         int keys_cant = node.getKeys().size() - 1;
 
@@ -85,7 +85,8 @@ public class BTree implements Serializable {
 
             int pos = 0;
             for (int i = 0; i <= keys_cant; i++) {
-                int key_i = Integer.parseInt(node.getKeys().get(i));
+                int key_i = Integer.parseInt(node.getKeys().get(i).getKey());
+
                 if (key_Int < key_i) {
                     pos = i;
                     break;
@@ -100,7 +101,7 @@ public class BTree implements Serializable {
         } else {
             int pos = 0;
             for (int i = 0; i <= keys_cant; i++) {
-                int key_i = Integer.parseInt(node.getKeys().get(i));
+                int key_i = Integer.parseInt(node.getKeys().get(i).getKey());
                 if (key_Int < key_i) {
                     pos = i;
                     break;
@@ -111,7 +112,7 @@ public class BTree implements Serializable {
             }
             if (node.getChildren().get(pos).getKeys().size() == N - 1) {
                 Split(node, node.getChildren().get(pos), pos);
-                if (key_Int > Integer.parseInt(node.getKeys().get(pos))) {
+                if (key_Int > Integer.parseInt(node.getKeys().get(pos).getKey())) {
                     pos++;
                 }
             }
@@ -145,15 +146,15 @@ public class BTree implements Serializable {
         temp.removeKey(0);
     }
 
-    public Node search(Node temp, String key) {
-        ArrayList<String> keys = temp.getKeys();
+    public Node search(Node temp, SearchEngine key) {
+        ArrayList<SearchEngine> keys = temp.getKeys();
         int indice = 0;
 
-        while (indice < keys.size() && Integer.parseInt(key) > Integer.parseInt(keys.get(indice))) {
+        while (indice < keys.size() && Integer.parseInt(key.getKey()) > Integer.parseInt(keys.get(indice).getKey())) {
             indice++;
         }
 
-        if (indice < keys.size() && Integer.parseInt(key) == Integer.parseInt(keys.get(indice))) {
+        if (indice < keys.size() && Integer.parseInt(key.getKey()) == Integer.parseInt(keys.get(indice).getKey())) {
             return temp;
         }
 
@@ -164,7 +165,7 @@ public class BTree implements Serializable {
         }
     }
 
-    public void delete(Node root, String key) {
+    public void delete(Node root, SearchEngine key) {
         Node temp = search(root, key);
 
         if (temp.isLeaf()) {
@@ -205,7 +206,7 @@ public class BTree implements Serializable {
                 flag = 1;
             }
 
-            String predecessorkey = PredecessorKey(temp, flag, key);
+            SearchEngine predecessorkey = PredecessorKey(temp, flag, key);
             Node child = search(temp, predecessorkey);
             pos_lastkey = child.getKeys().size() - 1;
             child.getKeys().set(pos_lastkey, key);//colocar el nuevo key en el nodo hijo izquierdo
@@ -215,10 +216,10 @@ public class BTree implements Serializable {
     }
 
     public void merge(Node neighbor, Node dyingnode, int pos_key_parent) {
-        ArrayList<String> newkeys = new ArrayList();
+        ArrayList<SearchEngine> newkeys = new ArrayList();
 
         if (!dyingnode.getKeys().isEmpty()) {
-            if (Integer.parseInt(neighbor.getKeys().get(0)) < Integer.parseInt(dyingnode.getKeys().get(0))) {
+            if (Integer.parseInt(neighbor.getKeys().get(0).getKey()) < Integer.parseInt(dyingnode.getKeys().get(0).getKey())) {
                 neighbor.getKeys().add(neighbor.getParent().getKeys().get(pos_key_parent));
 
                 for (int i = 0; i < neighbor.getKeys().size(); i++) {
@@ -238,8 +239,8 @@ public class BTree implements Serializable {
                 }
             }
         } else {
-            String key = neighbor.getParent().getKeys().get(pos_key_parent);
-            if (Integer.parseInt(key) > Integer.parseInt(neighbor.getKeys().get(0))) {
+            SearchEngine key = neighbor.getParent().getKeys().get(pos_key_parent);
+            if (Integer.parseInt(key.getKey()) > Integer.parseInt(neighbor.getKeys().get(0).getKey())) {
                 neighbor.getKeys().add(key);
             } else {
                 neighbor.getKeys().add(0, key);
@@ -252,7 +253,7 @@ public class BTree implements Serializable {
         dyingnode.getParent().getChildren().remove(dyingnode.getParent().getChildren().indexOf(dyingnode));
     }
 
-    public String PredecessorKey(Node x, int flag, String key) {//devuelve el key mas grande de la izquierda del node 
+    public SearchEngine PredecessorKey(Node x, int flag, SearchEngine key) {//devuelve el key mas grande de la izquierda del node 
         switch (flag) {
             case 0://primer nodo es raiz
                 if (x.getParent() == null) {//si es raiz
@@ -277,7 +278,7 @@ public class BTree implements Serializable {
         }
 
         int posnode = x.getParent().getChildren().indexOf(x);
-        ArrayList<String> keys = x.getParent().getChildren().get(posnode).getKeys();
+        ArrayList<SearchEngine> keys = x.getParent().getChildren().get(posnode).getKeys();
         return keys.get(keys.size() - 1);
     }
 
