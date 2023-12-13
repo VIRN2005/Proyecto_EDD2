@@ -2451,9 +2451,11 @@ public class Main_Screen extends javax.swing.JFrame {
                 if ("Crear".equals(bt_createR.getText())) {
                     Registro record = temp_record;
                     record.Size();
-
-                    AddRecord(record);
-
+                    try {
+                        AddRecord(record);//3 Metodos
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     pos_campo = 0;
                     jd_crearR.dispose();
                     JOptionPane.showMessageDialog(null, "¡Registro creado con exito!", "Records", INFORMATION_MESSAGE);
@@ -2638,7 +2640,39 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_listarBRMouseClicked
 
     private void bt_removeRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_removeRMouseClicked
-        // TODO add your handling code here:
+        if (!"".equals(tf_campo2.getText())) {
+            int pos_campo2 = PosCampo(cb_llaves2);
+            Campo temp = file.getFields().get(pos_campo2);
+            if (ValidField(temp, tf_campo2.getText())) {
+                SearchEngine temp_o = new SearchEngine();
+                temp_o.setKey(tf_campo2.getText());
+                Node tempNode = tree.search(tree.getRoot(), temp_o);
+                int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
+                
+                //falta escribir en file el cambio de *|
+                //file.getRecords().set(rrn, null);
+                if (!file.getSlot().isEmpty()) {
+                    file.getSlot().set(0, rrn);
+                }else{
+                    file.getSlot().add(rrn);
+                }
+                tree.delete(tree.getRoot(), temp_o);
+                try {
+                    file.BorrarDatos(rrn);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                jd_borrarR.dispose();
+                JOptionPane.showMessageDialog(null, "El registro se borró correctamente", "Info", INFORMATION_MESSAGE);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
+
+            }
+            //AbrirJD(jd_crearR);
+        } else {
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_removeRMouseClicked
 
     private void bt_listarRMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMMouseClicked
@@ -2646,7 +2680,30 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_listarRMMouseClicked
 
     private void bt_removeR3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_removeR3MouseClicked
-        // TODO add your handling code here:
+        if (!"".equals(tf_campo2.getText())) {
+            int pos_campo2 = PosCampo(cb_llaves2);
+            Campo temp = file.getFields().get(pos_campo2);
+            if (ValidField(temp, tf_campo2.getText())) {
+                SearchEngine temp_o = new SearchEngine();
+                temp_o.setKey(tf_campo2.getText());
+                Node tempNode = tree.search(tree.getRoot(), temp_o);
+                int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
+                
+                //falta escribir en file el cambio de *|
+                Registro rec = file.getRecords().get(rrn);
+                //abriria el mismo jd de crear solo q con datos para el modificar
+                file.getRecords().set(rrn, rec);
+                jd_modificarR.dispose();
+                JOptionPane.showMessageDialog(null, "El registro se modificó correctamente", "Info", INFORMATION_MESSAGE);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
+
+            }
+            //AbrirJD(jd_crearR);
+        } else {
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_bt_removeR3MouseClicked
 
     public static void main(String args[]) {
@@ -2875,18 +2932,25 @@ public class Main_Screen extends javax.swing.JFrame {
         return true;
     }
 
-    public void AddRecord(Registro record) {
+    public void AddRecord(Registro record) throws IOException{
+        int pos = PrimaryKeyPos(file.getFields());
+        int rrn; 
         if (file.getSlot().isEmpty()) {
-            int pos = PrimaryKeyPos(file.getFields());
-            AddBTree(record, file.getCountRegis(), pos);
-            file.getRecords().add(record);
-            file.setCountRegis(file.getCountRegis() + 1);
-        }
-
+            rrn = file.getCountRegis();
+            AddBTree(record,rrn, pos);
+            file.EscribirDatos(rrn, record);
+            file.setCountRegis(rrn+1);
+            
+        }else{//usa el availist
+            rrn = file.getSlot().get(0);
+            AddBTree(record,rrn, pos);
+            file.EscribirDatos(rrn, record);
+            //file.getRecords().set(pos_record, record);
+        } 
     }
-
-    public void AddBTree(Registro record, int cant_regis, int pos) {
-        if (file.getRecords().isEmpty()) {
+    public void AddBTree(Registro record, int cant_regis, int pos){
+        System.out.println("Cont: "+file);
+        if (file.getCountRegis()<=0) {
             System.out.println("empty");
             tree = new BTree(6);
         }
@@ -2896,15 +2960,23 @@ public class Main_Screen extends javax.swing.JFrame {
         tree.insert(obj);
         tree.print(tree.getRoot());
     }
-
-    public int PrimaryKeyPos(ArrayList<Campo> campos) {
+    public int PrimaryKeyPos(ArrayList<Campo>campos){
         for (int i = 0; i < campos.size(); i++) {
             if (campos.get(i).isKey()) {
-                return i;
+                return i; 
             }
         }
-        return -1;
+        return -1; 
     }
+    public int PosCampo(JComboBox combo){
+        for (int i = 0; i < file.getFields().size(); i++) {
+            if (combo.getSelectedItem()==file.getFields().get(i).getName()) {
+                return i; 
+            }
+        }
+        return -1; 
+    }
+
 
     public static boolean isNumeric(String str) {
         try {

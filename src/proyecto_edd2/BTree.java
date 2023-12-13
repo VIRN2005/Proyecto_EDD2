@@ -284,6 +284,7 @@ public class BTree implements Serializable {
     }
 
     public void print(Node root) {
+        System.out.println("\n----");
         root.imprimir();
 
         //Si no es hoja
@@ -297,6 +298,7 @@ public class BTree implements Serializable {
                 }
             }
         }
+        System.out.println("\n----");
     }
 
 }

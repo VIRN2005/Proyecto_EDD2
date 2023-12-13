@@ -32,6 +32,7 @@ class File extends java.io.File {
     private int secondaryKeyIndex;
     private int firstSlot;
     private String metadata;
+    private int tamMetadata;
 
     // BRs, ArrayLists & LinkedLists used 
     private BufferedReader br;
@@ -43,9 +44,10 @@ class File extends java.io.File {
     public File(String pathname) {
         super(pathname);
         this.file = new java.io.File(pathname);
-        this.tamRecord = 1;
+        this.tamRecord = 0;
         this.firstSlot = -1;
         this.metadata = "";
+        this.countRegis = 0;
     }
 
     public File(String pathname, java.io.File index, int countRegis, int tamRecord) {
@@ -88,7 +90,15 @@ class File extends java.io.File {
     public void setTamRecord(int tamRecord) {
         this.tamRecord = tamRecord;
     }
+    
+    public int getTamMetadata() {
+        return tamMetadata;
+    }
 
+    public void setTamMetadata(int tamMetadata) {
+        this.tamMetadata = tamMetadata;
+    }
+    
     public int getPrimKeyIndex() {
         return primKeyIndex;
     }
@@ -189,12 +199,12 @@ class File extends java.io.File {
     }
 
     // Ve cual es el Tamaño del Registro
-    public void calcRecordSize() {
-        for (int i = 0; i < fields.size(); i++) {
-            tamRecord = 0;
-            tamRecord += fields.get(i).getSize() + 1;
-        }
-    }
+//    public void calcRecordSize() {
+//        for (int i = 0; i < fields.size(); i++) {
+//            tamRecord = 0;
+//            tamRecord += fields.get(i).getSize() + 1;
+//        }
+//    }
 
     public void createFile() {
         FileWriter fw = null;
@@ -211,33 +221,32 @@ class File extends java.io.File {
     public void saveFile(java.io.File archivo) {
         this.file = archivo;
         if (file.exists()) {
-            FileWriter fw = null;
-            BufferedWriter bw = null;
+            RandomAccessFile rf = null;
+
             try {
-                int longitudTotalRegistro = 40;
+                rf = new RandomAccessFile(file, "rw");
+                rf.writeBytes(metadata + "\n");
+                tamMetadata = metadata.length();
+                tamRecord = CalTamRec();
+                rf.seek(metadata.length() + 1);
 
-                fw = new FileWriter(file, false);
-                bw = new BufferedWriter(fw);
-                bw.write(metadata + "\n");
-                for (Registro record : records) {
-                    StringBuilder registroCompleto = new StringBuilder(record.toString());
-                    int longitudDolares = longitudTotalRegistro - registroCompleto.length();
-
-                    for (int i = 0; i < longitudDolares; i++) {
-                        registroCompleto.append('$');
-                    }
-
-                    bw.write(registroCompleto + "\n");
-                }
-                bw.flush();
+                //tamano de bytes del registro
+//                rf.writeBytes(String.valueOf(tamRecord + "\n"));
+//                rf.seek(String.valueOf(tamRecord).length() + 1);
+                //cantidad de registros
+                String s = String.valueOf(countRegis);
+                rf.writeBytes(s);
+                //rf.writeInt(countRegis);
+                rf.seek(String.valueOf(countRegis).length() + 1);
 
                 JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } finally {
                 try {
-                    bw.close();
-                    fw.close();
+//                    bw.close();
+//                    fw.close();
+                    rf.close();
                 } catch (Exception ex) {
                 }
             }
@@ -245,16 +254,17 @@ class File extends java.io.File {
     }
 
     public void openFile(java.io.File archivo) {
-        Scanner sc = null;
+        RandomAccessFile rf = null;
         fields = new ArrayList();
 
         this.file = archivo;
         if (file.exists()) {
             try {
-                sc = new Scanner(file);
+                rf = new RandomAccessFile(file, "r");
 
                 //METADATA
-                metadata = sc.nextLine();
+                metadata = rf.readLine();
+                tamMetadata = metadata.length();
                 String[] meta_fields = metadata.split(",");
 
                 for (String field : meta_fields) {
@@ -285,27 +295,80 @@ class File extends java.io.File {
                     fields.add(new Campo(Integer.parseInt(size), name, KeyValue(key), type, false, false));
                 }
 
-                //REGISTROS
-                countRegis = 0;
-                boolean flag = true;//para que solo consiga el tamaño del registro una vez por ser tamaño fijo
-                while (sc.hasNext()) {
-                    String registros = sc.nextLine();
-                    if (flag) {
-                        tamRecord = registros.length();
-                        flag = false;
-                    }
-
-                    Registro r = new Registro(registros, tamRecord, 1);
-                    records.add(r);
-                    countRegis++;
-                }
-
+                //REGISTRO
+                System.out.println("registro");
+                tamRecord = CalTamRec();
+                //System.out.println("tam" + tamRecord);
+                
+                //String tam = rf.readLine();
+                //tamRecord = Integer.parseInt(tam);
+//                System.out.println("tam2");
+//                rf.seek(String.valueOf(tamRecord).length()*4);
+                //System.out.println("tam");
+                rf.seek(metadata.length() + 1);
+                String temp = rf.readLine();
+                System.out.println("->"+temp);
+                int i = Integer.parseInt(temp.substring(0, temp.length()-2));
+                countRegis = i;
+                System.out.println("count" + countRegis);
+                
+                rf.close();
             } catch (Exception ex) {
-            }
-            sc.close();
+            } 
+            
         }//FIN IF
 
     }
+    public int CalTamRec(){
+        int tam = 0; 
+        for (int i = 0; i < fields.size(); i++) {
+            tam+= fields.get(i).getSize()+1;
+        }
+        return tam; 
+    }
+    public void LeerDatos() throws IOException{
+        RandomAccessFile rf = null;
+        rf = new RandomAccessFile(file,"r");
+        rf.seek(0);
+        String s = rf.readLine();
+        System.out.println("->"+s);
+        rf.close();
+    }
+    public void EscribirDatos(int rrn,Registro record) throws FileNotFoundException, IOException{
+        RandomAccessFile rf = null; 
+        rf = new RandomAccessFile(file, "rws");
+        String rec = String.valueOf(countRegis);
+        System.out.println("rec:"+rec);
+        rf.seek((tamMetadata+1)+(rec.length()+1)+(tamRecord*rrn));
+        String s = EscribirRegistro(record);
+        
+        rf.writeBytes(s);
+        rf.close();
+    }
+    public void BorrarDatos(int rrn) throws FileNotFoundException, IOException {
+        RandomAccessFile rf = null; 
+        rf = new RandomAccessFile(file, "rws");
+        String rec = String.valueOf(countRegis);
+        rf.seek((tamMetadata+1)+(rec.length()+1)+(tamRecord*rrn)+1);
+        String data = rf.readLine();
+        System.out.println("+"+data);
+        String prefix = "*|";
+        String end = prefix + data.substring(1, data.length()-1);
+        rf.seek((tamMetadata+1)+(tamRecord*rrn)+1);
+        rf.writeBytes(prefix);
+        rf.close();
+    }
+    public String EscribirRegistro(Registro record){
+        String registroCompleto = "\n"+record.toString();
+        System.out.println("->"+tamRecord);
+        int longitudDolares = tamRecord - registroCompleto.length();
+        for (int i = 0; i < longitudDolares; i++) {
+            registroCompleto+="$";
+        }
+        //registroCompleto+="\n";
+        return registroCompleto;
+    }
+
 
     //Faltaria que al pasar estos metodos, modifique la estructura de registros. 
     public void modifyFields(int pos, Campo campo) {
