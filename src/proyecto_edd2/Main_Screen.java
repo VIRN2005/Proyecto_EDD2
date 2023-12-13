@@ -2290,22 +2290,44 @@ public class Main_Screen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ha ocurrido algo inesperado.");
         }*/
 
-        try {
-            FileDialog dialogoArchivo;
-            dialogoArchivo = new FileDialog(this, "Carga de Archivos XML", FileDialog.LOAD);
-            dialogoArchivo.setVisible(true);
+        JFileChooser create = new JFileChooser("./");
+        int result = create.showSaveDialog(null);
+        java.io.File archivo = new java.io.File(create.getSelectedFile() + ".xml");
 
-            String directorio = dialogoArchivo.getDirectory();
-            String name = dialogoArchivo.getFile();
+        if (result == JFileChooser.APPROVE_OPTION) {
+            String nameFile = archivo.getName();
+            String dir = archivo.toString();
 
-            System.out.println("Name -> " + dialogoArchivo.getFile());
-            Export_XML xml = new Export_XML();
+            if (nameFile == null || "".equals(nameFile)) {
+                JOptionPane.showMessageDialog(null, "El nombre del archivo no es valido.");
+            } else {
+                try {
+                    String salvar = "";
+                    salvar += "<archivo>\n";
+                    for (int i = 0; i < file.getRecords().size(); i++) {
+                        String[] registrosCampos = file.getRecords().get(i).split(",");
+                        if (registrosCampos.length == 1 && isNumeric(registrosCampos[0])) {
 
-            xml.CreateXML(directorio, name, file.getFields(), file.getRecords());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido algo inesperado");
+                        } else {
+                            salvar += "     <registro>\n";
+                            for (int j = 0; j < file.getFields().size(); j++) {
+                                salvar += "         <" + file.getFields().get(j) + "/>" + file.getFields().get(j).getType() + "=" + registrosCampos[j] + "</" + file.getFields().get(j) + ">\n";
+                            }
+                            salvar += "     </registro>\n";
+                        }
+                    }
+                    salvar += "</archivo>";
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(new java.io.File(dir)));
+                    writer.write(salvar);
+                    //writer.write(salvar.getBytes());
+                    writer.flush();
+                    writer.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(null, "Archivo exportado exitosamente");
+            }
         }
-
     }//GEN-LAST:event_bt_exportarXMLMouseClicked
 
     private void EstandarizacionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstandarizacionButtonMouseClicked
@@ -2884,6 +2906,14 @@ public class Main_Screen extends javax.swing.JFrame {
         return -1;
     }
 
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ArchivosButton;
