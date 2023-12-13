@@ -31,8 +31,6 @@ public class Campo {
         this.type = type;
         this.isKeyT1 = isKeyT1;
         this.isKeyT2 = isKeyT2;
-
-        System.out.println(">> Name:" + this.name + " >> Size:" + this.size + " >>type: " + this.type);
     }
 
     // Getters & Setters

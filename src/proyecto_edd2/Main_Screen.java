@@ -36,6 +36,7 @@ public class Main_Screen extends javax.swing.JFrame {
     BTree tree;
     BufferedWriter bw;
     FileWriter fw;
+    Admin_BTree ab;
 
     public Main_Screen() {
         initComponents();
@@ -2304,10 +2305,10 @@ public class Main_Screen extends javax.swing.JFrame {
                 try {
                     String salvar = "";
                     salvar += "<archivo>\n";
-                    for (int i = 0; i < file.getRecords().size(); i++) {
+                    for (int i = 0; i < file.getCountRegis(); i++) {
+
                         String[] registrosCampos = file.getRecords().get(i).split(",");
                         if (registrosCampos.length == 1 && isNumeric(registrosCampos[0])) {
-
                         } else {
                             salvar += "     <registro>\n";
                             for (int j = 0; j < file.getFields().size(); j++) {
@@ -2484,18 +2485,24 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_createRMouseClicked
 
     private void bt_searchRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_searchRMouseClicked
-        String key = cb_llaves.getSelectedItem().toString();
-        String data = tf_keyB.getText();
+        if (!"".equals(tf_campo2.getText())) {
+            String campo = cb_llaves.getSelectedItem().toString();
+            String key = tf_keyB.getText();
 
-        SearchEngine temp = new SearchEngine();
-        temp.setKey(data);
+            SearchEngine temp = new SearchEngine();
+            temp.setKey(key);
 
-        Node search = new Node();
-        search = tree.search(tree.getRoot(), temp);
+            Node search = new Node();
+            search = tree.search(tree.getRoot(), temp);
 
-        if (search != null) {
-            temp = search.getKeys().get(search.key_pos);
-            ListarTablaR(jt_buscarR, temp.getRRN());
+            if (search != null) {
+                temp = search.getKeys().get(search.getKeys().indexOf(key));
+                ListarTablaR(jt_buscarR, temp.getRRN());
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe este registro!", "Warning", ERROR);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bt_searchRMouseClicked
 
@@ -2604,13 +2611,22 @@ public class Main_Screen extends javax.swing.JFrame {
 
                 if (index == 1) {
                     archivo = new File("./PersonFile.txt");
+                    ab = new Admin_BTree("./PersonFile-Btree.tva");
                 } else {
                     archivo = new File("./CityFile.txt");
+                    ab = new Admin_BTree("./CityFile-Btree.tva");
                 }
             }
 
             file = new File(archivo.getPath());
             file.openFile(file);
+
+            if (!tf_Filepath.getText().isEmpty()) {
+                String name = file.getName().substring(0, file.getName().length() - 4);
+                ab = new Admin_BTree("./" + name + "Btree.tva");
+            }
+
+            ab.cargarArchivo();
 
             jd_abrirA.dispose();
 
@@ -2625,8 +2641,8 @@ public class Main_Screen extends javax.swing.JFrame {
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
                 archivo = jfc.getSelectedFile();
-
                 tf_Filepath.setText(archivo.getName());
+
             } else {
                 JOptionPane.showMessageDialog(this, "¡Archivo no soportado!", "Warning", WARNING_MESSAGE);
             }
@@ -2648,12 +2664,12 @@ public class Main_Screen extends javax.swing.JFrame {
                 temp_o.setKey(tf_campo2.getText());
                 Node tempNode = tree.search(tree.getRoot(), temp_o);
                 int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
-                
+
                 //falta escribir en file el cambio de *|
                 //file.getRecords().set(rrn, null);
                 if (!file.getSlot().isEmpty()) {
                     file.getSlot().set(0, rrn);
-                }else{
+                } else {
                     file.getSlot().add(rrn);
                 }
                 tree.delete(tree.getRoot(), temp_o);
@@ -2664,7 +2680,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 }
                 jd_borrarR.dispose();
                 JOptionPane.showMessageDialog(null, "El registro se borró correctamente", "Info", INFORMATION_MESSAGE);
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
 
@@ -2688,14 +2704,14 @@ public class Main_Screen extends javax.swing.JFrame {
                 temp_o.setKey(tf_campo2.getText());
                 Node tempNode = tree.search(tree.getRoot(), temp_o);
                 int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
-                
+
                 //falta escribir en file el cambio de *|
                 Registro rec = file.getRecords().get(rrn);
                 //abriria el mismo jd de crear solo q con datos para el modificar
                 file.getRecords().set(rrn, rec);
                 jd_modificarR.dispose();
                 JOptionPane.showMessageDialog(null, "El registro se modificó correctamente", "Info", INFORMATION_MESSAGE);
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
 
@@ -2932,51 +2948,56 @@ public class Main_Screen extends javax.swing.JFrame {
         return true;
     }
 
-    public void AddRecord(Registro record) throws IOException{
+    public void AddRecord(Registro record) throws IOException {
         int pos = PrimaryKeyPos(file.getFields());
-        int rrn; 
+        int rrn;
         if (file.getSlot().isEmpty()) {
             rrn = file.getCountRegis();
-            AddBTree(record,rrn, pos);
+            AddBTree(record, rrn, pos);
             file.EscribirDatos(rrn, record);
-            file.setCountRegis(rrn+1);
-            
-        }else{//usa el availist
+            file.setCountRegis(rrn + 1);
+
+        } else {//usa el availist
             rrn = file.getSlot().get(0);
-            AddBTree(record,rrn, pos);
+            AddBTree(record, rrn, pos);
             file.EscribirDatos(rrn, record);
             //file.getRecords().set(pos_record, record);
-        } 
+        }
     }
-    public void AddBTree(Registro record, int cant_regis, int pos){
-        System.out.println("Cont: "+file);
-        if (file.getCountRegis()<=0) {
+
+    public void AddBTree(Registro record, int cant_regis, int pos) {
+        System.out.println("Cont: " + file);
+        if (file.getCountRegis() <= 0) {
             System.out.println("empty");
             tree = new BTree(6);
+            String name = file.getName().substring(0, file.getName().length() - 4);
+            ab = new Admin_BTree("./" + name + "Btree.tva");
         }
         SearchEngine obj = new SearchEngine();
         obj.setRRN(cant_regis);
         obj.setKey(record.getAll_fields().get(pos));
         tree.insert(obj);
+        ab.escribirArchivo();
         tree.print(tree.getRoot());
     }
-    public int PrimaryKeyPos(ArrayList<Campo>campos){
+
+    public int PrimaryKeyPos(ArrayList<Campo> campos) {
         for (int i = 0; i < campos.size(); i++) {
             if (campos.get(i).isKey()) {
-                return i; 
+                return i;
             }
         }
-        return -1; 
-    }
-    public int PosCampo(JComboBox combo){
-        for (int i = 0; i < file.getFields().size(); i++) {
-            if (combo.getSelectedItem()==file.getFields().get(i).getName()) {
-                return i; 
-            }
-        }
-        return -1; 
+        return -1;
     }
 
+    public int PosCampo(JComboBox combo) {
+        for (int i = 0; i < file.getFields().size(); i++) {
+            if (combo.getSelectedItem() == file.getFields().get(i).getName()) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public static boolean isNumeric(String str) {
         try {
