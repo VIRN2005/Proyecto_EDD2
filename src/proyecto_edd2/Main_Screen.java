@@ -2622,8 +2622,8 @@ public class Main_Screen extends javax.swing.JFrame {
             file.openFile(file);
 
             if (!tf_Filepath.getText().isEmpty()) {
-                String name = file.getName().substring(0, file.getName().length() - 4);
-                ab = new Admin_BTree("./" + name + "Btree.tva");
+//                String name = file.getName().substring(0, file.getName().length() - 4);
+                ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
             }
 
             ab.cargarArchivo();
@@ -2970,8 +2970,9 @@ public class Main_Screen extends javax.swing.JFrame {
         if (file.getCountRegis() <= 0) {
             System.out.println("empty");
             tree = new BTree(6);
-            String name = file.getName().substring(0, file.getName().length() - 4);
-            ab = new Admin_BTree("./" + name + "Btree.tva");
+            //String name = file.getName().substring(0, file.getName().length() - 4);
+            //System.out.println("nombre" + name);
+            ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
         }
         SearchEngine obj = new SearchEngine();
         obj.setRRN(cant_regis);

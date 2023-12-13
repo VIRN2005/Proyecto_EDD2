@@ -210,31 +210,31 @@ class File extends java.io.File {
     public void saveFile(java.io.File archivo) {
         this.file = archivo;
         if (file.exists()) {
-//            RandomAccessFile rf = null;
-            FileWriter fw = null;
-            BufferedWriter bw = null;
+            RandomAccessFile rf = null;
+//            FileWriter fw = null;
+//            BufferedWriter bw = null;
 
             try {
-//                rf = new RandomAccessFile(file, "rw");
-//                rf.writeBytes(metadata + "\n");
-//                tamMetadata = metadata.length();
-//                tamRecord = CalTamRec();
-//                rf.seek(metadata.length() + 1);
+                rf = new RandomAccessFile(file, "rw");
+                rf.writeBytes(metadata + "\n");
+                tamMetadata = metadata.length();
+                tamRecord = CalTamRec();
+                rf.seek(metadata.length() + 1);
+
                 //tamano de bytes del registro
 //                rf.writeBytes(String.valueOf(tamRecord + "\n"));
 //                rf.seek(String.valueOf(tamRecord).length() + 1);
                 //cantidad de registros
-//                String s = String.valueOf(countRegis);
-//                rf.writeBytes(s);
-//                //rf.writeInt(countRegis);
-//                rf.seek(String.valueOf(countRegis).length() + 1);
+                String s = String.valueOf(countRegis);
+                rf.writeBytes(s);
+                rf.seek(String.valueOf(countRegis).length() + 1);
 
-                fw = new FileWriter(file, true);
-                bw = new BufferedWriter(fw);
-                bw.write(metadata + "\n");
-                bw.write(tamRecord + "\n");
-                bw.write(countRegis + "\n");
-                bw.flush();
+//                fw = new FileWriter(file, false);
+//                bw = new BufferedWriter(fw);
+//                bw.write(metadata + "\n");
+//                bw.write(tamRecord + "\n");
+//                bw.write(countRegis + "\n");
+//                bw.flush();
                 JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -269,9 +269,13 @@ class File extends java.io.File {
                     String size = "", name = "", type = "";
                     char key;
                     String[] description = field.split(": ");
+
                     name = description[0];
+                    System.out.println("metadata: " + name);
                     String data = description[1];
+
                     boolean flag_t = true, flag_s = false;//para saber si lee el size [23] dentro de los corchetes
+
                     for (int j = 0; j < data.length(); j++) {
 
                         if (flag_t && data.charAt(j) != '[') {
@@ -308,10 +312,14 @@ class File extends java.io.File {
 //                countRegis = i;
 //                rf.close();
 //              REGISTROS
-                tamRecord = Integer.parseInt(sc.nextLine());
-                countRegis = Integer.parseInt(sc.nextLine());
+                System.out.println("registro");
 
-                tamMetadata = metadata.length() + String.valueOf(tamRecord).length() + String.valueOf(countRegis).length();
+                String tam = sc.nextLine();
+                String cont = sc.nextLine();
+                
+                tamRecord = Integer.parseInt(tam);
+                countRegis = Integer.parseInt(cont);
+                tamMetadata = metadata.length() + tam.length() + cont.length() + 3;
 
                 System.out.println("tam: " + tamRecord);
                 System.out.println("count: " + countRegis);
@@ -344,7 +352,9 @@ class File extends java.io.File {
         rf = new RandomAccessFile(file, "rws");
         String rec = String.valueOf(countRegis);
         System.out.println("rec:" + rec);
-        rf.seek((tamMetadata + 1) + (rec.length() + 1) + (tamRecord * rrn));
+        int pos = (tamMetadata + 1) + (rec.length() + 1) + (tamRecord * rrn);
+        System.out.println("seek: " + pos);
+        rf.seek(pos);
         String s = EscribirRegistro(record);
 
         rf.writeBytes(s);
