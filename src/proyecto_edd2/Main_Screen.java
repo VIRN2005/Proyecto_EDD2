@@ -2748,7 +2748,7 @@ public class Main_Screen extends javax.swing.JFrame {
             }
 
             ab.cargarArchivo();
-
+            tree = ab.getTree();
             jd_abrirA.dispose();
 
             JOptionPane.showMessageDialog(this, "¡Archivo abierto con éxito!", "Notification", INFORMATION_MESSAGE);
@@ -2786,7 +2786,13 @@ public class Main_Screen extends javax.swing.JFrame {
                 Node tempNode = tree.search(tree.getRoot(), temp_o);
                 int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
 
-                //falta escribir en file el cambio de *|
+                Registro rec = new Registro();
+                try {
+                    rec = file.LeerDatos(rrn);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 //file.getRecords().set(rrn, null);
                 if (!file.getSlot().isEmpty()) {
                     file.getSlot().set(0, rrn);
@@ -2825,9 +2831,14 @@ public class Main_Screen extends javax.swing.JFrame {
                 temp_o.setKey(tf_campo2.getText());
                 Node tempNode = tree.search(tree.getRoot(), temp_o);
                 int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
+                
+                Registro rec = new Registro();
+                try {
+                    rec = file.LeerDatos(rrn);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-                //falta escribir en file el cambio de *|
-                Registro rec = file.getRecords().get(rrn);
                 //abriria el mismo jd de crear solo q con datos para el modificar
                 file.getRecords().set(rrn, rec);
                 jd_modificarR.dispose();
@@ -2941,16 +2952,15 @@ public class Main_Screen extends javax.swing.JFrame {
     private void ListarTablaR(JTable tabla, int pos) {
         try {
             tabla.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{"Campo", "Data"}));
-
-            Registro record = file.getRecords().get(pos);
-
-            for (Campo c : file.getFields()) {
-                for (String r : record.getAll_fields()) {
-                    Object[] row = {((Campo) c).getName(), r};
-                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-                    modelo.addRow(row);
-                    tabla.setModel(modelo);
-                }
+            
+            
+            Registro record = file.LeerDatos(pos);
+            
+            for (int i = 0; i < record.getAll_fields().size(); i++) {
+                Object[] row = {file.getFields().get(i).getName(),record.getAll_fields().get(i)};
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                modelo.addRow(row);
+                tabla.setModel(modelo);
             }
 
         } catch (Exception ex) {
@@ -3090,7 +3100,7 @@ public class Main_Screen extends javax.swing.JFrame {
         System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
             System.out.println("empty");
-            tree = new BTree(6);
+            tree = new BTree(3);
             //String name = file.getName().substring(0, file.getName().length() - 4);
             //System.out.println("nombre" + name);
             ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
@@ -3100,6 +3110,7 @@ public class Main_Screen extends javax.swing.JFrame {
         obj.setRRN(cant_regis);
         obj.setKey(record.getAll_fields().get(pos));
         tree.insert(obj);
+        ab.setBtree(tree);
         ab.escribirArchivo();
         tree.print(tree.getRoot());
     }

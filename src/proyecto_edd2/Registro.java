@@ -69,6 +69,15 @@ public class Registro {
     public void Add(String info) {
         all_fields.add(info);
     }
+    public void Parseo(String str){
+        tam = 0; 
+        String[] campos = str.split("\\|");
+        for (int i = 0; i <campos.length-1; i++) {
+            all_fields.add(campos[i]);
+            tam+=campos[i].length() + 1;
+        }
+        
+    }
 
     public Registro(String str, int recordSize, int pos) {
         String[] campos = str.split("\\|");
