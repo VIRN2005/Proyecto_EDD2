@@ -221,15 +221,12 @@ class File extends java.io.File {
                 tamRecord = CalTamRec();
                 rf.seek(metadata.length() + 1);
 
-                //tamano de bytes del registro
-//                rf.writeBytes(String.valueOf(tamRecord + "\n"));
-//                rf.seek(String.valueOf(tamRecord).length() + 1);
                 //cantidad de registros
                 String s = String.valueOf(countRegis);
                 rf.writeBytes(s);
                 rf.seek(String.valueOf(countRegis).length() + 1);
 
-//                fw = new FileWriter(file, false);
+//                fw = new FileWriter(file, true);
 //                bw = new BufferedWriter(fw);
 //                bw.write(metadata + "\n");
 //                bw.write(tamRecord + "\n");
@@ -240,9 +237,9 @@ class File extends java.io.File {
                 JOptionPane.showMessageDialog(null, "ERROR 404!\n File ERROR Occured: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } finally {
                 try {
-                    bw.close();
-                    fw.close();
-//                    rf.close();
+//                    bw.close();
+//                    fw.close();
+                    rf.close();
                 } catch (Exception ex) {
                 }
             }
@@ -250,19 +247,19 @@ class File extends java.io.File {
     }
 
     public void openFile(java.io.File archivo) {
-//        RandomAccessFile rf = null;
-        Scanner sc = null;
+        RandomAccessFile rf = null;
+//        Scanner sc = null;
         fields = new ArrayList();
 
         this.file = archivo;
         if (file.exists()) {
             try {
-                sc = new Scanner(file);
-//                rf = new RandomAccessFile(file, "r");
+//                sc = new Scanner(file);
+                rf = new RandomAccessFile(file, "r");
 
                 //METADATA
-                metadata = sc.nextLine();
-//                metadata = rf.readLine();
+//                metadata = sc.nextLine();
+                metadata = rf.readLine();
                 String[] meta_fields = metadata.split(",");
 
                 for (String field : meta_fields) {
@@ -313,18 +310,31 @@ class File extends java.io.File {
 //                rf.close();
 //              REGISTROS
                 System.out.println("registro");
+                tamRecord = CalTamRec();
+                rf.seek(metadata.length() + 1);
+                String temp = rf.readLine();
+                System.out.println("->" + temp);
+                int i = Integer.parseInt(temp);
+                countRegis = i;
+                System.out.println("count" + countRegis);
 
-                String tam = sc.nextLine();
-                String cont = sc.nextLine();
-                
-                tamRecord = Integer.parseInt(tam);
-                countRegis = Integer.parseInt(cont);
-                tamMetadata = metadata.length() + tam.length() + cont.length() + 3;
+                rf.close();
+
+//                System.out.println("registro");
+//
+//                String cont = sc.nextLine();
+////                String tam = sc.nextLine();
+////                tamRecord = Integer.parseInt(cont);
+//                countRegis = Integer.parseInt(cont);
+//
+                tamMetadata = metadata.length() + String.valueOf(tamRecord).length() + String.valueOf(countRegis).length() + 3;
+////                tamMetadata = metadata.length() + tam.length() + cont.length() + 3;
 
                 System.out.println("tam: " + tamRecord);
                 System.out.println("count: " + countRegis);
                 System.out.println("tam: " + tamMetadata);
 
+                //REGISTRO
             } catch (Exception ex) {
             }
 
@@ -352,11 +362,10 @@ class File extends java.io.File {
         rf = new RandomAccessFile(file, "rws");
         String rec = String.valueOf(countRegis);
         System.out.println("rec:" + rec);
-        int pos = (tamMetadata + 1) + (rec.length() + 1) + (tamRecord * rrn);
-        System.out.println("seek: " + pos);
-        rf.seek(pos);
+        int x = (tamMetadata + 1) + (rec.length()) + (tamRecord * rrn);
+        System.out.println("Valor del seek: " + x);
+        rf.seek(x);
         String s = EscribirRegistro(record);
-
         rf.writeBytes(s);
         rf.close();
     }
@@ -364,7 +373,9 @@ class File extends java.io.File {
     public void BorrarDatos(int rrn) throws FileNotFoundException, IOException {
         rf = new RandomAccessFile(file, "rws");
         String rec = String.valueOf(countRegis);
-        rf.seek((tamMetadata + 1) + (rec.length() + 1) + (tamRecord * rrn) + 1);
+        int x = (tamMetadata + 1) + (rec.length()) + (tamRecord * rrn) + 1;
+        System.out.println("Valor del seek: " + x);
+        rf.seek(x);
         String data = rf.readLine();
         System.out.println("+" + data);
         String prefix = "*|";
@@ -381,7 +392,6 @@ class File extends java.io.File {
         for (int i = 0; i < longitudDolares; i++) {
             registroCompleto += "$";
         }
-        //registroCompleto+="\n";
         return registroCompleto;
     }
 
