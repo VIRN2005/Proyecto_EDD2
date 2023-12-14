@@ -190,7 +190,7 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_campos5 = new javax.swing.JLabel();
         tf_campo3 = new javax.swing.JTextField();
         jl_campos6 = new javax.swing.JLabel();
-        bt_removeR3 = new javax.swing.JButton();
+        bt_modifyR = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         jt_modificarR = new javax.swing.JTable();
         jLabel88 = new javax.swing.JLabel();
@@ -1082,17 +1082,17 @@ public class Main_Screen extends javax.swing.JFrame {
         jl_campos6.setText("Ingrese la llave:");
         pn_listarC3.add(jl_campos6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 360, -1));
 
-        bt_removeR3.setBackground(new java.awt.Color(195, 22, 28));
-        bt_removeR3.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
-        bt_removeR3.setForeground(new java.awt.Color(255, 255, 255));
-        bt_removeR3.setText("Modificar");
-        bt_removeR3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_removeR3.addMouseListener(new java.awt.event.MouseAdapter() {
+        bt_modifyR.setBackground(new java.awt.Color(195, 22, 28));
+        bt_modifyR.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 18)); // NOI18N
+        bt_modifyR.setForeground(new java.awt.Color(255, 255, 255));
+        bt_modifyR.setText("Modificar");
+        bt_modifyR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_modifyR.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_removeR3MouseClicked(evt);
+                bt_modifyRMouseClicked(evt);
             }
         });
-        pn_listarC3.add(bt_removeR3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, -1, -1));
+        pn_listarC3.add(bt_modifyR, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, -1, -1));
 
         jt_modificarR.setBackground(new java.awt.Color(243, 233, 220));
         jt_modificarR.setModel(new javax.swing.table.DefaultTableModel(
@@ -2743,7 +2743,8 @@ public class Main_Screen extends javax.swing.JFrame {
 
             if (!tf_Filepath.getText().isEmpty()) {
 //                String name = file.getName().substring(0, file.getName().length() - 4);
-                ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
+                ab = new Admin_BTree("./" + tf_Filepath.getText() + "-Btree.tva");
+                System.out.println("entre");
             }
 
             ab.cargarArchivo();
@@ -2815,7 +2816,7 @@ public class Main_Screen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_listarRMMouseClicked
 
-    private void bt_removeR3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_removeR3MouseClicked
+    private void bt_modifyRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modifyRMouseClicked
         if (!"".equals(tf_campo2.getText())) {
             int pos_campo2 = PosCampo(cb_llaves2);
             Campo temp = file.getFields().get(pos_campo2);
@@ -2840,7 +2841,7 @@ public class Main_Screen extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_bt_removeR3MouseClicked
+    }//GEN-LAST:event_bt_modifyRMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -3193,11 +3194,11 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel bt_modificarC;
     private javax.swing.JPanel bt_modificarR;
     private javax.swing.JButton bt_modifyC;
+    private javax.swing.JButton bt_modifyR;
     private javax.swing.JPanel bt_nuevoA;
     private javax.swing.JButton bt_openF;
     private javax.swing.JPanel bt_reIndexarA;
     private javax.swing.JButton bt_removeR;
-    private javax.swing.JButton bt_removeR3;
     private javax.swing.JPanel bt_salir;
     private javax.swing.JPanel bt_salvarA;
     private javax.swing.JButton bt_searchR;

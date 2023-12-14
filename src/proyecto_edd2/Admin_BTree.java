@@ -59,7 +59,7 @@ public class Admin_BTree {
                 FileInputStream entrada = new FileInputStream(file);
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
                 try {
-                    arbolito_navidad = (BTree) objeto.readObject();
+                    this.arbolito_navidad = (BTree) objeto.readObject();
                 } catch (EOFException e) {
                 }
                 objeto.close();
