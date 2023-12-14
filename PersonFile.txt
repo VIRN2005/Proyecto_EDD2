@@ -1,5 +1,4 @@
-ID: int[10]f,Nombre: char[20]t,Edad: int[2]t,dinero: float[5]t
-9900
+PersonId: int[6]f, PersonName: char[20], PersonAge: int[3], CityId: int[2]
 9900
 0|RAQUEL|64|57|$$$$$$$$$$$$$$$$$$$$
 1|RODRIGO|100|38|$$$$$$$$$$$$$$$$$$

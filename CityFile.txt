@@ -1,4 +1,4 @@
-CityId: int[2]f,Name: char[30]t
+CityId: int[2]f, CityName: char[30]t
 0 |Paris London|$$$$$$$$$$$$$$$$$$$
 1 |Tokyo Beijing|$$$$$$$$$$$$$$$$$$
 2 |Sydney Cairo|$$$$$$$$$$$$$$$$$$$

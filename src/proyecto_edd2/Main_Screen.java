@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,7 @@ public class Main_Screen extends javax.swing.JFrame {
     BufferedWriter bw;
     FileWriter fw;
     Admin_BTree ab;
+    RandomAccessFile rf;
 
     public Main_Screen() {
         initComponents();
@@ -1941,15 +1943,21 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_ArchivosButtonMouseClicked
 
     private void CamposButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CamposButtonMouseClicked
-        pn_archivos.setVisible(false);
-        pn_registros.setVisible(false);
-        pn_indices.setVisible(false);
-        pn_estandarizacion.setVisible(false);
-
-        if (pn_campos.isVisible()) {
-            pn_campos.setVisible(false);
+        if (file == null) {
+            JOptionPane.showMessageDialog(this, "¡No tiene ningun archivo abierto!", "Warning", WARNING_MESSAGE);
+        } else if (file.getCountRegis() > 0) {
+            JOptionPane.showMessageDialog(this, "¡No puede modificar campos porque ya tiene registros añadidos!", "Warning", WARNING_MESSAGE);
         } else {
-            pn_campos.setVisible(true);
+            pn_archivos.setVisible(false);
+            pn_registros.setVisible(false);
+            pn_indices.setVisible(false);
+            pn_estandarizacion.setVisible(false);
+
+            if (pn_campos.isVisible()) {
+                pn_campos.setVisible(false);
+            } else {
+                pn_campos.setVisible(true);
+            }
         }
     }//GEN-LAST:event_CamposButtonMouseClicked
 
@@ -2196,20 +2204,110 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_borrarRMouseClicked
 
     private void bt_listarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMouseClicked
-        ListarTablaR(jt_listarR);
+
+        Registro record = new Registro();
+        try {
+            rf = new RandomAccessFile(file, "rws");
+            String cont = String.valueOf(file.getCountRegis());
+
+            DefaultTableModel modelo = (DefaultTableModel) jt_listarR.getModel();
+
+            modelo.setRowCount(0);
+            modelo.setColumnCount(0);
+
+            for (Campo field : file.getFields()) {
+                modelo.addColumn(field.getName());
+            }
+
+            Object[] row = new Object[modelo.getColumnCount()];
+
+            for (int i = 1; i < 11; i++) {
+                try {
+                    int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * i) + 1;
+                    rf.seek(x);
+
+                    String registro = rf.readLine();
+                    record = new Registro(registro, file.getTamRecord(), i);
+
+                    for (int j = 0; j < file.getFields().size(); j++) {
+                        row[j] = String.valueOf(record.getAll_fields().get(j));
+                        modelo.addRow(row);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            jt_listarR.setModel(modelo);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//            Node temp = tree.getRoot();
+//
+//            int contkey = 0;
+//            int posChild = 0;
+//            for (int i = 0; i < 10; i++) {
+//                int rrn = temp.getKeys().get(contkey).getRRN();
+//                int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * rrn) + 1;
+//                rf.seek(x);
+//
+//                String registro = rf.readLine();
+//                record = new Registro(registro, file.getTamRecord(), rrn);
+//
+//                if (temp.getKeys().size() - 1 == contkey) {
+//                    if (temp.getParent() != null) {
+//                        temp = temp.getChildren().get(posChild);
+//                        posChild++;
+//                    } else if (temp.isLeaf()) {
+//
+//                    }
+//                }
+//
+//                contkey++;
+//            }
+//
+//            rf.close();
+////            SearchEngine se = new SearchEngine();
+//
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        ListarTablaR(jt_listarR);
+//        try {
+//            jt_listarR.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{"Campo", "Data"}));
+//
+//            for (Campo c : file.getFields()) {
+//                for (String r : record.getAll_fields()) {
+//                    Object[] row = {((Campo) c).getName(), r};
+//                    DefaultTableModel modelo = (DefaultTableModel) jt_listarR.getModel();
+//                    modelo.addRow(row);
+//                    jt_listarR.setModel(modelo);
+//                }
+//            }
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
         AbrirJD(jd_listarR);
     }//GEN-LAST:event_bt_listarRMouseClicked
 
     private void RegistrosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosButtonMouseClicked
-        pn_archivos.setVisible(false);
-        pn_campos.setVisible(false);
-        pn_indices.setVisible(false);
-        pn_estandarizacion.setVisible(false);
+        if (file != null) {
+            pn_archivos.setVisible(false);
+            pn_campos.setVisible(false);
+            pn_indices.setVisible(false);
+            pn_estandarizacion.setVisible(false);
 
-        if (pn_registros.isVisible()) {
-            pn_registros.setVisible(false);
+            if (pn_registros.isVisible()) {
+                pn_registros.setVisible(false);
+            } else {
+                pn_registros.setVisible(true);
+            }
         } else {
-            pn_registros.setVisible(true);
+            JOptionPane.showMessageDialog(this, "¡No tiene ningun archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_RegistrosButtonMouseClicked
 
@@ -2222,15 +2320,19 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_reIndexarAMouseClicked
 
     private void IndicesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IndicesButtonMouseClicked
-        pn_archivos.setVisible(false);
-        pn_campos.setVisible(false);
-        pn_registros.setVisible(false);
-        pn_estandarizacion.setVisible(false);
+        if (file != null) {
+            pn_archivos.setVisible(false);
+            pn_campos.setVisible(false);
+            pn_registros.setVisible(false);
+            pn_estandarizacion.setVisible(false);
 
-        if (pn_indices.isVisible()) {
-            pn_indices.setVisible(false);
+            if (pn_indices.isVisible()) {
+                pn_indices.setVisible(false);
+            } else {
+                pn_indices.setVisible(true);
+            }
         } else {
-            pn_indices.setVisible(true);
+            JOptionPane.showMessageDialog(this, "¡No tiene ningun archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_IndicesButtonMouseClicked
 
@@ -2305,17 +2407,31 @@ public class Main_Screen extends javax.swing.JFrame {
                 try {
                     String salvar = "";
                     salvar += "<archivo>\n";
-                    for (int i = 0; i < file.getCountRegis(); i++) {
 
-                        String[] registrosCampos = file.getRecords().get(i).split(",");
-                        if (registrosCampos.length == 1 && isNumeric(registrosCampos[0])) {
-                        } else {
-                            salvar += "     <registro>\n";
-                            for (int j = 0; j < file.getFields().size(); j++) {
-                                salvar += "         <" + file.getFields().get(j) + "/>" + file.getFields().get(j).getType() + "=" + registrosCampos[j] + "</" + file.getFields().get(j) + ">\n";
+                    for (int i = 1; i < file.getCountRegis() + 1; i++) {
+
+                        rf = new RandomAccessFile(file, "rws");
+                        String cont = String.valueOf(file.getCountRegis());
+
+                        try {
+                            int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * i) + 1;
+                            rf.seek(x);
+
+                            String[] registrosCampos = rf.readLine().split(",");
+
+                            if (registrosCampos.length == 1 && isNumeric(registrosCampos[0])) {
+                            } else {
+                                salvar += "     <registro>\n";
+                                for (int j = 0; j < file.getFields().size(); j++) {
+                                    salvar += "         <" + file.getFields().get(j) + "/>" + file.getFields().get(j).getType() + "=" + registrosCampos[j] + "</" + file.getFields().get(j) + ">\n";
+                                }
+                                salvar += "     </registro>\n";
                             }
-                            salvar += "     </registro>\n";
+                        } catch (IOException ex) {
+                            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                         }
+
+//                            String[] registrosCampos = file.getRecords().get(i)
                     }
                     salvar += "</archivo>";
                     BufferedWriter writer = new BufferedWriter(new FileWriter(new java.io.File(dir)));
@@ -2332,15 +2448,19 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_exportarXMLMouseClicked
 
     private void EstandarizacionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstandarizacionButtonMouseClicked
-        pn_archivos.setVisible(false);
-        pn_campos.setVisible(false);
-        pn_registros.setVisible(false);
-        pn_indices.setVisible(false);
+        if (file != null) {
+            pn_archivos.setVisible(false);
+            pn_campos.setVisible(false);
+            pn_registros.setVisible(false);
+            pn_indices.setVisible(false);
 
-        if (pn_estandarizacion.isVisible()) {
-            pn_estandarizacion.setVisible(false);
+            if (pn_estandarizacion.isVisible()) {
+                pn_estandarizacion.setVisible(false);
+            } else {
+                pn_estandarizacion.setVisible(true);
+            }
         } else {
-            pn_estandarizacion.setVisible(true);
+            JOptionPane.showMessageDialog(this, "¡No tiene ningun archivo abierto!", "Warning", WARNING_MESSAGE);
         }
     }//GEN-LAST:event_EstandarizacionButtonMouseClicked
 
@@ -2974,6 +3094,7 @@ public class Main_Screen extends javax.swing.JFrame {
             //System.out.println("nombre" + name);
             ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
         }
+
         SearchEngine obj = new SearchEngine();
         obj.setRRN(cant_regis);
         obj.setKey(record.getAll_fields().get(pos));
