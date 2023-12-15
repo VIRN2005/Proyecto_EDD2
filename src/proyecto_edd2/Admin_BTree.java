@@ -55,11 +55,15 @@ public class Admin_BTree {
     public void cargarArchivo() {
         try {
             list = new ArrayList();
+            Object tree = null;
             if (file.exists()) {
                 FileInputStream entrada = new FileInputStream(file);
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
                 try {
-                    this.arbolito_navidad = (BTree) objeto.readObject();
+                    while (objeto.readObject() != null) {
+                        tree = (BTree) objeto.readObject();
+                        this.arbolito_navidad = (BTree) tree;
+                    }
                 } catch (EOFException e) {
                 }
                 objeto.close();
@@ -74,6 +78,9 @@ public class Admin_BTree {
     }
 
     public void escribirArchivo() {
+        if (file == null) {
+            System.out.println("es el file lo malo del btree");
+        }
         FileOutputStream fw = null;
         ObjectOutputStream bw = null;
         try {

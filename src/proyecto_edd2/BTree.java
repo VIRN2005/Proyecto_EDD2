@@ -8,6 +8,8 @@ public class BTree implements Serializable {
     private Node root;
     private ArrayList<Node> nodes = new ArrayList();
     private int N; //defino por numero de sectores
+    
+    private static final long SerialVersionUID = 111L;
 
     public BTree() {
     }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -34,7 +35,7 @@ public class Main_Screen extends javax.swing.JFrame {
     java.io.File archivo = null;
     java.io.File folder = null;
     int Panel = 0, pos_ModCampo, pos_campo = 0;
-    BTree tree;
+    BTree tree = new BTree();
     BufferedWriter bw;
     FileWriter fw;
     Admin_BTree ab;
@@ -2043,6 +2044,11 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_salvarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_salvarAMouseClicked
         if (file != null) {
             file.saveFile(file);
+            ab.escribirArchivo();
+
+            if (tree == null) {
+                System.out.println("es culpa de tatiana");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
@@ -2055,6 +2061,7 @@ public class Main_Screen extends javax.swing.JFrame {
             if (opcion == JOptionPane.YES_OPTION) {
                 file = null;
                 metadata = "";
+                tree = null;
                 JOptionPane.showMessageDialog(this, "¡Se cerró el archivo!");
                 ActualizarLabel();
             }
@@ -2153,8 +2160,10 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_modificarRMouseClicked
 
     private void bt_introducirRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_introducirRMouseClicked
-//        if (file != null) {
-//            jta_campos.setText("------- Campos -------");
+        if (file.getCountRegis() == 0) {
+            file.saveFile(file);
+        }
+
         pos_campo = 0;
         temp_record = new Registro();
 //            for (int i = 0; i < file.getFields().size(); i++) {
@@ -2204,7 +2213,6 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_borrarRMouseClicked
 
     private void bt_listarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMouseClicked
-
         Registro record = new Registro();
         try {
             rf = new RandomAccessFile(file, "rws");
@@ -2237,7 +2245,7 @@ public class Main_Screen extends javax.swing.JFrame {
                     Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             jt_listarR.setModel(modelo);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
@@ -2728,6 +2736,7 @@ public class Main_Screen extends javax.swing.JFrame {
         } else {
             if (cb_archivosdeprueba.getSelectedIndex() != 0) {
                 int index = cb_archivosdeprueba.getSelectedIndex();
+                tree = new BTree(6);
 
                 if (index == 1) {
                     archivo = new File("./PersonFile.txt");
@@ -2744,11 +2753,17 @@ public class Main_Screen extends javax.swing.JFrame {
             if (!tf_Filepath.getText().isEmpty()) {
 //                String name = file.getName().substring(0, file.getName().length() - 4);
                 ab = new Admin_BTree("./" + tf_Filepath.getText() + "-Btree.tva");
-                System.out.println("entre");
             }
 
             ab.cargarArchivo();
             tree = ab.getTree();
+            
+            CargarArbol();
+            
+            if (tree == null) {
+                System.out.println("todos me caen mal");
+            }
+            
             jd_abrirA.dispose();
 
             JOptionPane.showMessageDialog(this, "¡Archivo abierto con éxito!", "Notification", INFORMATION_MESSAGE);
@@ -2792,7 +2807,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 //file.getRecords().set(rrn, null);
                 if (!file.getSlot().isEmpty()) {
                     file.getSlot().set(0, rrn);
@@ -2831,7 +2846,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 temp_o.setKey(tf_campo2.getText());
                 Node tempNode = tree.search(tree.getRoot(), temp_o);
                 int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
-                
+
                 Registro rec = new Registro();
                 try {
                     rec = file.LeerDatos(rrn);
@@ -2952,12 +2967,11 @@ public class Main_Screen extends javax.swing.JFrame {
     private void ListarTablaR(JTable tabla, int pos) {
         try {
             tabla.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{"Campo", "Data"}));
-            
-            
+
             Registro record = file.LeerDatos(pos);
-            
+
             for (int i = 0; i < record.getAll_fields().size(); i++) {
-                Object[] row = {file.getFields().get(i).getName(),record.getAll_fields().get(i)};
+                Object[] row = {file.getFields().get(i).getName(), record.getAll_fields().get(i)};
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
                 modelo.addRow(row);
                 tabla.setModel(modelo);
@@ -3097,10 +3111,10 @@ public class Main_Screen extends javax.swing.JFrame {
     }
 
     public void AddBTree(Registro record, int cant_regis, int pos) {
-        System.out.println("Cont: " + file);
+//        System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
-            System.out.println("empty");
-            tree = new BTree(3);
+//            System.out.println("empty");
+            tree = new BTree(6);
             //String name = file.getName().substring(0, file.getName().length() - 4);
             //System.out.println("nombre" + name);
             ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
@@ -3112,7 +3126,7 @@ public class Main_Screen extends javax.swing.JFrame {
         tree.insert(obj);
         ab.setBtree(tree);
         ab.escribirArchivo();
-        tree.print(tree.getRoot());
+//        tree.print(tree.getRoot());
     }
 
     public int PrimaryKeyPos(ArrayList<Campo> campos) {
@@ -3139,6 +3153,31 @@ public class Main_Screen extends javax.swing.JFrame {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    public void CargarArbol() {
+        Scanner sc = null;
+        if (file.exists()) {
+            try {
+                sc = new Scanner(file);
+                String a = sc.nextLine();
+                String b = sc.nextLine();
+                
+                System.out.println("a: " + a);
+                System.out.println("b: " + b);
+
+                int pos = 0;
+                while (sc.hasNext()) {
+                    String f = sc.nextLine();
+                    System.out.println(f);
+                    Registro record = new Registro(f, file.getTamRecord(), pos);
+                    AddRecord(record);
+                    pos++;
+                }
+            } catch (Exception ex) {
+                sc.close();
+            }
         }
     }
 
