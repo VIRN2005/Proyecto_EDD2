@@ -1,107 +1,103 @@
-CityId: int[2]f, CityName: char[30]t
-34
-0|Paris London|$$$$$$$$$$$$$$$$$$
-1|Tokyo Beijing|$$$$$$$$$$$$$$$$$
-2|Sydney Cairo|$$$$$$$$$$$$$$$$$$
-3|Moscow Rome|$$$$$$$$$$$$$$$$$$$
-4|Berlin Madrid|$$$$$$$$$$$$$$$$$
-7|Vienna Oslo|$$$$$$$$$$$$$$$$$$$
-8|Helsinki Zurich|$$$$$$$$$$$$$$$
-9|Brussels Budapest|$$$$$$$$$$$$$
-10|Amsterdam Prague|$$$$$$$$$$$$$
-11|Copenhagen Stockholm|$$$$$$$$$
-12|Bucharest Sofia|$$$$$$$$$$$$$$
-13|Tallinn Riga|$$$$$$$$$$$$$$$$$
-14|Vilnius Luxembourg|$$$$$$$$$$$
-15|Nicosia Valletta|$$$$$$$$$$$$$
-16|Reykjavik Ankara|$$$$$$$$$$$$$
-17|Belgrade Podgorica|$$$$$$$$$$$
-18|Sarajevo Skopje|$$$$$$$$$$$$$$
-19|Tirana Ljubljana|$$$$$$$$$$$$$
-20|Zagreb Chisinau|$$$$$$$$$$$$$$
-21|Kiev Minsk|$$$$$$$$$$$$$$$$$$$
-22|Yerevan Baku|$$$$$$$$$$$$$$$$$
-23|Tbilisi Astana|$$$$$$$$$$$$$$$
-24|Dushanbe Ashgabat|$$$$$$$$$$$$
-25|Bishkek Tashkent|$$$$$$$$$$$$$
-26|Algiers Tunis|$$$$$$$$$$$$$$$$
-27|Rabat Tripoli|$$$$$$$$$$$$$$$$
-28|Cairo Khartoum|$$$$$$$$$$$$$$$
-29|Addis Ababa Mogadishu|$$$$$$$$
-30|Nairobi Dar es Salaam|$$$$$$$$
-31|Pretoria Luanda|$$$$$$$$$$$$$$
-32|Maputo Gaborone|$$$$$$$$$$$$$$
-33|Maseru Mbabane|$$$$$$$$$$$$$$$
-34|Antananarivo Port Louis|$$$$$$
-35|Victoria Mahe|$$$$$$$$$$$$$$$$
-36|Moroni Saint-Denis|$$$$$$$$$$$
-37|Port Louis Victoria|$$$$$$$$$$
-38|Saint-Denis Moroni|$$$$$$$$$$$
-39|Mahe Antananarivo|$$$$$$$$$$$$
-40|Mbabane Maseru|$$$$$$$$$$$$$$$
-41|Gaborone Maputo|$$$$$$$$$$$$$$
-42|Luanda Pretoria|$$$$$$$$$$$$$$
-43|Dar es Salaam Nairobi|$$$$$$$$
-44|Mogadishu Addis Ababa|$$$$$$$$
-45|Khartoum Cairo|$$$$$$$$$$$$$$$
-46|Tripoli Rabat|$$$$$$$$$$$$$$$$
-47|Tunis Algiers|$$$$$$$$$$$$$$$$
-48|Tashkent Bishkek|$$$$$$$$$$$$$
-49|Ashgabat Dushanbe|$$$$$$$$$$$$
-50|Astana Tbilisi|$$$$$$$$$$$$$$$
-51|Baku Yerevan|$$$$$$$$$$$$$$$$$
-52|Minsk Kiev|$$$$$$$$$$$$$$$$$$$
-53|Ljubljana Tirana|$$$$$$$$$$$$$
-54|Skopje Sarajevo|$$$$$$$$$$$$$$
-55|Podgorica Belgrade|$$$$$$$$$$$
-56|Ankara Reykjavik|$$$$$$$$$$$$$
-57|Valletta Nicosia|$$$$$$$$$$$$$
-58|Luxembourg Vilnius|$$$$$$$$$$$
-59|Riga Tallinn|$$$$$$$$$$$$$$$$$
-60|Sofia Bucharest|$$$$$$$$$$$$$$
-61|Stockholm Copenhagen|$$$$$$$$$
-62|Prague Amsterdam|$$$$$$$$$$$$$
-63|Budapest Brussels|$$$$$$$$$$$$
-64|Zurich Helsinki|$$$$$$$$$$$$$$
-65|Oslo Vienna|$$$$$$$$$$$$$$$$$$
-66|Warsaw Dublin|$$$$$$$$$$$$$$$$
-67|Athens Lisbon|$$$$$$$$$$$$$$$$
-68|Madrid Berlin|$$$$$$$$$$$$$$$$
-69|Rome Moscow|$$$$$$$$$$$$$$$$$$
-70|Cairo Sydney|$$$$$$$$$$$$$$$$$
-71|Beijing Tokyo|$$$$$$$$$$$$$$$$
-72|London Paris|$$$$$$$$$$$$$$$$$
-73|New York Los Angeles|$$$$$$$$$
-74|Chicago Houston|$$$$$$$$$$$$$$
-75|Phoenix Philadelphia|$$$$$$$$$
-76|San Antonio San Diego|$$$$$$$$
-77|Dallas San Jose|$$$$$$$$$$$$$$
-78|Austin Jacksonville|$$$$$$$$$$
-79|San Francisco Columbus|$$$$$$$
-80|Fort Worth Indianapolis|$$$$$$
-81|Charlotte Seattle|$$$$$$$$$$$$
-82|Denver Washington|$$$$$$$$$$$$
-83|Boston El Paso|$$$$$$$$$$$$$$$
-84|Detroit Nashville|$$$$$$$$$$$$
-85|Memphis Portland|$$$$$$$$$$$$$
-86|Oklahoma City Las Vegas|$$$$$$
-87|Louisville Baltimore|$$$$$$$$$
-88|Milwaukee Albuquerque|$$$$$$$$
-89|Tucson Fresno|$$$$$$$$$$$$$$$$
-90|Sacramento Kansas City|$$$$$$$
-91|Long Beach Mesa|$$$$$$$$$$$$$$
-92|Atlanta Virginia Beach|$$$$$$$
-93|Raleigh Omaha|$$$$$$$$$$$$$$$$
-94|Miami Oakland|$$$$$$$$$$$$$$$$
-95|Minneapolis Tulsa|$$$$$$$$$$$$
-96|Wichita New Orleans|$$$$$$$$$$
-97|Arlington Cleveland|$$$$$$$$$$
-98|Bakersfield Tampa|$$$$$$$$$$$$
-99|Aurora Honolulu|$$$$$$$$$$$$$$
-93|Raleigh Omaha|$$$$$$$$$$$$$$$$
-94|Miami Oakland|$$$$$$$$$$$$$$$$
-95|Minneapolis Tulsa|$$$$$$$$$$$$
-96|Wichita New Orleans|$$$$$$$$$$
-97|Arlington Cleveland|$$$$$$$$$$
-98|Bakersfield Tampa|$$$$$$$$$$$$
-99|Aurora Honolulu|$$$$$$$$$$$$$$
+CityId: int[2]f,Name: char[30]t
+100
+0|Bremen|$$$$$$$$$$$$$$$$$$$$$$$$$
+1|Roatan|$$$$$$$$$$$$$$$$$$$$$$$$$
+2|Munich|$$$$$$$$$$$$$$$$$$$$$$$$$
+3|Essen|$$$$$$$$$$$$$$$$$$$$$$$$$$
+4|Potrerillos|$$$$$$$$$$$$$$$$$$$$
+5|Salzgitter|$$$$$$$$$$$$$$$$$$$$$
+6|Santa Barbara|$$$$$$$$$$$$$$$$$$
+7|Halle|$$$$$$$$$$$$$$$$$$$$$$$$$$
+8|Tegucigalpa|$$$$$$$$$$$$$$$$$$$$
+9|Coblenza|$$$$$$$$$$$$$$$$$$$$$$$
+10|Wuppertal|$$$$$$$$$$$$$$$$$$$$$
+11|Darmstadt|$$$$$$$$$$$$$$$$$$$$$
+12|Juticalpa|$$$$$$$$$$$$$$$$$$$$$
+13|Ciudad Choluteca|$$$$$$$$$$$$$$
+14|Leverkusen|$$$$$$$$$$$$$$$$$$$$
+15|Nacaome|$$$$$$$$$$$$$$$$$$$$$$$
+16|Nuremberg|$$$$$$$$$$$$$$$$$$$$$
+17|Nueva Ocotepeque|$$$$$$$$$$$$$$
+18|Bottrop|$$$$$$$$$$$$$$$$$$$$$$$
+19|Erfurt|$$$$$$$$$$$$$$$$$$$$$$$$
+20|Reutlingen|$$$$$$$$$$$$$$$$$$$$
+21|Maguncia|$$$$$$$$$$$$$$$$$$$$$$
+22|Friburgo de Brisgovia|$$$$$$$$$
+23|Yoro|$$$$$$$$$$$$$$$$$$$$$$$$$$
+24|Catacamas|$$$$$$$$$$$$$$$$$$$$$
+25|Hildesheim|$$$$$$$$$$$$$$$$$$$$
+26|Hamburgo|$$$$$$$$$$$$$$$$$$$$$$
+27|Monchengladbach|$$$$$$$$$$$$$$$
+28|Treveris|$$$$$$$$$$$$$$$$$$$$$$
+29|New York|$$$$$$$$$$$$$$$$$$$$$$
+30|Fairfax|$$$$$$$$$$$$$$$$$$$$$$$
+31|Dresden|$$$$$$$$$$$$$$$$$$$$$$$
+32|Karlsruhe|$$$$$$$$$$$$$$$$$$$$$
+33|Duisburgo|$$$$$$$$$$$$$$$$$$$$$
+34|Jena|$$$$$$$$$$$$$$$$$$$$$$$$$$
+35|Stuttgart|$$$$$$$$$$$$$$$$$$$$$
+36|Hanover|$$$$$$$$$$$$$$$$$$$$$$$
+37|Erlangen|$$$$$$$$$$$$$$$$$$$$$$
+38|Gelsenkirchen|$$$$$$$$$$$$$$$$$
+39|Offenbach|$$$$$$$$$$$$$$$$$$$$$
+40|Dortmund|$$$$$$$$$$$$$$$$$$$$$$
+41|Bremerhaven|$$$$$$$$$$$$$$$$$$$
+42|Aquisgran|$$$$$$$$$$$$$$$$$$$$$
+43|Kiel|$$$$$$$$$$$$$$$$$$$$$$$$$$
+44|La Lima|$$$$$$$$$$$$$$$$$$$$$$$
+45|Bonn|$$$$$$$$$$$$$$$$$$$$$$$$$$
+46|Wolfsburgo|$$$$$$$$$$$$$$$$$$$$
+47|Cottbus|$$$$$$$$$$$$$$$$$$$$$$$
+48|Lubeca|$$$$$$$$$$$$$$$$$$$$$$$$
+49|Santa Rosa de Copan|$$$$$$$$$$$
+50|Leipzig|$$$$$$$$$$$$$$$$$$$$$$$
+51|Hamm|$$$$$$$$$$$$$$$$$$$$$$$$$$
+52|Brunswick|$$$$$$$$$$$$$$$$$$$$$
+53|Wurzburgo|$$$$$$$$$$$$$$$$$$$$$
+54|Rostock|$$$$$$$$$$$$$$$$$$$$$$$
+55|Magdeburgo|$$$$$$$$$$$$$$$$$$$$
+56|Comayaguela|$$$$$$$$$$$$$$$$$$$
+57|Comayagua|$$$$$$$$$$$$$$$$$$$$$
+58|Francfort|$$$$$$$$$$$$$$$$$$$$$
+59|Bochum|$$$$$$$$$$$$$$$$$$$$$$$$
+60|Wiesbaden|$$$$$$$$$$$$$$$$$$$$$
+61|Puerto Cortes|$$$$$$$$$$$$$$$$$
+62|Bielefeld|$$$$$$$$$$$$$$$$$$$$$
+63|Krefeld|$$$$$$$$$$$$$$$$$$$$$$$
+64|La Esperanza|$$$$$$$$$$$$$$$$$$
+65|Mulheim|$$$$$$$$$$$$$$$$$$$$$$$
+66|Recklinghausen|$$$$$$$$$$$$$$$$
+67|Colonia|$$$$$$$$$$$$$$$$$$$$$$$
+68|Maryland|$$$$$$$$$$$$$$$$$$$$$$
+69|Heilbronn|$$$$$$$$$$$$$$$$$$$$$
+70|Moers|$$$$$$$$$$$$$$$$$$$$$$$$$
+71|Potsdam|$$$$$$$$$$$$$$$$$$$$$$$
+72|Neuss|$$$$$$$$$$$$$$$$$$$$$$$$$
+73|El Progreso|$$$$$$$$$$$$$$$$$$$
+74|La Ceiba|$$$$$$$$$$$$$$$$$$$$$$
+75|Olanchito|$$$$$$$$$$$$$$$$$$$$$
+76|Chemnitz|$$$$$$$$$$$$$$$$$$$$$$
+77|Ludwigshafen|$$$$$$$$$$$$$$$$$$
+78|Berlin|$$$$$$$$$$$$$$$$$$$$$$$$
+79|San Manuel|$$$$$$$$$$$$$$$$$$$$
+80|Ratisbona|$$$$$$$$$$$$$$$$$$$$$
+81|Pforzheim|$$$$$$$$$$$$$$$$$$$$$
+82|Ingolstadt|$$$$$$$$$$$$$$$$$$$$
+83|La Paz|$$$$$$$$$$$$$$$$$$$$$$$$
+84|Gotinga|$$$$$$$$$$$$$$$$$$$$$$$
+85|Solingen|$$$$$$$$$$$$$$$$$$$$$$
+86|Gera|$$$$$$$$$$$$$$$$$$$$$$$$$$
+87|Remscheid|$$$$$$$$$$$$$$$$$$$$$
+88|Siegen|$$$$$$$$$$$$$$$$$$$$$$$$
+89|Witten|$$$$$$$$$$$$$$$$$$$$$$$$
+90|Puerto Lempira|$$$$$$$$$$$$$$$$
+91|Kassel|$$$$$$$$$$$$$$$$$$$$$$$$
+92|Ulm|$$$$$$$$$$$$$$$$$$$$$$$$$$$
+93|Hagen|$$$$$$$$$$$$$$$$$$$$$$$$$
+94|Augsburgo|$$$$$$$$$$$$$$$$$$$$$
+95|Saarbrucken|$$$$$$$$$$$$$$$$$$$
+96|Oberhausen|$$$$$$$$$$$$$$$$$$$$
+97|Paderborn|$$$$$$$$$$$$$$$$$$$$$
+98|Gracias|$$$$$$$$$$$$$$$$$$$$$$$
+99|Choloma|$$$$$$$$$$$$$$$$$$$$$$$
+

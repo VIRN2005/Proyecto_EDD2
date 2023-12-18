@@ -136,7 +136,6 @@ class File extends java.io.File {
 //    public void setRecords(ArrayList<Registro> records) {
 //        this.records = records;
 //    }
-
     public LinkedList<Integer> getSlot() {
         return slots;
     }
@@ -176,7 +175,6 @@ class File extends java.io.File {
 //        countRegis++;
 //        this.records.add(regis);
 //    }
-
     // Busca si el LinkedList -> disponible esta vació & si los Vals estan disponibles
     public int getValDisponible() {
         if (!this.slots.isEmpty()) {
@@ -286,76 +284,81 @@ class File extends java.io.File {
                 //REGISTRO
                 System.out.println("registro");
                 tamRecord = CalTamRec();
-                rf.seek(metadata.length() + 1);
+                rf.seek(metadata.length() + 2);
                 String temp = rf.readLine();
-                System.out.println("->"+temp);
+                System.out.println("->" + temp);
                 int i = Integer.parseInt(temp);
                 countRegis = i;
-                System.out.println("count" + countRegis);
-                
+                System.out.println("count ->" + countRegis);
+
                 rf.close();
             } catch (Exception ex) {
-            } 
-            
+            }
+
         }//FIN IF
 
     }
-    public int CalTamRec(){
-        int tam = 0; 
+
+    public int CalTamRec() {
+        int tam = 0;
         for (int i = 0; i < fields.size(); i++) {
-            tam+= fields.get(i).getSize()+1;
+            tam += fields.get(i).getSize() + 1;
         }
-        return tam; 
+        return tam;
     }
-    public Registro LeerDatos(int rrn) throws IOException{
+
+    public Registro LeerDatos(int rrn) throws IOException {
         Registro r = new Registro();
         RandomAccessFile rf = null;
-        rf = new RandomAccessFile(file,"r");
+        rf = new RandomAccessFile(file, "r");
         String rec = String.valueOf(countRegis);
-        System.out.println("rec:"+rec);
-        int x = (tamMetadata+1)+(rec.length())+(tamRecord*rrn)+1;
+        System.out.println("rec:" + rec);
+        int x = (tamMetadata + 1) + (rec.length()) + (tamRecord * rrn) + 1;
         rf.seek(x);
         String s = rf.readLine();
-        
+
         r.Parseo(s);
-        
-        System.out.println("->"+s);
+
+        System.out.println("->" + s);
         rf.close();
-        return r; 
+        return r;
     }
-    public void EscribirDatos(int rrn,Registro record) throws FileNotFoundException, IOException{
-        RandomAccessFile rf = null; 
+
+    public void EscribirDatos(int rrn, Registro record) throws FileNotFoundException, IOException {
+        RandomAccessFile rf = null;
         rf = new RandomAccessFile(file, "rws");
         String rec = String.valueOf(countRegis);
-        System.out.println("rec:"+rec);
-        int x = (tamMetadata+1)+(rec.length())+(tamRecord*rrn);
-        System.out.println("Valor del seek: "+x);
+        System.out.println("rec:" + rec);
+        int x = (tamMetadata + 1) + (rec.length()) + (tamRecord * rrn);
+        System.out.println("Valor del seek: " + x);
         rf.seek(x);
         String s = EscribirRegistro(record);
         rf.writeBytes(s);
         rf.close();
     }
+
     public void BorrarDatos(int rrn) throws FileNotFoundException, IOException {
-        RandomAccessFile rf = null; 
+        RandomAccessFile rf = null;
         rf = new RandomAccessFile(file, "rws");
         String rec = String.valueOf(countRegis);
-        int x = (tamMetadata+1)+(rec.length())+(tamRecord*rrn)+1;
-        System.out.println("Valor del seek: "+x);
+        int x = (tamMetadata + 1) + (rec.length()) + (tamRecord * rrn) + 1;
+        System.out.println("Valor del seek: " + x);
         rf.seek(x);
         String data = rf.readLine();
-        System.out.println("+"+data);
+        System.out.println("+" + data);
         String prefix = "*|";
-        String end = prefix + data.substring(1, data.length()-1);
-        rf.seek((tamMetadata+1)+(rec.length())+(tamRecord*rrn)+1);
+        String end = prefix + data.substring(1, data.length() - 1);
+        rf.seek((tamMetadata + 1) + (rec.length()) + (tamRecord * rrn) + 1);
         rf.writeBytes(prefix);
         rf.close();
     }
-    public String EscribirRegistro(Registro record){
-        String registroCompleto = "\n"+record.toString();
-        System.out.println("->"+tamRecord);
+
+    public String EscribirRegistro(Registro record) {
+        String registroCompleto = "\n" + record.toString();
+        System.out.println("->" + tamRecord);
         int longitudDolares = tamRecord - registroCompleto.length();
         for (int i = 0; i < longitudDolares; i++) {
-            registroCompleto+="$";
+            registroCompleto += "$";
         }
         return registroCompleto;
     }

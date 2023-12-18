@@ -69,9 +69,10 @@ public class BTree implements Serializable {
             temp.getChildren().add(parent);
             int pos = temp.getChildren().size() - 1;
             temp.getChildren().get(pos).setParent(temp);
+            System.out.println("split");
             Split(temp, parent, 0);
+            System.out.println("no split");
             nonfullInsertCase(temp, key);
-
         } else {
             nonfullInsertCase(parent, key);
             //System.out.println("Entro 2");
@@ -128,12 +129,14 @@ public class BTree implements Serializable {
         int cant_keys = root.getKeys().size() - 1;
         int min_keys = (N - 1) / 2;
 
+        System.out.println("1-------------------------");
         //right node
         for (int i = cant_keys; i >= min_keys; i--) {
             temp.getKeys().add(0, root.getKeys().get(i));
             root.getKeys().remove(i);
         }
 
+        System.out.println("2-----------------------------");
         if (!root.isLeaf()) {
             for (int i = 0; i <= min_keys; i++) {
                 temp.getChildren().add(root.getChildren().get(min_keys + 1));
@@ -142,7 +145,7 @@ public class BTree implements Serializable {
                 root.getChildren().remove(min_keys + 1);
             }
         }
-
+        System.out.println("3----------------------------");
         next_root.getChildren().add(pos + 1, temp);
         next_root.getKeys().add(pos, temp.getKeys().get(0));
         temp.removeKey(0);

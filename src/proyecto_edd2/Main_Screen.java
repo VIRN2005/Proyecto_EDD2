@@ -23,6 +23,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
@@ -2219,107 +2220,83 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_borrarRMouseClicked
 
     private void bt_listarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMouseClicked
-        Registro record = new Registro();
+//metodo de tatiana
+//        Registro record = new Registro();
+        //        try {
+        //            rf = new RandomAccessFile(file, "rws");
+        //            String cont = String.valueOf(file.getCountRegis());
+        //
+        //            DefaultTableModel modelo = (DefaultTableModel) jt_listarR.getModel();
+        //
+        //            modelo.setRowCount(0);
+        //            modelo.setColumnCount(0);
+        //
+        //            for (Campo field : file.getFields()) {
+        //                modelo.addColumn(field.getName());
+        //            }
+        //
+        //            Object[] row = new Object[modelo.getColumnCount()];
+        //
+        //            for (int i = 0; i < 10; i++) {
+        //                if (i < file.getCountRegis()) {
+        //                    try {
+        //                        record = file.LeerDatos(i);
+        //
+        //                        for (int j = 0; j < record.getAll_fields().size(); j++) {
+        //                            row[j] = String.valueOf(record.getAll_fields().get(j));
+        //                        }
+        //                        modelo.addRow(row);
+        //                    } catch (IOException ex) {
+        //                        Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+        //                    }
+        //                }
+        //            }
+        //            jt_listarR.setModel(modelo);
+        //        } catch (FileNotFoundException ex) {
+        //            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+        //        }
+
         try {
-            rf = new RandomAccessFile(file, "rws");
-            String cont = String.valueOf(file.getCountRegis());
+//            Admin_BTree cbt;
+            BTree bTreeIndex = ab.getTree();
 
-            DefaultTableModel modelo = (DefaultTableModel) jt_listarR.getModel();
+            if (bTreeIndex != null) {
+                DefaultTableModel modelo = (DefaultTableModel) jt_listarR.getModel();
+                modelo.setRowCount(0);
+                modelo.setColumnCount(0);
 
-            modelo.setRowCount(0);
-            modelo.setColumnCount(0);
+                for (Campo field : file.getFields()) {
+                    modelo.addColumn(field.getName());
+                }
 
-            for (Campo field : file.getFields()) {
-                modelo.addColumn(field.getName());
-            }
+                Object[] row = new Object[modelo.getColumnCount()];
 
-            Object[] row = new Object[modelo.getColumnCount()];
-            
-            for (int i = 0; i < 10; i++) {
-                if (i<file.getCountRegis()) {
-                    try {
-                        record = file.LeerDatos(i);
+                // Obtén todos los nodos desde la raíz del árbol B
+                ArrayList<Node> nodes = getAllNodes(bTreeIndex.getRoot());
 
-                        for (int j = 0; j < record.getAll_fields().size(); j++) {
-                            row[j] = String.valueOf(record.getAll_fields().get(j));
+                // Recorre los nodos y extrae los registros asociados
+                for (Node node : nodes) {
+                    for (SearchEngine key : node.getKeys()) {
+                        int rrn = key.getRRN();
+                        try {
+                            Registro record = file.LeerDatos(rrn);
+
+                            for (int j = 0; j < record.getAll_fields().size(); j++) {
+                                row[j] = String.valueOf(record.getAll_fields().get(j));
+                            }
+                            modelo.addRow(row);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        modelo.addRow(row);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+
+                jt_listarR.setModel(modelo);
             }
-
-//            for (int i = 1; i < 11; i++) {
-//                try {
-//                    int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * i) + 1;
-//                    rf.seek(x);
-//
-//                    String registro = rf.readLine();
-//                    record = new Registro(registro, file.getTamRecord(), i);
-//
-//                    for (int j = 0; j < file.getFields().size(); j++) {
-//                        row[j] = String.valueOf(record.getAll_fields().get(j));
-//                        modelo.addRow(row);
-//                    }
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-
-            jt_listarR.setModel(modelo);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al listar registros!");
         }
 
-//            Node temp = tree.getRoot();
-//
-//            int contkey = 0;
-//            int posChild = 0;
-//            for (int i = 0; i < 10; i++) {
-//                int rrn = temp.getKeys().get(contkey).getRRN();
-//                int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * rrn) + 1;
-//                rf.seek(x);
-//
-//                String registro = rf.readLine();
-//                record = new Registro(registro, file.getTamRecord(), rrn);
-//
-//                if (temp.getKeys().size() - 1 == contkey) {
-//                    if (temp.getParent() != null) {
-//                        temp = temp.getChildren().get(posChild);
-//                        posChild++;
-//                    } else if (temp.isLeaf()) {
-//
-//                    }
-//                }
-//
-//                contkey++;
-//            }
-//
-//            rf.close();
-////            SearchEngine se = new SearchEngine();
-//
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        ListarTablaR(jt_listarR);
-//        try {
-//            jt_listarR.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{}, new String[]{"Campo", "Data"}));
-//
-//            for (Campo c : file.getFields()) {
-//                for (String r : record.getAll_fields()) {
-//                    Object[] row = {((Campo) c).getName(), r};
-//                    DefaultTableModel modelo = (DefaultTableModel) jt_listarR.getModel();
-//                    modelo.addRow(row);
-//                    jt_listarR.setModel(modelo);
-//                }
-//            }
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
         AbrirJD(jd_listarR);
     }//GEN-LAST:event_bt_listarRMouseClicked
 
@@ -2456,9 +2433,11 @@ public class Main_Screen extends javax.swing.JFrame {
                                     salvar += "         <" + file.getFields().get(j) + "/>" + file.getFields().get(j).getType() + "=" + registrosCampos[j] + "</" + file.getFields().get(j) + ">\n";
                                 }
                                 salvar += "     </registro>\n";
+
                             }
                         } catch (IOException ex) {
-                            Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Main_Screen.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                         }
 
 //                            String[] registrosCampos = file.getRecords().get(i)
@@ -2604,8 +2583,10 @@ public class Main_Screen extends javax.swing.JFrame {
                     record.Size();
                     try {
                         AddRecord(record);//3 Metodos
+
                     } catch (IOException ex) {
-                        Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Main_Screen.class
+                                .getName()).log(Level.SEVERE, null, ex);
                     }
                     pos_campo = 0;
                     jd_crearR.dispose();
@@ -2636,25 +2617,9 @@ public class Main_Screen extends javax.swing.JFrame {
 
     private void bt_searchRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_searchRMouseClicked
         if (!"".equals(tf_keyB.getText())) {
-            String campo = cb_llaves.getSelectedItem().toString();
-            String key = tf_keyB.getText();
-
-            SearchEngine temp = new SearchEngine();
-            temp.setKey(key);
-
-            Node search = new Node();
-            search = ab.getTree().search(ab.getTree().getRoot(), temp);
-
-            if (search != null) {
-                int rrn = search.getKeys().get(search.getKey_pos()).getRRN();
-                ListarTablaR(jt_buscarR, rrn);
-//                temp = search.getKeys().get(search.getKeys().indexOf(key));
-//                ListarTablaR(jt_buscarR, temp.getRRN());
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe este registro!", "Warning", JOptionPane.ERROR_MESSAGE);
-            }
+            Buscar(cb_llaves, tf_keyB, jt_buscarR);
         } else {
-            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bt_searchRMouseClicked
 
@@ -2760,7 +2725,7 @@ public class Main_Screen extends javax.swing.JFrame {
         } else {
             if (cb_archivosdeprueba.getSelectedIndex() != 0) {
                 int index = cb_archivosdeprueba.getSelectedIndex();
-                ab.setTree(new BTree(3));
+//                ab.setTree(new BTree(3));
 
                 if (index == 1) {
                     archivo = new File("./PersonFile.txt");
@@ -2781,19 +2746,17 @@ public class Main_Screen extends javax.swing.JFrame {
 
             ab.cargarArchivo();
             ab.setBtree(ab.getTree());
-            
-            System.out.println("Cantidad de nodos: ");
-            System.out.println("^^^^^^^^");
-            ab.getTree().print(ab.getTree().getRoot());
+//            System.out.println("Cantidad de nodos: ");
+//            System.out.println("^^^^^^^^");
+//            ab.getTree().print(ab.getTree().getRoot());
             //tree.print(tree.getRoot());
-            System.out.println("^^^^^^^^");
-                    
+//            System.out.println("^^^^^^^^");
 //            CargarArbol();
-            
+
             if (ab.getTree() == null) {
                 System.out.println("todos me caen mal");
             }
-            
+
             jd_abrirA.dispose();
 
             JOptionPane.showMessageDialog(this, "¡Archivo abierto con éxito!", "Notification", INFORMATION_MESSAGE);
@@ -2818,7 +2781,11 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_buscarAMouseClicked
 
     private void bt_listarBRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarBRMouseClicked
-        // TODO add your handling code here:
+        if (!"".equals(tf_campo2.getText())) {
+            Buscar(cb_llaves2, tf_campo2, jt_borrarR);
+        } else {
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_bt_listarBRMouseClicked
 
     private void bt_removeRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_removeRMouseClicked
@@ -2839,16 +2806,18 @@ public class Main_Screen extends javax.swing.JFrame {
                     System.out.println("Java");
                     if (ab.getTree() == null) {
                         System.out.println("esta nulo :D");
-                    }else{
+                    } else {
                         System.out.println("no lo esta");
                     }
                     ab.getTree().print(ab.getTree().getRoot());
                     ab.getTree().delete(tempNode, temp_o);
                     ab.getTree().print(ab.getTree().getRoot());
-                
+
                     file.BorrarDatos(rrn);
+
                 } catch (IOException ex) {
-                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Main_Screen.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 jd_borrarR.dispose();
                 JOptionPane.showMessageDialog(null, "El registro se borró correctamente", "Info", INFORMATION_MESSAGE);
@@ -2864,7 +2833,11 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_removeRMouseClicked
 
     private void bt_listarRMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_listarRMMouseClicked
-        // TODO add your handling code here:
+        if (!"".equals(tf_campo3.getText())) {
+            Buscar(cb_llavesM, tf_campo3, jt_modificarR);
+        } else {
+            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_bt_listarRMMouseClicked
 
     private void bt_modifyRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modifyRMouseClicked
@@ -2880,8 +2853,10 @@ public class Main_Screen extends javax.swing.JFrame {
                 Registro rec = new Registro();
                 try {
                     rec = file.LeerDatos(rrn);
+
                 } catch (IOException ex) {
-                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Main_Screen.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
                 //abriria el mismo jd de crear solo q con datos para el modificar
@@ -3051,7 +3026,6 @@ public class Main_Screen extends javax.swing.JFrame {
 //            ex.printStackTrace();
 //        }
 //    }
-
     public void EdicionPanel(String task, int pos) {
         TitleCampo.setText(task + " Campos");
         bt_createC.setText(task);
@@ -3144,20 +3118,23 @@ public class Main_Screen extends javax.swing.JFrame {
 //      System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
             System.out.println("empty");
-            ab.setTree(new BTree(3));
+//            ab.setTree(new BTree(3));
             //String name = file.getName().substring(0, file.getName().length() - 4);
             //System.out.println("nombre" + name);
             ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
         }
 
+        System.out.println("primera linea");
         SearchEngine obj = new SearchEngine();
         obj.setRRN(RRN);
         obj.setKey(record.getAll_fields().get(pos));
+        System.out.println("antes de insertar");
         ab.getTree().insert(obj);
 //        tree.insert(obj);
 //        ab.setBtree(tree);
+        System.out.println("antes de escribir");
         ab.escribirArchivo();
-        ab.getTree().print(ab.getTree().getRoot());
+//        ab.getTree().print(ab.getTree().getRoot());
         //tree.print(tree.getRoot());
     }
 
@@ -3193,24 +3170,62 @@ public class Main_Screen extends javax.swing.JFrame {
         if (file.exists()) {
             try {
                 sc = new Scanner(file);
-                String a = sc.nextLine();//metadata
-                String b = sc.nextLine();//tam de los registros
-                
-                System.out.println("a: " + a);
-                System.out.println("b: " + b);
+                sc.nextLine();//metadata
+                int cont = Integer.parseInt(sc.nextLine());
+                file.setCountRegis(cont);//count de los registros
 
-                int pos = 0;
+//                System.out.println("a: " + a);
+                System.out.println("count: " + cont);
+
+                int RNN = 0;
                 while (sc.hasNext()) {
                     String f = sc.nextLine();
                     System.out.println(f);
-                    Registro record = new Registro(f, file.getTamRecord(), pos);
-                    AddRecord(record);
-                    pos++;
+                    Registro record = new Registro(f, file.getTamRecord(), RNN);
+
+                    int pos = PrimaryKeyPos(file.getFields());
+                    System.out.println("antes");
+                    AddBTree(record, RNN, pos);
+                    System.out.println("despues");
+
+                    RNN++;
                 }
             } catch (Exception ex) {
                 sc.close();
             }
         }
+    }
+
+    public void Buscar(JComboBox cb, JTextField llave, JTable tabla) {
+        String campo = cb.getSelectedItem().toString();
+        String key = llave.getText();
+
+        SearchEngine temp = new SearchEngine();
+        temp.setKey(key);
+
+        Node search = new Node();
+        search = ab.getTree().search(ab.getTree().getRoot(), temp);
+
+        if (search != null) {
+            int rrn = search.getKeys().get(search.getKey_pos()).getRRN();
+            ListarTablaR(tabla, rrn);
+//                temp = search.getKeys().get(search.getKeys().indexOf(key));
+//                ListarTablaR(jt_buscarR, temp.getRRN());
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe este registro!", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    //Method para obtener los nodes
+    private ArrayList<Node> getAllNodes(Node root) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        if (root != null) {
+            nodes.add(root);
+            for (Node child : root.getChildren()) {
+                nodes.addAll(getAllNodes(child));
+            }
+        }
+        return nodes;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
