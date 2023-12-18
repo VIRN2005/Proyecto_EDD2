@@ -139,9 +139,15 @@ public class BTree implements Serializable {
         System.out.println("2-----------------------------");
         if (!root.isLeaf()) {
             for (int i = 0; i <= min_keys; i++) {
+                System.out.println("agregar hijos");
+                System.out.println("min keys: " + min_keys);
+//                root.getChildren().get(min_keys + 1);
                 temp.getChildren().add(root.getChildren().get(min_keys + 1));
+                System.out.println("obtener cant de hijos");
                 int size = temp.getChildren().size() - 1;
+                System.out.println("setear el padre");
                 temp.getChildren().get(size).setParent(temp);
+                System.out.println("remover el hijo");
                 root.getChildren().remove(min_keys + 1);
             }
         }
