@@ -2859,13 +2859,13 @@ public class Main_Screen extends javax.swing.JFrame {
                     String linea = "";
                     for (int i = 0; i < file.getFields().size(); i++) {
                         linea += (String) jt_modificarR.getValueAt(i, 1) + "|";
-//                        System.out.println("linea: " + linea);
                     }
 
                     while (linea.length() < file.getTamRecord()) {
                         linea += "$";
                     }
-
+                    
+                    System.out.println("linea: " + linea);
                     Registro record = new Registro(linea, file.getTamRecord(), RRN);
                     try {
                         InsertRecord(record, RRN);
