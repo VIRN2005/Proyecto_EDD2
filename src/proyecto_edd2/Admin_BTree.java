@@ -22,6 +22,7 @@ public class Admin_BTree {
 
     public Admin_BTree(String path) {
         file = new java.io.File(path);
+        arbolito_navidad = new BTree(3);
     }
 
     public ArrayList<BTree> getListaPersonas() {
