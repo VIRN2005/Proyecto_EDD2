@@ -34,7 +34,7 @@ class File extends java.io.File {
 
     // ArrayLists & LinkedLists used 
     private ArrayList<Campo> fields = new ArrayList();
-    private ArrayList<Registro> records = new ArrayList();
+    //private ArrayList<Registro> records = new ArrayList();
     private LinkedList<Integer> slots = new LinkedList<>();
     private RandomAccessFile rf = null;
 
@@ -129,13 +129,13 @@ class File extends java.io.File {
         this.fields = fields;
     }
 
-    public ArrayList<Registro> getRecords() {
-        return records;
-    }
-
-    public void setRecords(ArrayList<Registro> records) {
-        this.records = records;
-    }
+//    public ArrayList<Registro> getRecords() {
+//        return records;
+//    }
+//
+//    public void setRecords(ArrayList<Registro> records) {
+//        this.records = records;
+//    }
 
     public LinkedList<Integer> getSlot() {
         return slots;
@@ -171,11 +171,11 @@ class File extends java.io.File {
     }
 
     // Añade el registro al Arraylist -> records
-    public void addRegistro(Registro regis) {
-        regis.setRRN(Integer.toString(countRegis + 1));
-        countRegis++;
-        this.records.add(regis);
-    }
+//    public void addRegistro(Registro regis) {
+//        regis.setRRN(Integer.toString(countRegis + 1));
+//        countRegis++;
+//        this.records.add(regis);
+//    }
 
     // Busca si el LinkedList -> disponible esta vació & si los Vals estan disponibles
     public int getValDisponible() {

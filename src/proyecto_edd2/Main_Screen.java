@@ -2710,9 +2710,9 @@ public class Main_Screen extends javax.swing.JFrame {
                     fw = new FileWriter(path.getSelectedFile().getPath() + ".txt");
                     bw = new BufferedWriter(fw);
                     bw.append(metaData);
-                    for (int i = 0; i < archivo3.getRecords().size(); i++) {
-                        bw.append(archivo3.getRecords().get(i).toString() + "\n");
-                    }
+//                    for (int i = 0; i < archivo3.getRecords().size(); i++) {
+//                        bw.append(archivo3.getRecords().get(i).toString() + "\n");
+//                    }
                     bw.flush();
                     bw.close();
                     fw.close();
@@ -2722,23 +2722,23 @@ public class Main_Screen extends javax.swing.JFrame {
                     System.out.println("Uuupppsssss... Algo Sucedió");
                 }
 
-                if (!archivo3.getRecords().isEmpty()) {
-                    FileOutputStream fw = null;
-                    ObjectOutputStream bw = null;
-                    try {
-                        fw = new FileOutputStream(archivo);
-                        bw = new ObjectOutputStream(fw);
-                        bw.writeObject(this.tree);
-                        bw.flush();
-                    } catch (Exception ex) {
-                    } finally {
-                        try {
-                            bw.close();
-                            fw.close();
-                        } catch (Exception ex) {
-                        }
-                    }
-                }
+//                if (!archivo3.getRecords().isEmpty()) {
+//                    FileOutputStream fw = null;
+//                    ObjectOutputStream bw = null;
+//                    try {
+//                        fw = new FileOutputStream(archivo);
+//                        bw = new ObjectOutputStream(fw);
+//                        bw.writeObject(this.tree);
+//                        bw.flush();
+//                    } catch (Exception ex) {
+//                    } finally {
+//                        try {
+//                            bw.close();
+//                            fw.close();
+//                        } catch (Exception ex) {
+//                        }
+//                    }
+//                }
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -2876,7 +2876,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 }
 
                 //abriria el mismo jd de crear solo q con datos para el modificar
-                file.getRecords().set(rrn, rec);
+//                file.getRecords().set(rrn, rec);
                 jd_modificarR.dispose();
                 JOptionPane.showMessageDialog(null, "El registro se modificó correctamente", "Info", INFORMATION_MESSAGE);
 
@@ -3016,32 +3016,32 @@ public class Main_Screen extends javax.swing.JFrame {
         cb.setModel(modelo);
     }
 
-    private void ListarTablaR(JTable tabla) {
-        try {
-            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-
-            modelo.setRowCount(0);
-            modelo.setColumnCount(0);
-
-            for (Campo field : file.getFields()) {
-                modelo.addColumn(field.getName());
-            }
-
-            Object[] row = new Object[modelo.getColumnCount()];
-            for (Registro record : file.getRecords()) {
-                for (int i = 0; i < file.getFields().size(); i++) {
-                    row[i] = String.valueOf(record.getAll_fields().get(i));
-                }
-
-                modelo.addRow(row);
-            }
-
-            tabla.setModel(modelo);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+//    private void ListarTablaR(JTable tabla) {
+//        try {
+//            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+//
+//            modelo.setRowCount(0);
+//            modelo.setColumnCount(0);
+//
+//            for (Campo field : file.getFields()) {
+//                modelo.addColumn(field.getName());
+//            }
+//
+//            Object[] row = new Object[modelo.getColumnCount()];
+//            for (Registro record : file.getRecords()) {
+//                for (int i = 0; i < file.getFields().size(); i++) {
+//                    row[i] = String.valueOf(record.getAll_fields().get(i));
+//                }
+//
+//                modelo.addRow(row);
+//            }
+//
+//            tabla.setModel(modelo);
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
     public void EdicionPanel(String task, int pos) {
         TitleCampo.setText(task + " Campos");
