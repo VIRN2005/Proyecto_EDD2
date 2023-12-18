@@ -35,7 +35,7 @@ public class Main_Screen extends javax.swing.JFrame {
     java.io.File archivo = null;
     java.io.File folder = null;
     int Panel = 0, pos_ModCampo, pos_campo = 0;
-    BTree tree = new BTree(3);
+    //BTree tree = new BTree(3);
     BufferedWriter bw;
     FileWriter fw;
     Admin_BTree ab;
@@ -2045,12 +2045,13 @@ public class Main_Screen extends javax.swing.JFrame {
         if (file != null) {
             file.saveFile(file);
             System.out.println("Cantidad de nodos: ");
-            tree.print(tree.getRoot());
-            System.out.println("^^^^^^^^");
-            
+            //tree.print(tree.getRoot());
             ab.escribirArchivo();
+            System.out.println("********");
+            ab.getTree().print(ab.getTree().getRoot());
+            System.out.println("********");
 
-            if (tree == null) {
+            if (ab.getTree() == null) {
                 System.out.println("es culpa de tatiana");//Mal educada y chistosa esta wirra
             }
             JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
@@ -2066,7 +2067,7 @@ public class Main_Screen extends javax.swing.JFrame {
             if (opcion == JOptionPane.YES_OPTION) {
                 file = null;
                 metadata = "";
-                tree = null;
+                ab.setBtree(null);
                 JOptionPane.showMessageDialog(this, "¡Se cerró el archivo!");
                 ActualizarLabel();
             }
@@ -2642,7 +2643,7 @@ public class Main_Screen extends javax.swing.JFrame {
             temp.setKey(key);
 
             Node search = new Node();
-            search = tree.search(tree.getRoot(), temp);
+            search = ab.getTree().search(ab.getTree().getRoot(), temp);
 
             if (search != null) {
                 int rrn = search.getKeys().get(search.getKey_pos()).getRRN();
@@ -2759,7 +2760,7 @@ public class Main_Screen extends javax.swing.JFrame {
         } else {
             if (cb_archivosdeprueba.getSelectedIndex() != 0) {
                 int index = cb_archivosdeprueba.getSelectedIndex();
-                tree = new BTree(6);
+                ab.setTree(new BTree(3));
 
                 if (index == 1) {
                     archivo = new File("./PersonFile.txt");
@@ -2779,15 +2780,17 @@ public class Main_Screen extends javax.swing.JFrame {
             }
 
             ab.cargarArchivo();
-            tree = ab.getTree();
+            ab.setBtree(ab.getTree());
             
             System.out.println("Cantidad de nodos: ");
-            tree.print(tree.getRoot());
+            System.out.println("^^^^^^^^");
+            ab.getTree().print(ab.getTree().getRoot());
+            //tree.print(tree.getRoot());
             System.out.println("^^^^^^^^");
                     
 //            CargarArbol();
             
-            if (tree == null) {
+            if (ab.getTree() == null) {
                 System.out.println("todos me caen mal");
             }
             
@@ -2826,7 +2829,7 @@ public class Main_Screen extends javax.swing.JFrame {
                 try {
                     SearchEngine temp_o = new SearchEngine();
                     temp_o.setKey(tf_campo2.getText());
-                    Node tempNode = tree.search(tree.getRoot(), temp_o);
+                    Node tempNode = ab.getTree().search(ab.getTree().getRoot(), temp_o);
                     int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
                     if (!file.getSlot().isEmpty()) {
                         file.getSlot().set(0, rrn);
@@ -2834,14 +2837,14 @@ public class Main_Screen extends javax.swing.JFrame {
                         file.getSlot().add(rrn);
                     }
                     System.out.println("Java");
-                    if (tree == null) {
+                    if (ab.getTree() == null) {
                         System.out.println("esta nulo :D");
                     }else{
                         System.out.println("no lo esta");
                     }
-                    tree.print(tree.getRoot());
-                    tree.delete(tempNode, temp_o);
-                    tree.print(tree.getRoot());
+                    ab.getTree().print(ab.getTree().getRoot());
+                    ab.getTree().delete(tempNode, temp_o);
+                    ab.getTree().print(ab.getTree().getRoot());
                 
                     file.BorrarDatos(rrn);
                 } catch (IOException ex) {
@@ -2871,7 +2874,7 @@ public class Main_Screen extends javax.swing.JFrame {
             if (ValidField(temp, tf_campo2.getText())) {
                 SearchEngine temp_o = new SearchEngine();
                 temp_o.setKey(tf_campo2.getText());
-                Node tempNode = tree.search(tree.getRoot(), temp_o);
+                Node tempNode = ab.getTree().search(ab.getTree().getRoot(), temp_o);
                 int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
 
                 Registro rec = new Registro();
@@ -3141,7 +3144,7 @@ public class Main_Screen extends javax.swing.JFrame {
 //      System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
             System.out.println("empty");
-            tree = new BTree(3);
+            ab.setTree(new BTree(3));
             //String name = file.getName().substring(0, file.getName().length() - 4);
             //System.out.println("nombre" + name);
             ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
@@ -3150,10 +3153,12 @@ public class Main_Screen extends javax.swing.JFrame {
         SearchEngine obj = new SearchEngine();
         obj.setRRN(RRN);
         obj.setKey(record.getAll_fields().get(pos));
-        tree.insert(obj);
-        ab.setBtree(tree);
+        ab.getTree().insert(obj);
+//        tree.insert(obj);
+//        ab.setBtree(tree);
         ab.escribirArchivo();
-        tree.print(tree.getRoot());
+        ab.getTree().print(ab.getTree().getRoot());
+        //tree.print(tree.getRoot());
     }
 
     public int PrimaryKeyPos(ArrayList<Campo> campos) {

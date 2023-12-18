@@ -1,0 +1,6 @@
+id: int[2]f,Nombre: char[15]t
+4
+10|Messi|$$$$$$$$$
+11|Neymar|$$$$$$$$
+9|Suarez|$$$$$$$$$
+7|CR7|$$$$$$$$$$$$
