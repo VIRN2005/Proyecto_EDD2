@@ -23,7 +23,7 @@ public class Export_Excel {
         this.path = path;
     }
 
-    public void Create_Excel(ArrayList<Campo> Header, ArrayList<Registro> values, String filename) {
+    public void Create_Excel(ArrayList<Campo> Header, File file, String filename) {
         try {
             String excelname = path+".xlsx";
             XSSFWorkbook workbook = new XSSFWorkbook(); 
@@ -60,15 +60,25 @@ public class Export_Excel {
                 header.createCell((short)i).setCellValue(Header.get(i).getName());
                 header.getCell(i).setCellStyle(style);
             }
+//            style.setFont(font2);
+//            for (int i = 0; i < values.size(); i++) {
+//                XSSFRow row = sheet.createRow((short) i);
+//                for (int j = 0; j < Header.size(); j++) {
+//                    //row.createCell((short)i).setCellValue(value);
+//                    RowType(j, values.get(j),Header,row);
+//                    row.getCell(j).setCellStyle(style);
+//                }
+//                
+//            }
             style.setFont(font2);
-            for (int i = 0; i < values.size(); i++) {
+            for (int i = 0; i < file.getCountRegis(); i++) {
                 XSSFRow row = sheet.createRow((short) i);
+                Registro r = file.LeerDatos(i);
                 for (int j = 0; j < Header.size(); j++) {
                     //row.createCell((short)i).setCellValue(value);
-                    RowType(j, values.get(j),Header,row);
+                    RowType(j, r,Header,row);
                     row.getCell(j).setCellStyle(style);
                 }
-                
             }
             try {
                 FileOutputStream fileout = new FileOutputStream(excelname);

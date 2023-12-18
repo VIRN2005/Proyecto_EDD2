@@ -2230,23 +2230,38 @@ public class Main_Screen extends javax.swing.JFrame {
             }
 
             Object[] row = new Object[modelo.getColumnCount()];
+            
+            for (int i = 0; i < 10; i++) {
+                if (i<file.getCountRegis()) {
+                    try {
+                        record = file.LeerDatos(i);
 
-            for (int i = 1; i < 11; i++) {
-                try {
-                    int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * i) + 1;
-                    rf.seek(x);
-
-                    String registro = rf.readLine();
-                    record = new Registro(registro, file.getTamRecord(), i);
-
-                    for (int j = 0; j < file.getFields().size(); j++) {
-                        row[j] = String.valueOf(record.getAll_fields().get(j));
+                        for (int j = 0; j < record.getAll_fields().size(); j++) {
+                            row[j] = String.valueOf(record.getAll_fields().get(j));
+                        }
                         modelo.addRow(row);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+//            for (int i = 1; i < 11; i++) {
+//                try {
+//                    int x = (file.getTamMetadata() + 1) + (cont.length()) + (file.getTamMetadata() * i) + 1;
+//                    rf.seek(x);
+//
+//                    String registro = rf.readLine();
+//                    record = new Registro(registro, file.getTamRecord(), i);
+//
+//                    for (int j = 0; j < file.getFields().size(); j++) {
+//                        row[j] = String.valueOf(record.getAll_fields().get(j));
+//                        modelo.addRow(row);
+//                    }
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
 
             jt_listarR.setModel(modelo);
         } catch (FileNotFoundException ex) {
@@ -2357,7 +2372,8 @@ public class Main_Screen extends javax.swing.JFrame {
             System.out.println("folder" + folder);
             System.out.println("->" + folder.getName());
             Export_Excel excel = new Export_Excel(folder.getPath());
-            excel.Create_Excel(file.getFields(), file.getRecords(), file.getName());
+            excel.Create_Excel(file.getFields(), file, file.getName());
+            //excel.Create_Excel(file.getFields(), file.getRecords(), file.getName());
         }
     }//GEN-LAST:event_bt_exportarEMouseClicked
 
@@ -2615,7 +2631,7 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_createRMouseClicked
 
     private void bt_searchRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_searchRMouseClicked
-        if (!"".equals(tf_campo2.getText())) {
+        if (!"".equals(tf_keyB.getText())) {
             String campo = cb_llaves.getSelectedItem().toString();
             String key = tf_keyB.getText();
 
@@ -2626,8 +2642,10 @@ public class Main_Screen extends javax.swing.JFrame {
             search = tree.search(tree.getRoot(), temp);
 
             if (search != null) {
-                temp = search.getKeys().get(search.getKeys().indexOf(key));
-                ListarTablaR(jt_buscarR, temp.getRRN());
+                int rrn = search.getKeys().get(search.getKey_pos()).getRRN();
+                ListarTablaR(jt_buscarR, rrn);
+//                temp = search.getKeys().get(search.getKeys().indexOf(key));
+//                ListarTablaR(jt_buscarR, temp.getRRN());
             } else {
                 JOptionPane.showMessageDialog(null, "No existe este registro!", "Warning", ERROR);
             }
@@ -2798,26 +2816,26 @@ public class Main_Screen extends javax.swing.JFrame {
             int pos_campo2 = PosCampo(cb_llaves2);
             Campo temp = file.getFields().get(pos_campo2);
             if (ValidField(temp, tf_campo2.getText())) {
-                SearchEngine temp_o = new SearchEngine();
-                temp_o.setKey(tf_campo2.getText());
-                Node tempNode = tree.search(tree.getRoot(), temp_o);
-                int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
-
-                Registro rec = new Registro();
                 try {
-                    rec = file.LeerDatos(rrn);
-                } catch (IOException ex) {
-                    Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                //file.getRecords().set(rrn, null);
-                if (!file.getSlot().isEmpty()) {
-                    file.getSlot().set(0, rrn);
-                } else {
-                    file.getSlot().add(rrn);
-                }
-                tree.delete(tree.getRoot(), temp_o);
-                try {
+                    SearchEngine temp_o = new SearchEngine();
+                    temp_o.setKey(tf_campo2.getText());
+                    Node tempNode = tree.search(tree.getRoot(), temp_o);
+                    int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
+                    if (!file.getSlot().isEmpty()) {
+                        file.getSlot().set(0, rrn);
+                    } else {
+                        file.getSlot().add(rrn);
+                    }
+                    System.out.println("Java");
+                    if (tree == null) {
+                        System.out.println("esta nulo :D");
+                    }else{
+                        System.out.println("no lo esta");
+                    }
+                    tree.print(tree.getRoot());
+                    tree.delete(tempNode, temp_o);
+                    tree.print(tree.getRoot());
+                
                     file.BorrarDatos(rrn);
                 } catch (IOException ex) {
                     Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
@@ -3113,9 +3131,9 @@ public class Main_Screen extends javax.swing.JFrame {
     }
 
     public void AddBTree(Registro record, int RRN, int pos) {
-//        System.out.println("Cont: " + file);
+//      System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
-//            System.out.println("empty");
+            System.out.println("empty");
             tree = new BTree(3);
             //String name = file.getName().substring(0, file.getName().length() - 4);
             //System.out.println("nombre" + name);
@@ -3128,7 +3146,7 @@ public class Main_Screen extends javax.swing.JFrame {
         tree.insert(obj);
         ab.setBtree(tree);
         ab.escribirArchivo();
-//        tree.print(tree.getRoot());
+        tree.print(tree.getRoot());
     }
 
     public int PrimaryKeyPos(ArrayList<Campo> campos) {
