@@ -284,7 +284,7 @@ class File extends java.io.File {
                 //REGISTRO
                 System.out.println("registro");
                 tamRecord = CalTamRec();
-                rf.seek(metadata.length() + 2);
+                rf.seek(metadata.length() + 1);
                 String temp = rf.readLine();
                 System.out.println("->" + temp);
                 int i = Integer.parseInt(temp);

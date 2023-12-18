@@ -41,6 +41,7 @@ public class Main_Screen extends javax.swing.JFrame {
     FileWriter fw;
     Admin_BTree ab;
     RandomAccessFile rf;
+    Node search = new Node();
 
     public Main_Screen() {
         initComponents();
@@ -150,7 +151,7 @@ public class Main_Screen extends javax.swing.JFrame {
         bt_createR = new javax.swing.JButton();
         jl_campos = new javax.swing.JLabel();
         tf_campo = new javax.swing.JTextField();
-        jLabel78 = new javax.swing.JLabel();
+        jl_crear = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jt_campos = new javax.swing.JTable();
         jLabel80 = new javax.swing.JLabel();
@@ -791,11 +792,11 @@ public class Main_Screen extends javax.swing.JFrame {
         tf_campo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jd_crearR.getContentPane().add(tf_campo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 370, 30));
 
-        jLabel78.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel78.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel78.setText("Introducir Registro");
-        jd_crearR.getContentPane().add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 700, -1));
+        jl_crear.setFont(new java.awt.Font("Coolvetica Rg", 0, 36)); // NOI18N
+        jl_crear.setForeground(new java.awt.Color(255, 255, 255));
+        jl_crear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_crear.setText("Introducir Registro");
+        jd_crearR.getContentPane().add(jl_crear, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 700, -1));
 
         jt_campos.setBackground(new java.awt.Color(243, 233, 220));
         jt_campos.setModel(new javax.swing.table.DefaultTableModel(
@@ -2841,37 +2842,67 @@ public class Main_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_listarRMMouseClicked
 
     private void bt_modifyRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modifyRMouseClicked
-        if (!"".equals(tf_campo2.getText())) {
-            int pos_campo2 = PosCampo(cb_llaves2);
-            Campo temp = file.getFields().get(pos_campo2);
-            if (ValidField(temp, tf_campo2.getText())) {
-                SearchEngine temp_o = new SearchEngine();
-                temp_o.setKey(tf_campo2.getText());
-                Node tempNode = ab.getTree().search(ab.getTree().getRoot(), temp_o);
-                int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
-
-                Registro rec = new Registro();
-                try {
-                    rec = file.LeerDatos(rrn);
-
-                } catch (IOException ex) {
-                    Logger.getLogger(Main_Screen.class
-                            .getName()).log(Level.SEVERE, null, ex);
+        if (!"".equals(tf_campo3.getText())) {
+            if (search != null) {
+                boolean flag = true;
+                for (int i = 0; i < file.getFields().size(); i++) {
+                    if (!ValidField(file.getFields().get(i), (String) jt_modificarR.getValueAt(i, 1))) {
+                        flag = false;
+                        break;
+                    }
                 }
 
-                //abriria el mismo jd de crear solo q con datos para el modificar
-//                file.getRecords().set(rrn, rec);
-                jd_modificarR.dispose();
-                JOptionPane.showMessageDialog(null, "El registro se modificó correctamente", "Info", INFORMATION_MESSAGE);
+                //si los tipos de datos son validos
+                if (flag) {
+                    int RRN = search.getKeys().get(search.getKey_pos()).getRRN();
 
+                    String linea = "";
+                    for (int i = 0; i < file.getFields().size(); i++) {
+                        linea += (String) jt_modificarR.getValueAt(i, 1) + "|";
+//                        System.out.println("linea: " + linea);
+                    }
+
+                    while (linea.length() < file.getTamRecord()) {
+                        linea += "$";
+                    }
+
+                    Registro record = new Registro(linea, file.getTamRecord(), RRN);
+                    try {
+                        InsertRecord(record, RRN);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(null, "El registro se modificó correctamente", "Info", INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "El tipo de dato ingresado no es el correcto", "Warning", WARNING_MESSAGE);
-
+                JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
             }
-            //AbrirJD(jd_crearR);
-        } else {
-            JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
+
+//            int pos_campo2 = PosCampo(cb_llaves2);
+//            Campo temp = file.getFields().get(pos_campo2);
+//            if (ValidField(temp, tf_campo2.getText())) {
+//                SearchEngine temp_o = new SearchEngine();
+//                temp_o.setKey(tf_campo2.getText());
+//                Node tempNode = ab.getTree().search(ab.getTree().getRoot(), temp_o);
+//                int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
+//
+//                Registro rec = new Registro();
+//                try {
+//                    rec = file.LeerDatos(rrn);
+//
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Main_Screen.class
+//                            .getName()).log(Level.SEVERE, null, ex);
+//                }
+            //abriria el mismo jd de crear solo q con datos para el modificar
+//                file.getRecords().set(rrn, rec);
+//                jd_modificarR.dispose();
         }
+
+
     }//GEN-LAST:event_bt_modifyRMouseClicked
 
     public static void main(String args[]) {
@@ -3114,6 +3145,12 @@ public class Main_Screen extends javax.swing.JFrame {
         }
     }
 
+    public void InsertRecord(Registro record, int RRN) throws IOException {
+        int pos = PrimaryKeyPos(file.getFields());
+        AddBTree(record, RRN, pos);
+        file.EscribirDatos(RRN, record);
+    }
+
     public void AddBTree(Registro record, int RRN, int pos) {
 //      System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
@@ -3203,7 +3240,6 @@ public class Main_Screen extends javax.swing.JFrame {
         SearchEngine temp = new SearchEngine();
         temp.setKey(key);
 
-        Node search = new Node();
         search = ab.getTree().search(ab.getTree().getRoot(), temp);
 
         if (search != null) {
@@ -3377,7 +3413,6 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
@@ -3424,6 +3459,7 @@ public class Main_Screen extends javax.swing.JFrame {
     private javax.swing.JLabel jl_campos4;
     private javax.swing.JLabel jl_campos5;
     private javax.swing.JLabel jl_campos6;
+    private javax.swing.JLabel jl_crear;
     private javax.swing.JTable jt_borrarC;
     private javax.swing.JTable jt_borrarR;
     private javax.swing.JTable jt_buscarR;
