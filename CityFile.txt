@@ -4,9 +4,7 @@ CityId: int[2]f, CityName: char[30]t
 1|Tokyo Beijing|$$$$$$$$$$$$$$$$$
 2|Sydney Cairo|$$$$$$$$$$$$$$$$$$
 3|Moscow Rome|$$$$$$$$$$$$$$$$$$$
-4|Berlin Madrid|$$$$$$$$$$$$$$$$$
-5|Lisbon Athens|$$$$$$$$$$$$$$$$$
-6|Dublin Warsaw|$$$$$$$$$$$$$$$$$
+4|Berlin Madrid|$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 7|Vienna Oslo|$$$$$$$$$$$$$$$$$$$
 8|Helsinki Zurich|$$$$$$$$$$$$$$$
 9|Brussels Budapest|$$$$$$$$$$$$$$

@@ -55,15 +55,13 @@ public class Admin_BTree {
     public void cargarArchivo() {
         try {
             list = new ArrayList();
-            Object tree = null;
+            BTree tree = new BTree(3);
             if (file.exists()) {
                 FileInputStream entrada = new FileInputStream(file);
                 ObjectInputStream objeto = new ObjectInputStream(entrada);
                 try {
-                    while (objeto.readObject() != null) {
-                        tree = (BTree) objeto.readObject();
-                        this.arbolito_navidad = (BTree) tree;
-                    }
+                    tree = (BTree) objeto.readObject();
+                    this.arbolito_navidad = tree;
                 } catch (EOFException e) {
                 }
                 objeto.close();

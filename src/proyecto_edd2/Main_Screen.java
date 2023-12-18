@@ -35,7 +35,7 @@ public class Main_Screen extends javax.swing.JFrame {
     java.io.File archivo = null;
     java.io.File folder = null;
     int Panel = 0, pos_ModCampo, pos_campo = 0;
-    BTree tree = new BTree();
+    BTree tree = new BTree(3);
     BufferedWriter bw;
     FileWriter fw;
     Admin_BTree ab;
@@ -2044,6 +2044,8 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_salvarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_salvarAMouseClicked
         if (file != null) {
             file.saveFile(file);
+            System.out.println("size de los nodos: " + ab.getTree().getNodes().size());
+            
             ab.escribirArchivo();
 
             if (tree == null) {
@@ -3110,18 +3112,18 @@ public class Main_Screen extends javax.swing.JFrame {
         }
     }
 
-    public void AddBTree(Registro record, int cant_regis, int pos) {
+    public void AddBTree(Registro record, int RRN, int pos) {
 //        System.out.println("Cont: " + file);
         if (file.getCountRegis() <= 0) {
 //            System.out.println("empty");
-            tree = new BTree(6);
+            tree = new BTree(3);
             //String name = file.getName().substring(0, file.getName().length() - 4);
             //System.out.println("nombre" + name);
             ab = new Admin_BTree("./" + file.getName() + "-Btree.tva");
         }
 
         SearchEngine obj = new SearchEngine();
-        obj.setRRN(cant_regis);
+        obj.setRRN(RRN);
         obj.setKey(record.getAll_fields().get(pos));
         tree.insert(obj);
         ab.setBtree(tree);
@@ -3161,8 +3163,8 @@ public class Main_Screen extends javax.swing.JFrame {
         if (file.exists()) {
             try {
                 sc = new Scanner(file);
-                String a = sc.nextLine();
-                String b = sc.nextLine();
+                String a = sc.nextLine();//metadata
+                String b = sc.nextLine();//tam de los registros
                 
                 System.out.println("a: " + a);
                 System.out.println("b: " + b);
