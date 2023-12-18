@@ -15,6 +15,8 @@ public class Node implements Serializable {
     Node parent; //parent
     int key_pos,n; //cantidad de llaves en el nodo
 
+    private static final long SerialVersionUID = 120L;
+    
     public Node() {
         n = 0;
         leaf = true;

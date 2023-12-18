@@ -2647,7 +2647,7 @@ public class Main_Screen extends javax.swing.JFrame {
 //                temp = search.getKeys().get(search.getKeys().indexOf(key));
 //                ListarTablaR(jt_buscarR, temp.getRRN());
             } else {
-                JOptionPane.showMessageDialog(null, "No existe este registro!", "Warning", ERROR);
+                JOptionPane.showMessageDialog(null, "No existe este registro!", "Warning", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Warning", WARNING_MESSAGE);
@@ -2778,7 +2778,8 @@ public class Main_Screen extends javax.swing.JFrame {
             ab.cargarArchivo();
             tree = ab.getTree();
             
-            CargarArbol();
+            System.out.println("Cantidad de nodos: " + tree.getNodes().size());
+//            CargarArbol();
             
             if (tree == null) {
                 System.out.println("todos me caen mal");

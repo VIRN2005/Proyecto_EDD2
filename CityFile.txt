@@ -1,12 +1,13 @@
 CityId: int[2]f, CityName: char[30]t
-
+34
 0|Paris London|$$$$$$$$$$$$$$$$$$
 1|Tokyo Beijing|$$$$$$$$$$$$$$$$$
 2|Sydney Cairo|$$$$$$$$$$$$$$$$$$
 3|Moscow Rome|$$$$$$$$$$$$$$$$$$$
-4|Berlin Madrid|$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+4|Berlin Madrid|$$$$$$$$$$$$$$$$$
+7|Vienna Oslo|$$$$$$$$$$$$$$$$$$$
 8|Helsinki Zurich|$$$$$$$$$$$$$$$
-9|Brussels Budapest|$$$$$$$$$$$$$$
+9|Brussels Budapest|$$$$$$$$$$$$$
 10|Amsterdam Prague|$$$$$$$$$$$$$
 11|Copenhagen Stockholm|$$$$$$$$$
 12|Bucharest Sofia|$$$$$$$$$$$$$$
@@ -96,11 +97,11 @@ CityId: int[2]f, CityName: char[30]t
 96|Wichita New Orleans|$$$$$$$$$$
 97|Arlington Cleveland|$$$$$$$$$$
 98|Bakersfield Tampa|$$$$$$$$$$$$
-99|Aurora Honolulu|$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-93|Raleigh Omaha|$$$$$$$$$$$$$$$$$$
-94|Miami Oakland|$$$$$$$$$$$$$$$$$$
-95|Minneapolis Tulsa|$$$$$$$$$$$$$$
-96|Wichita New Orleans|$$$$$$$$$$$$
-97|Arlington Cleveland|$$$$$$$$$$$$
-98|Bakersfield Tampa|$$$$$$$$$$$$$$
-99|Aurora Honolulu|$$$$$$$$$$$$$$$$
+99|Aurora Honolulu|$$$$$$$$$$$$$$
+93|Raleigh Omaha|$$$$$$$$$$$$$$$$
+94|Miami Oakland|$$$$$$$$$$$$$$$$
+95|Minneapolis Tulsa|$$$$$$$$$$$$
+96|Wichita New Orleans|$$$$$$$$$$
+97|Arlington Cleveland|$$$$$$$$$$
+98|Bakersfield Tampa|$$$$$$$$$$$$
+99|Aurora Honolulu|$$$$$$$$$$$$$$
