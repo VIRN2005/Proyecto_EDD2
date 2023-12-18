@@ -2044,13 +2044,16 @@ public class Main_Screen extends javax.swing.JFrame {
     private void bt_salvarAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_salvarAMouseClicked
         if (file != null) {
             file.saveFile(file);
-            System.out.println("size de los nodos: " + ab.getTree().getNodes().size());
+            System.out.println("Cantidad de nodos: ");
+            tree.print(tree.getRoot());
+            System.out.println("^^^^^^^^");
             
             ab.escribirArchivo();
 
             if (tree == null) {
-                System.out.println("es culpa de tatiana");
+                System.out.println("es culpa de tatiana");//Mal educada y chistosa esta wirra
             }
+            JOptionPane.showMessageDialog(null, "¡Archivo guardado con éxito!", "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "¡No tiene ningún archivo abierto!", "Warning", WARNING_MESSAGE);
         }
@@ -2778,7 +2781,10 @@ public class Main_Screen extends javax.swing.JFrame {
             ab.cargarArchivo();
             tree = ab.getTree();
             
-            System.out.println("Cantidad de nodos: " + tree.getNodes().size());
+            System.out.println("Cantidad de nodos: ");
+            tree.print(tree.getRoot());
+            System.out.println("^^^^^^^^");
+                    
 //            CargarArbol();
             
             if (tree == null) {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class BTree implements Serializable {
 
     private Node root;
-    private ArrayList<Node> nodes = new ArrayList();
+    //private ArrayList<Node> nodes = new ArrayList();
     private int N; //defino por numero de sectores
     
     private static final long SerialVersionUID = 111L;
@@ -28,13 +28,13 @@ public class BTree implements Serializable {
         this.root = root;
     }
 
-    public ArrayList<Node> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(ArrayList<Node> nodes) {
-        this.nodes = nodes;
-    }
+//    public ArrayList<Node> getNodes() {
+//        return nodes;
+//    }
+//
+//    public void setNodes(ArrayList<Node> nodes) {
+//        this.nodes = nodes;
+//    }
 
     public int getNode_slots() {
         return N;
