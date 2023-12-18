@@ -2799,6 +2799,8 @@ public class Main_Screen extends javax.swing.JFrame {
                     temp_o.setKey(tf_campo2.getText());
                     Node tempNode = ab.getTree().search(ab.getTree().getRoot(), temp_o);
                     int rrn = tempNode.getKeys().get(tempNode.getKey_pos()).getRRN();
+//                    file.getAvail().inserta(rrn, 1);
+//                    file.getAvail().imprimirLista();
                     if (!file.getSlot().isEmpty()) {
                         file.getSlot().set(0, rrn);
                     } else {
@@ -3131,14 +3133,17 @@ public class Main_Screen extends javax.swing.JFrame {
     public void AddRecord(Registro record) throws IOException {
         int pos = PrimaryKeyPos(file.getFields());
         int rrn;
-        if (file.getSlot().isEmpty()) {
+        if (file.getSlot().isEmpty()||file.getSlot().get(0)==-1) {
+            
             rrn = file.getCountRegis();
+            System.out.println("RRN: "+rrn);
             AddBTree(record, rrn, pos);
             file.EscribirDatos(rrn, record);
             file.setCountRegis(rrn + 1);
 
         } else {//usa el availist
             rrn = file.getSlot().get(0);
+            //rrn = file.getAvail().recupera(0);
             AddBTree(record, rrn, pos);
             file.EscribirDatos(rrn, record);
             //file.getRecords().set(pos_record, record);
@@ -3263,6 +3268,52 @@ public class Main_Screen extends javax.swing.JFrame {
         }
         return nodes;
     }
+//    private void indexar() {
+//    try {
+//        BTree bTreeIndex = null;
+//
+//        switch (CualEs) {
+//            case 'f':{
+//                bTreeIndex = bt;
+//                }break;
+//            case 's':{
+//                bTreeIndex = pbt;
+//                }break;
+//            case 't':{
+//                bTreeIndex = cbt;
+//                }break;
+//            default:
+//                break;
+//        }
+//
+//        if (bTreeIndex != null) {
+//            bTreeIndex.setTree(new BTree(new BTreeNode(null, true), 3));
+//
+//            // Recorre el árbol y extrae los registros
+//            indexSinceTree(bTreeIndex.getTree().getRoot(), bTreeIndex.getTree());
+//
+//            bTreeIndex.escribirArchivo();
+//        }
+//    } catch (Exception e) {
+//        JOptionPane.showMessageDialog(this, "Error al Indexar!");
+//    }
+//}
+//
+//// Método recursivo para recorrer el árbol y extraer registros
+//private void indexSinceTree(BTreeNode node, BTree tree) {
+//    if (node != null) {
+//        // Procesa los registros asociados al nodo
+//        for (int i = 0; i < node.getNumKeys(); i++) {
+//            String key = node.getKey(i) + ";" + node.getRRN(i);
+//            tree.insert(key);
+//        }
+//
+//        // Recorre los hijos del nodo
+//        for (int i = 0; i <= node.getNumKeys(); i++) {
+//            indexarDesdeArbol(node.getChild(i), tree);
+//        }
+//    }
+//}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ArchivosButton;
